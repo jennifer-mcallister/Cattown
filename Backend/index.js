@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/v1/cattown/users", userRoutes);
+app.use("/api/v1/cattown/", userRoutes);
 app.use("/api/v1/cattown/savefiles", savefileRoutes);
 
 
