@@ -10,6 +10,7 @@ export const GameMenuContainer = styled.div<IGameMenuStyledProps>`
   position: absolute;
   z-index: 10;
   right: 0;
+  top: 0;
 
   display: ${({ show }) => (show === "true" ? "flex" : "none")};
   flex-direction: column;
