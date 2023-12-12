@@ -23,40 +23,47 @@ export const Router = createBrowserRouter([
     element: <Layout></Layout>,
     errorElement: <Error></Error>,
     children: [
-      { path: "/login", element: <Login></Login> },
+      { path: "/login", id: "login", element: <Login></Login> },
       {
         path: "/",
+        id: "home",
         element: <Home></Home>,
         loader: getSavefile,
         index: true,
       },
       {
         path: "/options",
+        id: "options",
         element: <Options></Options>,
         loader: getSavefile,
       },
       {
         path: "/shop",
+        id: "shop",
         element: <Shop></Shop>,
         loader: getSavefile,
       },
       {
         path: "/map",
+        id: "map",
         element: <Map></Map>,
         loader: getSavefile,
       },
       {
         path: "/cats",
+        id: "cats",
         element: <Cats></Cats>,
         loader: getSavefile,
       },
       {
         path: "/training",
+        id: "training",
         element: <Training></Training>,
         loader: getSavefile,
       },
       {
         path: "/library",
+        id: "library",
         element: <Library></Library>,
         loader: getSavefile,
       },

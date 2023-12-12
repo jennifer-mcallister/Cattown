@@ -9,12 +9,12 @@ const stageOptions = {
   antialias: true,
 };
 
-interface IHomeNavigationProps {
+interface INavigationIconSmallProps {
   path: string;
 }
 
-export const HomeNavigation = ({ path }: IHomeNavigationProps) => {
-  const [scale, setScale] = useState({ x: 0.05, y: 0.05 });
+export const NavigationIconSmall = ({ path }: INavigationIconSmallProps) => {
+  const [scale, setScale] = useState({ x: 0.03, y: 0.03 });
   const navigate = useNavigate();
 
   const goToLocation = async () => {
@@ -22,15 +22,15 @@ export const HomeNavigation = ({ path }: IHomeNavigationProps) => {
   };
 
   const hoverAnimation = () => {
-    if (scale.x && scale.y === 0.05) {
-      setScale({ x: 0.07, y: 0.07 });
+    if (scale.x && scale.y === 0.03) {
+      setScale({ x: 0.04, y: 0.04 });
     } else {
-      setScale({ x: 0.05, y: 0.05 });
+      setScale({ x: 0.03, y: 0.03 });
     }
   };
 
   return (
-    <Stage width={300} height={300} options={stageOptions}>
+    <Stage width={120} height={120} options={stageOptions}>
       <Sprite
         image={placeholder}
         scale={{ x: scale.x, y: scale.y }}
@@ -39,10 +39,10 @@ export const HomeNavigation = ({ path }: IHomeNavigationProps) => {
         onpointerdown={goToLocation}
         onpointerenter={hoverAnimation}
         onpointerleave={hoverAnimation}
-        x={150}
-        y={150}
+        x={60}
+        y={60}
       />
-      <Text text={path} x={130} y={200}></Text>
+      <Text text={path} x={30} y={90}></Text>
     </Stage>
   );
 };

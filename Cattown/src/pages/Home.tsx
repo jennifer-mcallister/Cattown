@@ -1,18 +1,18 @@
 import { Container, MainContent } from "../components/styled/LayoutStyled";
 import "@pixi/events";
-import { HomeNavigation } from "../components/HomeNavigation";
+import { NavigationIcon } from "../components/NavigationIcon";
 
 export const Home = () => {
   return (
     <MainContent>
       <Container>
-        <HomeNavigation path={"/training"} />
-        <HomeNavigation path={"/cats"} />
-        <HomeNavigation path={"/map"} />
+        <NavigationIcon path={"/training"} />
+        <NavigationIcon path={"/cats"} />
+        <NavigationIcon path={"/map"} />
       </Container>
       <Container>
-        <HomeNavigation path={"/library"} />
-        <HomeNavigation path={"/shop"} />
+        <NavigationIcon path={"/library"} />
+        <NavigationIcon path={"/shop"} />
       </Container>
     </MainContent>
   );

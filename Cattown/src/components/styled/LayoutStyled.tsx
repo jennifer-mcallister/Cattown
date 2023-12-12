@@ -3,6 +3,9 @@ import { styled } from "styled-components";
 export const HeaderContent = styled.div`
   width: 100vw;
   height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 export const MainContent = styled.div`
