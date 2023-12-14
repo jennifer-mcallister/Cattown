@@ -12,7 +12,7 @@ import {
 import { SmallText } from "../../components/styled/Text";
 import { register } from "../../services/userService";
 import { Link } from "react-router-dom";
-import { IUserRegister } from "../../types/user";
+import { IUserRegister } from "../../types/userTypes";
 
 interface IRegistraion {
   success: boolean;

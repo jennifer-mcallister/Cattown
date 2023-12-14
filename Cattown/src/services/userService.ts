@@ -3,7 +3,7 @@ import {
   IUserLogin,
   IUserRegister,
   IUserSubmitNewPassword,
-} from "../types/user";
+} from "../types/userTypes";
 
 export interface ILoginResponse {
   savefileId: string;
