@@ -22,7 +22,7 @@ exports.login = async (req, res, next) => {
       return res.status(401).json("Incorrect password");
     }
 
-    return res.json(user);
+    return res.json({ savefileId: user.savefile });
   } catch (err) {
     console.log(err);
     return res.status(404).json({ message: err.message });
@@ -31,6 +31,21 @@ exports.login = async (req, res, next) => {
 
 exports.register = async (req, res, next) => {
   try {
+    const { username, password, mail } = req.body;
+    const usernameExists = await User.findOne({ username: username });
+    const mailExists = await User.findOne({ mail: mail });
+
+    if (mailExists) {
+      return res.status(401).json("This email already has an account");
+    }
+
+    if (usernameExists) {
+      return res.status(401).json("Username is already taken");
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedpassword = await bcrypt.hash(password, salt);
+
     const newSavefile = await Savefile.create({
       gold: 0,
       stats: {
@@ -46,28 +61,15 @@ exports.register = async (req, res, next) => {
       relics: [],
       cats: [],
     });
-    const { username, password, mail } = req.body;
-    const usernameExists = await User.findOne({ username: username });
-    const mailExists = await User.findOne({ mail: mail });
 
-    if (usernameExists) {
-      return res.status(401).json("Username is already taken");
-    }
-    if (mailExists) {
-      return res.status(401).json("This email already has an account");
-    }
-
-    const salt = await bcrypt.genSalt(10);
-    const hashedpassword = await bcrypt.hash(password, salt);
-
-    const newUser = await User.create({
+    await User.create({
       username: req.body.username,
       mail: req.body.mail,
       password: hashedpassword,
       savefile: newSavefile._id,
     });
 
-    return res.json(newUser);
+    res.status(200).json("Success 200");
   } catch (err) {
     console.log(err);
     return res.status(500).json({ message: err.message });
@@ -93,9 +95,9 @@ exports.forgottPassword = async (req, res, next) => {
     const mailBody = `
         Hi ${accountExists.username},
 
-        We have received your request to reset your password. Please click the link below to complete the reset.
+        We have received your request to reset your password. Please click the link below to reset.
         
-        http://localhost:5173/reset-password/${accountExists._id}
+        http://localhost:5173/account/reset/${accountExists._id}
 
         Cattown
         `;
@@ -124,15 +126,18 @@ exports.forgottPassword = async (req, res, next) => {
 
 exports.resetPassword = async (req, res, next) => {
   try {
-    const { newPassword, userId } = req.body;
-    const account = await User.findOne({_id: userId});
-    console.log(account)
+    const { password, username, userId } = req.body;
+    const account = await User.findOne({ _id: userId });
+
     if (!account) return res.status(404).json("404 Not found");
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedpassword = await bcrypt.hash(newPassword, salt);
+    if (account.username !== username)
+      return res.status(404).json("404 Not found");
 
-    await User.findOneAndUpdate(account, { password: hashedpassword});
+    const salt = await bcrypt.genSalt(10);
+    const hashedpassword = await bcrypt.hash(password, salt);
+
+    await User.findOneAndUpdate(account, { password: hashedpassword });
 
     return res.status(200).json("Success 200");
   } catch (err) {

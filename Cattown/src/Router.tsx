@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./pages/layout/Layout";
 import { Login } from "./pages/Login";
 import { Options } from "./pages/Options";
@@ -10,26 +10,55 @@ import { Library } from "./pages/Library";
 import { Error } from "./pages/Error";
 import { Home } from "./pages/Home";
 import { loadSavefile } from "./services/savefileService";
+import { SignUp } from "./pages/account/SignUp";
+import { Reset } from "./pages/account/Reset";
+import { NewPassword } from "./pages/account/NewPassword";
 
 const getSavefile = async () => {
-  const savefile = await loadSavefile("6570cf4ecc414f15b7acade0");
-  console.log(savefile);
+  const savefileId: string = localStorage.getItem("savefileId") || "";
+  const savefile = await loadSavefile(savefileId);
   return savefile ? savefile : {};
 };
 
 export const Router = createBrowserRouter([
   {
     path: "/",
+    element: <Outlet></Outlet>,
+    id: "account",
+    children: [
+      {
+        path: "/",
+        element: <Login></Login>,
+        id: "login",
+        index: true,
+      },
+      {
+        path: "/account/signup",
+        element: <SignUp></SignUp>,
+        id: "signup",
+      },
+      {
+        path: "/account/reset",
+        element: <Reset></Reset>,
+        id: "reset",
+      },
+      {
+        path: "/account/reset/:userId",
+        element: <NewPassword></NewPassword>,
+        id: "newPassword",
+      },
+    ],
+  },
+  {
+    path: "/",
     element: <Layout></Layout>,
     errorElement: <Error></Error>,
     children: [
-      { path: "/login", id: "login", element: <Login></Login> },
       {
-        path: "/",
+        path: "/home",
         id: "home",
         element: <Home></Home>,
         loader: getSavefile,
-        index: true,
       },
       {
         path: "/options",
