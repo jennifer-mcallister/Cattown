@@ -7,7 +7,7 @@ import {
   GameMenuGold,
   GameMenuHeader,
 } from "./styled/GameMenuStyled";
-import { ISavefile } from "../types/savefile";
+import { ISavefile } from "../types/Savefile";
 import { useMatches } from "react-router-dom";
 
 interface IGameMenuProps {
@@ -41,7 +41,7 @@ export const GameMenu = ({ toggleMenu, show }: IGameMenuProps) => {
         </GameMenuButton>
       </GameMenuHeader>
       <GameMenuContent>
-        <NavigationIconSmall path={"/"} />
+        <NavigationIconSmall path={"/home"} />
         <NavigationIconSmall path={"/training"} />
         <NavigationIconSmall path={"/cats"} />
         <NavigationIconSmall path={"/map"} />
