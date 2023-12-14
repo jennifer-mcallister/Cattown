@@ -10,7 +10,7 @@ import {
 } from "../components/styled/LoginStyled";
 import { login } from "../services/userService";
 import { Link, useNavigate } from "react-router-dom";
-import { IUserLogin } from "../types/User";
+import { IUserLogin } from "../types/user";
 import { SmallText } from "../components/styled/Text";
 
 export const Login = () => {

@@ -8,7 +8,7 @@ import {
   LoginContainerFooter,
   LoginSmallContainer,
 } from "../../components/styled/LoginStyled";
-import { IUserSubmitNewPassword } from "../../types/User";
+import { IUserSubmitNewPassword } from "../../types/user";
 import { submitNewPassword } from "../../services/userService";
 import { Link, useParams } from "react-router-dom";
 import { SmallText } from "../../components/styled/Text";

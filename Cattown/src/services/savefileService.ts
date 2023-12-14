@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ISavefile } from "../types/Savefile";
+import { ISavefile } from "../types/savefile";
 
 export const loadSavefile = async (savefileId: string) => {
   try {

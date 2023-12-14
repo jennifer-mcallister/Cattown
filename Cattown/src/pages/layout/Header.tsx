@@ -7,7 +7,7 @@ import {
   HeaderGold,
 } from "../../components/styled/HeaderStyled";
 import { useMatches, useNavigate, useRouteLoaderData } from "react-router-dom";
-import { ISavefile } from "../../types/Savefile";
+import { ISavefile } from "../../types/savefile";
 
 export const Header = () => {
   const [showMenu, setShowMenu] = useState(false);

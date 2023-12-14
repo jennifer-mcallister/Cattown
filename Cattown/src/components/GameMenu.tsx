@@ -7,7 +7,7 @@ import {
   GameMenuGold,
   GameMenuHeader,
 } from "./styled/GameMenuStyled";
-import { ISavefile } from "../types/Savefile";
+import { ISavefile } from "../types/savefile";
 import { useMatches } from "react-router-dom";
 
 interface IGameMenuProps {
