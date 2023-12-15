@@ -12,7 +12,7 @@ export interface ILoginResponse {
 export const login = async (user: IUserLogin) => {
   try {
     const res = await axios.post<ILoginResponse>(
-      `http://localhost:3000/.netlify/functions/controllers/login`,
+      `https://cattown-behind-the-scene.netlify.app/api/v1/cattown/login`,
       user
     );
     return res.data;

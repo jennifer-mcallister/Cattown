@@ -4,7 +4,7 @@ import { ISavefile } from "../types/savefileTypes";
 export const loadSavefile = async (savefileId: string) => {
   try {
     const res = await axios.get<ISavefile>(
-      `http://localhost:3000/.netlify/functions/controllers/load/${savefileId}`
+      `https://cattown-behind-the-scene.netlify.app/${savefileId}`
     );
     return res.data;
   } catch {
