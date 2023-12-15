@@ -5,6 +5,13 @@
   port = 8888
   publish = "dist"
 
+[functions]
+  external_node_modules = ["express"]
+  node_bundler = "esbuild"
+  
+[build]
+  functions="functions"
+
 [[redirects]]
     to="/.netlify/functions/:splat"
     from="/*"
