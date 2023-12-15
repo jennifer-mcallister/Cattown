@@ -4,19 +4,29 @@ const mongoose = require("mongoose");
 const app = express();
 const userRoutes = require("./routes/userRoutes");
 const savefileRoutes = require("./routes/savefileRoutes");
+const serverless = require("serverless-http");
 
 app.use(express.json());
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,HEAD,OPTIONS,POST,PUT,DELETE"
-  );
+  res.header("Access-Control-Allow-Origin", process.env.ALLOWED_ORIGIN);
+  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
+
+  const allowedHosts = [
+    "cattown-behind-the-scene.netlify.app",
+    "localhost:3000",
+  ];
+  const host = req.headers.host;
+  console.log(`host: ${host}`);
+
+  if (!allowedHosts.includes(host)) {
+    return res.status(405).send("Host Not Allowed");
+  }
+
   next();
 });
 
@@ -25,11 +35,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/v1/cattown/", userRoutes);
-app.use("/api/v1/cattown/savefiles", savefileRoutes);
+app.use("/.netlify/functions/controllers", userRoutes);
+app.use("/.netlify/functions/controllers", savefileRoutes);
 
-
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 const run = async () => {
   try {
     mongoose.set("strictQuery", false);
@@ -45,3 +54,4 @@ const run = async () => {
 };
 
 run();
+module.exports.handler = serverless(app);
