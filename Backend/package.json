@@ -1,9 +1,10 @@
 {
   "name": "backend",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "netlify/functions/app.js",
   "scripts": {
-    "dev": "nodemon ./Backend"
+    "dev": "nodemon ./Backend/netlify/functions/app.js",
+    "netlify": "netlify"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {
+    "netlify-cli": "^17.10.1",
     "nodemon": "^3.0.2"
   }
 }
