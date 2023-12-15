@@ -46,7 +46,7 @@ const run = async () => {
     console.log(`MongoDB connected: ${conn.connection.host}`);
 
     app.listen(port, () => {
-      console.log(`Server running on port:${port}`);
+      console.log(`Server running on http://localhost:${port}`);
     });
   } catch (error) {
     console.error(error);
