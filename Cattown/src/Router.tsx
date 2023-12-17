@@ -9,15 +9,13 @@ import { Training } from "./pages/Training";
 import { Library } from "./pages/Library";
 import { Error } from "./pages/Error";
 import { Home } from "./pages/Home";
-import { loadSavefile } from "./services/savefileService";
 import { SignUp } from "./pages/account/SignUp";
 import { Reset } from "./pages/account/Reset";
-import { NewPassword } from "./pages/account/NewPassword";
+import { getSavefile } from "./services/Firebase";
 
-const getSavefile = async () => {
-  const savefileId: string = localStorage.getItem("savefileId") || "";
-  const savefile = await loadSavefile(savefileId);
-  return savefile ? savefile : {};
+const loadSavefile = async () => {
+  const savefile = await getSavefile();
+  return savefile;
 };
 
 export const Router = createBrowserRouter([
@@ -42,11 +40,6 @@ export const Router = createBrowserRouter([
         element: <Reset></Reset>,
         id: "reset",
       },
-      {
-        path: "/account/reset/:userId",
-        element: <NewPassword></NewPassword>,
-        id: "newPassword",
-      },
     ],
   },
   {
@@ -58,43 +51,43 @@ export const Router = createBrowserRouter([
         path: "/home",
         id: "home",
         element: <Home></Home>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
       {
         path: "/options",
         id: "options",
         element: <Options></Options>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
       {
         path: "/shop",
         id: "shop",
         element: <Shop></Shop>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
       {
         path: "/map",
         id: "map",
         element: <Map></Map>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
       {
         path: "/cats",
         id: "cats",
         element: <Cats></Cats>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
       {
         path: "/training",
         id: "training",
         element: <Training></Training>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
       {
         path: "/library",
         id: "library",
         element: <Library></Library>,
-        loader: getSavefile,
+        loader: loadSavefile,
       },
     ],
   },

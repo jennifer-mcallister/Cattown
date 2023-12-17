@@ -1,9 +1,10 @@
 export interface ISavefile {
+  cats: ICat[];
   gold: number;
+  relics: number[];
   stats: IStats;
   uniqueItems: number[];
-  relics: number[];
-  cats: ICat[];
+  username: string;
 }
 
 export interface ICat {

@@ -18,14 +18,13 @@ export const Header = () => {
 
   const routes = useMatches();
   const loaderSavefile = useRouteLoaderData(routes[1].id) as ISavefile;
-
   const navigate = useNavigate();
 
   return (
     <HeaderContent>
       <HeaderSmallContainer>
         <HeaderGold>{loaderSavefile.gold} GOLD</HeaderGold>
-        <GameMenuButton onClick={() => navigate("/")}>Home</GameMenuButton>
+        <GameMenuButton onClick={() => navigate("/home")}>Home</GameMenuButton>
       </HeaderSmallContainer>
 
       <h1>Cattown in progress..</h1>
