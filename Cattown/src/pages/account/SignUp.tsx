@@ -10,9 +10,9 @@ import {
   SignUpTermsContainer,
 } from "../../components/styled/LoginStyled";
 import { SmallText } from "../../components/styled/Text";
-import { register } from "../../services/userService";
 import { Link } from "react-router-dom";
 import { IUserRegister } from "../../types/userTypes";
+import { registerUser } from "../../services/Firebase";
 
 interface IRegistraion {
   success: boolean;
@@ -31,7 +31,7 @@ export const SignUp = () => {
   const [user, setUser] = useState<IUserRegister>({
     username: "",
     password: "",
-    mail: "",
+    email: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
@@ -43,7 +43,7 @@ export const SignUp = () => {
     }
 
     try {
-      await register(user);
+      await registerUser(user);
       setRegistration({ ...registration, success: true, fail: false });
     } catch {
       setRegistration({ ...registration, success: false, fail: true });
@@ -94,9 +94,9 @@ export const SignUp = () => {
         <LoginFormInput
           type="email"
           placeholder="Email"
-          name="mail"
+          name="email"
           id="email"
-          value={user.mail}
+          value={user.email}
           required
           disabled={registration.success}
           onChange={handleChange}

@@ -9,8 +9,8 @@ import {
   LoginContainerHeader,
 } from "../../components/styled/LoginStyled";
 import { SmallText } from "../../components/styled/Text";
-import { forgottPassword } from "../../services/userService";
 import { Link } from "react-router-dom";
+import { resetPassword } from "../../services/Firebase";
 
 interface ISubmit {
   success: boolean;
@@ -28,7 +28,7 @@ export const Reset = () => {
     e.preventDefault();
 
     try {
-      await forgottPassword(mail);
+      await resetPassword(mail);
       setSubmit({ ...submit, success: true, fail: false });
     } catch {
       setSubmit({ ...submit, success: false, fail: true });

@@ -8,25 +8,24 @@ import {
   LoginContainerFooter,
   LoginContainerHeader,
 } from "../components/styled/LoginStyled";
-import { login } from "../services/userService";
 import { Link, useNavigate } from "react-router-dom";
 import { SmallText } from "../components/styled/Text";
 import { IUserLogin } from "../types/userTypes";
+import { loginUser } from "../services/Firebase";
 
 export const Login = () => {
   const navigate = useNavigate();
 
   const [loginFail, setLoginFail] = useState(false);
   const [user, setUser] = useState<IUserLogin>({
-    username: "",
+    email: "",
     password: "",
   });
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      const loginSuccess = await login(user);
-      localStorage.setItem("savefileId", loginSuccess.savefileId);
+      await loginUser(user);
       navigate("/home");
     } catch {
       setLoginFail(true);
@@ -39,7 +38,7 @@ export const Login = () => {
     const type = e.target.type;
     const value = e.target.value;
 
-    type === "text" ? setUser({ ...user, [name]: value }) : "";
+    type === "email" ? setUser({ ...user, [name]: value }) : "";
     type === "password" ? setUser({ ...user, [name]: value }) : "";
   };
 
@@ -50,15 +49,13 @@ export const Login = () => {
           <h1>Enter Cattown</h1>
         </LoginContainerHeader>
         <LoginForm method="post" onSubmit={handleSubmit}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="username">Email</label>
           <LoginFormInput
-            type="text"
-            placeholder="Username"
-            name="username"
-            id="username"
-            value={user.username}
-            minLength={3}
-            maxLength={30}
+            type="email"
+            placeholder="email"
+            name="email"
+            id="email"
+            value={user.email}
             required
             onChange={handleChange}
           />
