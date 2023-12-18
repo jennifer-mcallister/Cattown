@@ -6,6 +6,7 @@ import {
   setDoc,
   doc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { IUserLogin, IUserRegister } from "../types/userTypes";
 import {
@@ -32,6 +33,22 @@ const db = getFirestore();
 const auth = getAuth();
 const savefilesCollection = collection(db, "savefiles");
 
+const defaultSavefile = {
+  gold: 0,
+  stats: {
+    luck: 1,
+    health: 1,
+    strength: 1,
+    fireDamage: 1,
+    waterDamage: 1,
+    shadowDamage: 1,
+    natureDamage: 1,
+  },
+  uniqueItems: [],
+  relics: [],
+  cats: [],
+};
+
 export const getSavefile = async () => {
   try {
     const loggedInUser = await auth.currentUser;
@@ -50,6 +67,22 @@ export const getSavefile = async () => {
 
 export const setSavefile = async () => {};
 
+export const resetSavefile = async () => {
+  try {
+    const loggedInUser = await auth.currentUser;
+
+    if (!loggedInUser) {
+      throw new Error("UnAuthorized");
+    }
+
+    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    await updateDoc(savefileRef, { ...defaultSavefile });
+    console.log("Savefiles reset to default");
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
+
 export const registerUser = async (user: IUserRegister) => {
   try {
     const cred = await createUserWithEmailAndPassword(
@@ -59,20 +92,8 @@ export const registerUser = async (user: IUserRegister) => {
     );
 
     const newSavefile: ISavefile = {
+      ...defaultSavefile,
       username: user.username,
-      gold: 0,
-      stats: {
-        luck: 1,
-        health: 1,
-        strength: 1,
-        fireDamage: 1,
-        waterDamage: 1,
-        shadowDamage: 1,
-        natureDamage: 1,
-      },
-      uniqueItems: [],
-      relics: [],
-      cats: [],
     };
 
     const newSavefileDoc = doc(savefilesCollection, cred.user.uid);

@@ -1,17 +1,16 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import {
-  LoginContainer,
-  LoginForm,
-  LoginButton,
-  LoginFormInput,
-  LoginSmallContainer,
-  LoginContainerFooter,
-  LoginContainerHeader,
-} from "../components/styled/LoginStyled";
+import { Form, FormInput } from "../components/styled/Form";
 import { Link, useNavigate } from "react-router-dom";
 import { SmallText } from "../components/styled/Text";
 import { IUserLogin } from "../types/userTypes";
 import { loginUser } from "../services/Firebase";
+import {
+  MenuContainer,
+  MenuFooter,
+  MenuHeader,
+  MenuSmallContainer,
+} from "../components/styled/Menu";
+import { ButtonMedium } from "../components/styled/Button";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -44,13 +43,13 @@ export const Login = () => {
 
   return (
     <>
-      <LoginContainer>
-        <LoginContainerHeader>
+      <MenuContainer>
+        <MenuHeader>
           <h1>Enter Cattown</h1>
-        </LoginContainerHeader>
-        <LoginForm method="post" onSubmit={handleSubmit}>
+        </MenuHeader>
+        <Form method="post" onSubmit={handleSubmit}>
           <label htmlFor="username">Email</label>
-          <LoginFormInput
+          <FormInput
             type="email"
             placeholder="email"
             name="email"
@@ -59,34 +58,30 @@ export const Login = () => {
             required
             onChange={handleChange}
           />
-          <LoginSmallContainer>
-            <label htmlFor="password">Password</label>
-            <LoginFormInput
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={user.password}
-              minLength={8}
-              maxLength={128}
-              required
-              onChange={handleChange}
-            />
-          </LoginSmallContainer>
 
-          <LoginSmallContainer>
-            {loginFail && (
-              <SmallText>Incorrect username or password!</SmallText>
-            )}
-            <LoginButton type="submit">Log in</LoginButton>
-          </LoginSmallContainer>
-        </LoginForm>
-        <LoginContainerFooter>
-          <LoginSmallContainer>
+          <label htmlFor="password">Password</label>
+          <FormInput
+            type="password"
+            placeholder="Password"
+            name="password"
+            value={user.password}
+            minLength={8}
+            maxLength={128}
+            required
+            onChange={handleChange}
+          />
+          <MenuSmallContainer>
+            <ButtonMedium type="submit">Log in</ButtonMedium>
+          </MenuSmallContainer>
+          {loginFail && <SmallText>Incorrect username or password!</SmallText>}
+        </Form>
+        <MenuFooter>
+          <MenuSmallContainer>
             <Link to="/account/signup">Sign up</Link>
             <Link to="/account/reset">Forgott password?</Link>
-          </LoginSmallContainer>
-        </LoginContainerFooter>
-      </LoginContainer>
+          </MenuSmallContainer>
+        </MenuFooter>
+      </MenuContainer>
     </>
   );
 };

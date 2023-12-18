@@ -1,7 +1,11 @@
+import { MainContent } from "../components/styled/LayoutStyle";
+
 export const Library = () => {
   return (
     <>
-      <h1>Library</h1>
+      <MainContent>
+        <h1>Library</h1>
+      </MainContent>
     </>
   );
 };

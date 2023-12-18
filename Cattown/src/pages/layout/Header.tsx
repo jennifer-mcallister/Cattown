@@ -1,19 +1,28 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { GameMenu } from "../../components/GameMenu";
-import { HeaderContent } from "../../components/styled/LayoutStyled";
-import { GameMenuButton } from "../../components/styled/GameMenuStyled";
+import { HeaderContent } from "../../components/styled/LayoutStyle";
 import {
   HeaderSmallContainer,
   HeaderGold,
-} from "../../components/styled/HeaderStyled";
+} from "../../components/styled/HeaderStyle";
 import { useMatches, useNavigate, useRouteLoaderData } from "react-router-dom";
 import { ISavefile } from "../../types/savefileTypes";
+import { OptionsMenu } from "../../components/OptionsMenu";
+import { IShowMenus } from "./Layout";
+import { ButtonMedium } from "../../components/styled/Button";
 
-export const Header = () => {
-  const [showMenu, setShowMenu] = useState(false);
+interface IHeaderProps {
+  showMenus: IShowMenus;
+  setShowMenus: Dispatch<SetStateAction<IShowMenus>>;
+}
 
+export const Header = ({ showMenus, setShowMenus }: IHeaderProps) => {
   const toggleMenu = () => {
-    setShowMenu(!showMenu);
+    setShowMenus({ ...showMenus, showMenu: !showMenus.showMenu });
+  };
+
+  const toggleOptions = () => {
+    setShowMenus({ ...showMenus, showOptions: !showMenus.showOptions });
   };
 
   const routes = useMatches();
@@ -24,19 +33,19 @@ export const Header = () => {
     <HeaderContent>
       <HeaderSmallContainer>
         <HeaderGold>{loaderSavefile.gold} GOLD</HeaderGold>
-        <GameMenuButton onClick={() => navigate("/home")}>Home</GameMenuButton>
+        <ButtonMedium onClick={() => navigate("/home")}>Home</ButtonMedium>
       </HeaderSmallContainer>
 
-      <h1>Cattown in progress..</h1>
+      <h1>
+        Welcome Mayor {loaderSavefile.username}! Cattown is currently under
+        development..
+      </h1>
       <HeaderSmallContainer>
-        <GameMenuButton onClick={() => navigate("/options")}>
-          Options
-        </GameMenuButton>
-        <GameMenuButton onClick={() => setShowMenu(!showMenu)}>
-          Menu
-        </GameMenuButton>
+        <ButtonMedium onClick={() => toggleOptions()}>Options</ButtonMedium>
+        <ButtonMedium onClick={() => toggleMenu()}>Menu</ButtonMedium>
       </HeaderSmallContainer>
-      <GameMenu toggleMenu={toggleMenu} show={showMenu} />
+      <GameMenu toggleMenu={toggleMenu} show={showMenus.showMenu} />
+      <OptionsMenu toggleOptions={toggleOptions} show={showMenus.showOptions} />
     </HeaderContent>
   );
 };

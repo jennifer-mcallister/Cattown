@@ -18,12 +18,8 @@ export const MainContent = styled.div`
   align-items: center;
 `;
 
-export const Container = styled.div`
-  width: 80%;
-  max-height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10rem;
-  padding: 3rem;
+export const MainContentSignUp = styled(MainContent)`
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 5rem;
 `;

@@ -1,14 +1,15 @@
 import { useNavigate, useRouteLoaderData } from "react-router";
-import { NavigationIconSmall } from "./NavigationIconSmall";
-import {
-  GameMenuButton,
-  GameMenuContainer,
-  GameMenuContent,
-  GameMenuGold,
-  GameMenuHeader,
-} from "./styled/GameMenuStyled";
 import { ISavefile } from "../types/savefileTypes";
 import { useMatches } from "react-router-dom";
+import {
+  MenuBackground,
+  MenuBody,
+  MenuContainer,
+  MenuHeader,
+  MenuHeaderItems,
+} from "./styled/Menu";
+import { ButtonLarge, ButtonMedium } from "./styled/Button";
+import { HeaderGold } from "./styled/HeaderStyle";
 
 interface IGameMenuProps {
   toggleMenu: () => void;
@@ -16,38 +17,76 @@ interface IGameMenuProps {
 }
 
 export const GameMenu = ({ toggleMenu, show }: IGameMenuProps) => {
+  const navigate = useNavigate();
   const routes = useMatches();
   const loaderSavefile = useRouteLoaderData(routes[1].id) as ISavefile;
 
-  const navigate = useNavigate();
+  const goToLocation = (path: string) => {
+    navigate(path);
+    toggleMenu();
+  };
 
   return (
-    <GameMenuContainer show={show.toString()}>
-      <GameMenuHeader>
-        <GameMenuGold>{loaderSavefile.gold} GOLD</GameMenuGold>
-        <GameMenuButton
-          onClick={() => {
-            navigate("/options");
-          }}
-        >
-          Options
-        </GameMenuButton>
-        <GameMenuButton
-          onClick={() => {
-            toggleMenu();
-          }}
-        >
-          X
-        </GameMenuButton>
-      </GameMenuHeader>
-      <GameMenuContent>
-        <NavigationIconSmall path={"/home"} />
-        <NavigationIconSmall path={"/training"} />
-        <NavigationIconSmall path={"/cats"} />
-        <NavigationIconSmall path={"/map"} />
-        <NavigationIconSmall path={"/library"} />
-        <NavigationIconSmall path={"/shop"} />
-      </GameMenuContent>
-    </GameMenuContainer>
+    <MenuBackground show={show.toString()}>
+      <MenuContainer>
+        <MenuHeader>
+          <MenuHeaderItems>
+            <HeaderGold>{loaderSavefile.gold} GOLD</HeaderGold>
+            <h2>Menu</h2>
+            <ButtonMedium
+              onClick={() => {
+                toggleMenu();
+              }}
+            >
+              X
+            </ButtonMedium>
+          </MenuHeaderItems>
+        </MenuHeader>
+        <MenuBody>
+          <ButtonLarge
+            onClick={() => {
+              goToLocation("/home");
+            }}
+          >
+            Home
+          </ButtonLarge>
+          <ButtonLarge
+            onClick={() => {
+              goToLocation("/training");
+            }}
+          >
+            Training
+          </ButtonLarge>
+          <ButtonLarge
+            onClick={() => {
+              goToLocation("/cats");
+            }}
+          >
+            Cats
+          </ButtonLarge>
+          <ButtonLarge
+            onClick={() => {
+              goToLocation("/map");
+            }}
+          >
+            Map
+          </ButtonLarge>
+          <ButtonLarge
+            onClick={() => {
+              goToLocation("/library");
+            }}
+          >
+            Library
+          </ButtonLarge>
+          <ButtonLarge
+            onClick={() => {
+              goToLocation("/shop");
+            }}
+          >
+            Shop
+          </ButtonLarge>
+        </MenuBody>
+      </MenuContainer>
+    </MenuBackground>
   );
 };
