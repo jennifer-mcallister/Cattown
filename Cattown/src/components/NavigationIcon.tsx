@@ -1,8 +1,9 @@
 import { Sprite, Stage, Text } from "@pixi/react";
 import placeholder from "../assets/placeholder.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import "@pixi/events";
 import { useState } from "react";
+import { IShowMenus } from "../pages/layout/Layout";
 
 const stageOptions = {
   backgroundAlpha: 0,
@@ -14,6 +15,7 @@ interface INavigationIconProps {
 }
 
 export const NavigationIcon = ({ path }: INavigationIconProps) => {
+  const showMenus = useOutletContext<IShowMenus>();
   const [scale, setScale] = useState({ x: 0.05, y: 0.05 });
   const navigate = useNavigate();
 
@@ -22,11 +24,13 @@ export const NavigationIcon = ({ path }: INavigationIconProps) => {
   };
 
   const hoverAnimation = () => {
-    if (scale.x && scale.y === 0.05) {
-      setScale({ x: 0.07, y: 0.07 });
-    } else {
+    if (showMenus.showMenu || showMenus.showOptions) {
       setScale({ x: 0.05, y: 0.05 });
+      return;
     }
+    scale.x && scale.y === 0.05
+      ? setScale({ x: 0.07, y: 0.07 })
+      : setScale({ x: 0.05, y: 0.05 });
   };
 
   return (

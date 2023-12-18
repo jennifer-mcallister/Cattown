@@ -1,7 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Layout } from "./pages/layout/Layout";
 import { Login } from "./pages/Login";
-import { Options } from "./pages/Options";
 import { Shop } from "./pages/Shop";
 import { Map } from "./pages/Map";
 import { Cats } from "./pages/Cats";
@@ -51,12 +50,6 @@ export const Router = createBrowserRouter([
         path: "/home",
         id: "home",
         element: <Home></Home>,
-        loader: loadSavefile,
-      },
-      {
-        path: "/options",
-        id: "options",
-        element: <Options></Options>,
         loader: loadSavefile,
       },
       {

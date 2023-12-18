@@ -1,18 +1,19 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import {
-  LoginForm,
-  LoginButton,
-  LoginFormInput,
-  LoginSmallContainer,
-  LoginContainerHeader,
-  LoginContainerFooter,
-  SignUpContainer,
-  SignUpTermsContainer,
-} from "../../components/styled/LoginStyled";
+import { Form, FormInput, FormLabel } from "../../components/styled/Form";
 import { SmallText } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import { IUserRegister } from "../../types/userTypes";
 import { registerUser } from "../../services/Firebase";
+import {
+  MenuBody,
+  MenuContainer,
+  MenuFooter,
+  MenuHeader,
+  MenuSmallContainer,
+} from "../../components/styled/Menu";
+import { ButtonMedium } from "../../components/styled/Button";
+import { ConfirmationContainer } from "../../components/styled/Container";
+import { MainContentSignUp } from "../../components/styled/LayoutStyle";
 
 interface IRegistraion {
   success: boolean;
@@ -72,77 +73,85 @@ export const SignUp = () => {
   };
 
   return (
-    <SignUpContainer>
-      <LoginContainerHeader>
-        <h1>Sign up</h1>
-      </LoginContainerHeader>
-      <LoginForm method="post" onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <LoginFormInput
-          type="text"
-          placeholder="Username"
-          name="username"
-          id="username"
-          value={user.username}
-          minLength={3}
-          maxLength={30}
-          required
-          disabled={registration.success}
-          onChange={handleChange}
-        />
-        <label htmlFor="email">Email</label>
-        <LoginFormInput
-          type="email"
-          placeholder="Email"
-          name="email"
-          id="email"
-          value={user.email}
-          required
-          disabled={registration.success}
-          onChange={handleChange}
-        />
-        <label htmlFor="password">Password</label>
-        <LoginFormInput
-          type="password"
-          placeholder="Password"
-          name="password"
-          id="password"
-          value={user.password}
-          minLength={8}
-          maxLength={128}
-          required
-          disabled={registration.success}
-          onChange={handleChange}
-        />
-        <LoginFormInput
-          type="password"
-          placeholder="Confirm Password"
-          name="confirmPassword"
-          value={confirmPassword.password}
-          minLength={8}
-          maxLength={128}
-          required
-          disabled={registration.success}
-          onChange={handleChange}
-        />
-        <LoginSmallContainer>
-          {registration.success && (
-            <>
-              <SmallText>Successful, you have been signed up!</SmallText>
-            </>
-          )}
-          {registration.fail && (
-            <>
-              <SmallText>Account already in use!</SmallText>
-            </>
-          )}
-          {confirmPassword.showWarning && (
-            <SmallText>Passwords dont match!</SmallText>
-          )}
-          <LoginButton type="submit">Sign up</LoginButton>
-        </LoginSmallContainer>
-      </LoginForm>
-      <SignUpTermsContainer>
+    <MainContentSignUp>
+      <MenuContainer>
+        <MenuHeader>
+          <h1>Sign up</h1>
+        </MenuHeader>
+        <MenuBody>
+          <Form method="post" onSubmit={handleSubmit}>
+            <FormLabel htmlFor="username">Username</FormLabel>
+            <FormInput
+              type="text"
+              placeholder="Username"
+              name="username"
+              id="username"
+              value={user.username}
+              minLength={3}
+              maxLength={30}
+              required
+              disabled={registration.success}
+              onChange={handleChange}
+            />
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormInput
+              type="email"
+              placeholder="Email"
+              name="email"
+              id="email"
+              value={user.email}
+              required
+              disabled={registration.success}
+              onChange={handleChange}
+            />
+            <FormLabel htmlFor="password">Password</FormLabel>
+            <FormInput
+              type="password"
+              placeholder="Password"
+              name="password"
+              id="password"
+              value={user.password}
+              minLength={8}
+              maxLength={128}
+              required
+              disabled={registration.success}
+              onChange={handleChange}
+            />
+            <FormInput
+              type="password"
+              placeholder="Confirm Password"
+              name="confirmPassword"
+              value={confirmPassword.password}
+              minLength={8}
+              maxLength={128}
+              required
+              disabled={registration.success}
+              onChange={handleChange}
+            />
+            <MenuSmallContainer>
+              {registration.success && (
+                <>
+                  <SmallText>Successful, you have been signed up!</SmallText>
+                </>
+              )}
+              {registration.fail && (
+                <>
+                  <SmallText>Account already in use!</SmallText>
+                </>
+              )}
+              {confirmPassword.showWarning && (
+                <SmallText>Passwords dont match!</SmallText>
+              )}
+              <ButtonMedium type="submit">Sign up</ButtonMedium>
+            </MenuSmallContainer>
+          </Form>
+        </MenuBody>
+        <MenuFooter>
+          <Link to="/">Log in</Link>
+        </MenuFooter>
+      </MenuContainer>
+      <ConfirmationContainer>
+        <h3> Sign up Terms</h3>
         <SmallText>
           By choosing to join our community by clicking 'Sign Up,' you are
           giving your consent for us to collect and store your data in our
@@ -153,12 +162,7 @@ export const SignUp = () => {
           and game progress, ensuring a personalized and uninterrupted
           experience tailored just for you.
         </SmallText>
-      </SignUpTermsContainer>
-      <LoginContainerFooter>
-        <LoginSmallContainer>
-          <Link to="/">Log in</Link>
-        </LoginSmallContainer>
-      </LoginContainerFooter>
-    </SignUpContainer>
+      </ConfirmationContainer>
+    </MainContentSignUp>
   );
 };

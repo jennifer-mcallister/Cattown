@@ -1,11 +1,14 @@
 import { useLoaderData } from "react-router-dom";
+import { MainContent } from "../components/styled/LayoutStyle";
 
 export const Cats = () => {
   const cats = useLoaderData();
   console.log(cats);
   return (
     <>
-      <h1>Cats</h1>
+      <MainContent>
+        <h1>Cats</h1>
+      </MainContent>
     </>
   );
 };

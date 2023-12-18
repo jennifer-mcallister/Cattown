@@ -1,16 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import {
-  LoginContainer,
-  LoginForm,
-  LoginButton,
-  LoginFormInput,
-  LoginSmallContainer,
-  LoginContainerFooter,
-  LoginContainerHeader,
-} from "../../components/styled/LoginStyled";
+import { Form, FormInput } from "../../components/styled/Form";
 import { SmallText } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../../services/Firebase";
+import {
+  MenuContainer,
+  MenuFooter,
+  MenuHeader,
+  MenuSmallContainer,
+} from "../../components/styled/Menu";
+import { ButtonMedium } from "../../components/styled/Button";
 
 interface ISubmit {
   success: boolean;
@@ -44,14 +43,14 @@ export const Reset = () => {
   };
 
   return (
-    <LoginContainer>
-      <LoginContainerHeader>
+    <MenuContainer>
+      <MenuHeader>
         <h1>Forgott password?</h1>
-      </LoginContainerHeader>
+      </MenuHeader>
 
-      <LoginForm method="post" onSubmit={handleSubmit}>
+      <Form method="post" onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
-        <LoginFormInput
+        <FormInput
           type="email"
           placeholder="Email"
           name="mail"
@@ -60,17 +59,17 @@ export const Reset = () => {
           required
           onChange={handleChange}
         />
-        <LoginSmallContainer>
+        <MenuSmallContainer>
+          <ButtonMedium type="submit">Send login link</ButtonMedium>
           {submit.fail && <SmallText>Account do not exists!</SmallText>}
           {submit.success && (
             <SmallText>An email has been sent to your account!</SmallText>
           )}
-          <LoginButton type="submit">Send login link</LoginButton>
-        </LoginSmallContainer>
-      </LoginForm>
-      <LoginContainerFooter>
+        </MenuSmallContainer>
+      </Form>
+      <MenuFooter>
         <Link to="/">Log in</Link>
-      </LoginContainerFooter>
-    </LoginContainer>
+      </MenuFooter>
+    </MenuContainer>
   );
 };
