@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, FormInput } from "../components/styled/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { SmallText } from "../components/styled/Text";
+import { TextSmall } from "../components/styled/Text";
 import { IUserLogin } from "../types/userTypes";
 import { loginUser } from "../services/Firebase";
 import {
@@ -73,7 +73,7 @@ export const Login = () => {
           <MenuSmallContainer>
             <ButtonMedium type="submit">Log in</ButtonMedium>
           </MenuSmallContainer>
-          {loginFail && <SmallText>Incorrect username or password!</SmallText>}
+          {loginFail && <TextSmall>Incorrect username or password!</TextSmall>}
         </Form>
         <MenuFooter>
           <MenuSmallContainer>

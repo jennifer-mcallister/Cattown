@@ -14,6 +14,7 @@ export const MenuBackground = styled.div<IMenuProps>`
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 5;
 
   background-color: rgba(0, 0, 0, 0.3);
 `;
@@ -23,15 +24,11 @@ export const MenuContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 26rem;
+  width: 20rem;
   min-height: 25rem;
   padding: 2rem;
   background-color: grey;
   border-radius: 10px;
-`;
-
-export const MenuContainerSignUp = styled(MenuContainer)`
-  width: 52rem;
 `;
 
 export const MenuHeader = styled.div`
@@ -67,8 +64,8 @@ export const MenuBodySignUp = styled(MenuBody)`
 `;
 
 export const MenuSmallContainer = styled.div`
-  width: 20rem;
-  height: 8rem;
+  width: 80%;
+  height: 6rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

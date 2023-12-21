@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, FormInput, FormLabel } from "../../components/styled/Form";
-import { SmallText } from "../../components/styled/Text";
+import { TextSmall } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import { IUserRegister } from "../../types/userTypes";
 import { registerUser } from "../../services/Firebase";
@@ -131,16 +131,16 @@ export const SignUp = () => {
             <MenuSmallContainer>
               {registration.success && (
                 <>
-                  <SmallText>Successful, you have been signed up!</SmallText>
+                  <TextSmall>Successful, you have been signed up!</TextSmall>
                 </>
               )}
               {registration.fail && (
                 <>
-                  <SmallText>Account already in use!</SmallText>
+                  <TextSmall>Account already in use!</TextSmall>
                 </>
               )}
               {confirmPassword.showWarning && (
-                <SmallText>Passwords dont match!</SmallText>
+                <TextSmall>Passwords dont match!</TextSmall>
               )}
               <ButtonMedium type="submit">Sign up</ButtonMedium>
             </MenuSmallContainer>
@@ -152,7 +152,7 @@ export const SignUp = () => {
       </MenuContainer>
       <ConfirmationContainer>
         <h3> Sign up Terms</h3>
-        <SmallText>
+        <TextSmall>
           By choosing to join our community by clicking 'Sign Up,' you are
           giving your consent for us to collect and store your data in our
           database. This is essential for enabling you to seamlessly log in and
@@ -161,7 +161,7 @@ export const SignUp = () => {
           any third party. Our data collection encompasses your user information
           and game progress, ensuring a personalized and uninterrupted
           experience tailored just for you.
-        </SmallText>
+        </TextSmall>
       </ConfirmationContainer>
     </MainContentSignUp>
   );

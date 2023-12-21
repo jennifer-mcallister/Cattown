@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, FormInput } from "../../components/styled/Form";
-import { SmallText } from "../../components/styled/Text";
+import { TextSmall } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import { resetPassword } from "../../services/Firebase";
 import {
@@ -61,9 +61,9 @@ export const Reset = () => {
         />
         <MenuSmallContainer>
           <ButtonMedium type="submit">Send login link</ButtonMedium>
-          {submit.fail && <SmallText>Account do not exists!</SmallText>}
+          {submit.fail && <TextSmall>Account do not exists!</TextSmall>}
           {submit.success && (
-            <SmallText>An email has been sent to your account!</SmallText>
+            <TextSmall>An email has been sent to your account!</TextSmall>
           )}
         </MenuSmallContainer>
       </Form>

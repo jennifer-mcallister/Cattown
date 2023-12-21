@@ -5,8 +5,8 @@ export const ConfirmationContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 26rem;
-  min-height: 8rem;
+  width: 20rem;
+  min-height: 6rem;
   padding: 2rem;
   background-color: grey;
   border-radius: 10px;

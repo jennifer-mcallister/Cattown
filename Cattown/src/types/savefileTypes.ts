@@ -8,23 +8,24 @@ export interface ISavefile {
 }
 
 export interface ICat {
+  id: string;
   name: string;
   xp: number;
   level: number;
   health: number;
   strength: number;
-  training: {
-    onTraining: boolean;
-    date: string;
-    durration: string;
-    type: string;
-  };
-  mission: {
-    onMission: boolean;
-    date: string;
-    durration: string;
-    type: string;
-  };
+  // training: {
+  //   onTraining: boolean;
+  //   date: string;
+  //   durration: string;
+  //   type: string;
+  // };
+  // mission: {
+  //   onMission: boolean;
+  //   date: string;
+  //   durration: string;
+  //   type: string;
+  // };
 }
 
 export interface IStats {

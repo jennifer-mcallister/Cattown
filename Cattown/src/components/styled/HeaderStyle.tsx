@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
 
 export const HeaderGold = styled.div`
-  width: 6rem;
+  width: 5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  height: 4rem;
+  height: 3rem;
   background-color: lightgrey;
 
   display: flex;

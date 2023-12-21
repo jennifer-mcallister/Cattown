@@ -1,18 +1,18 @@
 import { styled } from "styled-components";
 
 export const ButtonMedium = styled.button`
-  min-width: 5rem;
-  height: 4rem;
+  min-width: 3rem;
+  height: 3rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin: 0.5rem;
   border-radius: 0.5rem;
-  font-size: 1em;
+  font-size: 0.8em;
 `;
 
 export const ButtonLarge = styled.button`
-  width: 25rem;
-  height: 4rem;
+  width: 20rem;
+  height: 3rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin: 0.5rem;
