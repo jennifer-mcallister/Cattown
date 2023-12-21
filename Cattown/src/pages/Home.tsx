@@ -1,19 +1,64 @@
 import { MainContent } from "../components/styled/LayoutStyle";
 import "@pixi/events";
-import { NavigationIcon } from "../components/NavigationIcon";
 import { HomeContainer } from "../components/styled/Container";
+import { HomeNavContainer, HomeNavImg } from "../components/styled/HomeNav";
+import placeholder from "../assets/placeholder.png";
+import { useNavigate } from "react-router-dom";
+import { TextMedium } from "../components/styled/Text";
 
 export const Home = () => {
+  const navigate = useNavigate();
   return (
     <MainContent>
       <HomeContainer>
-        <NavigationIcon path={"/training"} />
-        <NavigationIcon path={"/cats"} />
-        <NavigationIcon path={"/map"} />
+        <HomeNavContainer>
+          <HomeNavImg
+            src={placeholder}
+            onClick={() => {
+              navigate("/training");
+            }}
+          />
+          <TextMedium>Training</TextMedium>
+        </HomeNavContainer>
+
+        <HomeNavContainer>
+          <HomeNavImg
+            src={placeholder}
+            onClick={() => {
+              navigate("/cats");
+            }}
+          />
+          <TextMedium>Cats</TextMedium>
+        </HomeNavContainer>
+        <HomeNavContainer>
+          <HomeNavImg
+            src={placeholder}
+            onClick={() => {
+              navigate("/map");
+            }}
+          />
+          <TextMedium>Map</TextMedium>
+        </HomeNavContainer>
       </HomeContainer>
       <HomeContainer>
-        <NavigationIcon path={"/library"} />
-        <NavigationIcon path={"/shop"} />
+        <HomeNavContainer>
+          <HomeNavImg
+            src={placeholder}
+            onClick={() => {
+              navigate("/library");
+            }}
+          />
+          <TextMedium>Library</TextMedium>
+        </HomeNavContainer>
+        <HomeNavContainer>
+          <HomeNavImg
+            src={placeholder}
+            onClick={() => {
+              navigate("/shop");
+            }}
+          />
+          <TextMedium>Witches Shop</TextMedium>
+        </HomeNavContainer>
       </HomeContainer>
     </MainContent>
   );
