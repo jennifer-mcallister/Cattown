@@ -11,8 +11,8 @@ export const Form = styled.form`
 `;
 
 export const FormInput = styled.input`
-  width: 18rem;
-  height: 4rem;
+  width: 15rem;
+  height: 3rem;
   padding-left: 1rem;
   padding-right: 1rem;
   border-radius: 0.5rem;

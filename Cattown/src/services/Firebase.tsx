@@ -16,7 +16,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { ISavefile } from "../types/savefileTypes";
+import { ICat, ISavefile } from "../types/savefileTypes";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -46,7 +46,16 @@ const defaultSavefile = {
   },
   uniqueItems: [],
   relics: [],
-  cats: [],
+  cats: [
+    {
+      id: "1a",
+      name: "Mjaui",
+      xp: 0,
+      level: 1,
+      health: 10,
+      strength: 1,
+    },
+  ],
 };
 
 export const getSavefile = async () => {
@@ -65,7 +74,21 @@ export const getSavefile = async () => {
   }
 };
 
-export const setSavefile = async () => {};
+export const updateCats = async (cats: ICat[]) => {
+  try {
+    const loggedInUser = await auth.currentUser;
+
+    if (!loggedInUser) {
+      throw new Error("UnAuthorized");
+    }
+
+    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    await updateDoc(savefileRef, { cats: cats });
+    console.log("Cats updated");
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
 
 export const resetSavefile = async () => {
   try {

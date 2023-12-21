@@ -3,7 +3,7 @@ import {
   ConfirmationButtonsContainer,
   ConfirmationContainer,
 } from "./styled/Container";
-import { SmallText } from "./styled/Text";
+import { TextSmall } from "./styled/Text";
 
 interface IConfirm {
   confirm: () => void;
@@ -16,7 +16,7 @@ export const Confirm = ({ confirm, abort, header, text }: IConfirm) => {
   return (
     <ConfirmationContainer>
       <h3>{header}</h3>
-      <SmallText>{text}</SmallText>
+      <TextSmall>{text}</TextSmall>
       <ConfirmationButtonsContainer>
         <ButtonMedium onClick={confirm}>Yes</ButtonMedium>
         <ButtonMedium onClick={abort}>No</ButtonMedium>
