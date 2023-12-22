@@ -8,6 +8,7 @@ export const ButtonMedium = styled.button`
   margin: 0.5rem;
   border-radius: 0.5rem;
   font-size: 0.8em;
+  cursor: pointer;
 `;
 
 export const ButtonLarge = styled.button`
@@ -18,4 +19,5 @@ export const ButtonLarge = styled.button`
   margin: 0.5rem;
   border-radius: 0.5rem;
   font-size: 1em;
+  cursor: pointer;
 `;

@@ -7,6 +7,7 @@ import {
   doc,
   getDoc,
   updateDoc,
+  getDocs,
 } from "firebase/firestore";
 import { IUserLogin, IUserRegister } from "../types/userTypes";
 import {
@@ -16,7 +17,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { ICat, ISavefile } from "../types/savefileTypes";
+import { ICat, IRelic, ISavefile } from "../types/savefileTypes";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_API_KEY,
@@ -29,12 +30,13 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = getFirestore();
-const auth = getAuth();
-const savefilesCollection = collection(db, "savefiles");
+export const db = getFirestore();
+export const auth = getAuth();
+export const savefilesCollection = collection(db, "savefiles");
+export const relicsCollection = collection(db, "relics");
 
-const defaultSavefile = {
-  gold: 0,
+export const defaultSavefile = {
+  gold: 200,
   stats: {
     luck: 1,
     health: 1,
@@ -90,6 +92,22 @@ export const updateCats = async (cats: ICat[]) => {
   }
 };
 
+export const buyCats = async (cats: ICat[], goldLeft: number) => {
+  try {
+    const loggedInUser = await auth.currentUser;
+
+    if (!loggedInUser) {
+      throw new Error("UnAuthorized");
+    }
+
+    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    await updateDoc(savefileRef, { cats: cats, gold: goldLeft });
+    console.log("Relics updated");
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
+
 export const resetSavefile = async () => {
   try {
     const loggedInUser = await auth.currentUser;
@@ -101,6 +119,34 @@ export const resetSavefile = async () => {
     const savefileRef = doc(db, "savefiles", loggedInUser.uid);
     await updateDoc(savefileRef, { ...defaultSavefile });
     console.log("Savefiles reset to default");
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
+
+export const getRelics = async () => {
+  try {
+    const res = await getDocs(relicsCollection);
+    const relics = res.docs.map((relic) => {
+      return relic.data();
+    });
+    return relics;
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
+
+export const buyRelics = async (relics: IRelic[], goldLeft: number) => {
+  try {
+    const loggedInUser = await auth.currentUser;
+
+    if (!loggedInUser) {
+      throw new Error("UnAuthorized");
+    }
+
+    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    await updateDoc(savefileRef, { relics: relics, gold: goldLeft });
+    console.log("Relics updated");
   } catch {
     throw new Error("503 Service Unavailable");
   }
