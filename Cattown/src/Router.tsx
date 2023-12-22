@@ -10,11 +10,16 @@ import { Error } from "./pages/Error";
 import { Home } from "./pages/Home";
 import { SignUp } from "./pages/account/SignUp";
 import { Reset } from "./pages/account/Reset";
-import { getSavefile } from "./services/Firebase";
+import { getRelics, getSavefile } from "./services/Firebase";
 
 const loadSavefile = async () => {
   const savefile = await getSavefile();
   return savefile;
+};
+
+const loadRelics = async () => {
+  const relics = await getRelics();
+  return relics;
 };
 
 export const Router = createBrowserRouter([
@@ -56,7 +61,7 @@ export const Router = createBrowserRouter([
         path: "/shop",
         id: "shop",
         element: <Shop></Shop>,
-        loader: loadSavefile,
+        loader: loadRelics,
       },
       {
         path: "/map",
