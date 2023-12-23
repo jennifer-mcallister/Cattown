@@ -3,7 +3,6 @@ import { Form, FormInput } from "../components/styled/Form";
 import { Link, useNavigate } from "react-router-dom";
 import { TextSmall } from "../components/styled/Text";
 import { IUserLogin } from "../types/userTypes";
-import { loginUser } from "../services/Firebase";
 import {
   MenuContainer,
   MenuFooter,
@@ -11,6 +10,7 @@ import {
   MenuSmallContainer,
 } from "../components/styled/Menu";
 import { ButtonMedium } from "../components/styled/Button";
+import { loginUser } from "../services/UserService";
 
 export const Login = () => {
   const navigate = useNavigate();

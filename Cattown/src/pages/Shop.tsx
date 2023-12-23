@@ -15,8 +15,8 @@ import { IRelic } from "../types/savefileTypes";
 import placeholder from "../assets/cat_placeholder.png";
 import { defaultCat } from "../models/Cat";
 import { ButtonMedium } from "../components/styled/Button";
-import { buyCats } from "../services/Firebase";
 import { ILayoutContext } from "./layout/Layout";
+import { buyCats } from "../services/CatService";
 
 export const Shop = () => {
   const outletContext = useOutletContext<ILayoutContext>();

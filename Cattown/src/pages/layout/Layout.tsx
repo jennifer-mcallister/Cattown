@@ -1,10 +1,11 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { useState } from "react";
-import { auth, db, defaultSavefile } from "../../services/Firebase";
+import { auth, db } from "../../services/Firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { ISavefile } from "../../types/savefileTypes";
+import { defaultSavefile } from "../../models/Savefile";
 
 export interface IShowMenus {
   showMenu: boolean;

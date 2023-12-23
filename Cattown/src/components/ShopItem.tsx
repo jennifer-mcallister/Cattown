@@ -9,7 +9,7 @@ import {
 import placeholder from "../assets/placeholder.png";
 import { TextMedium, TextSmall } from "./styled/Text";
 import { ButtonMedium } from "./styled/Button";
-import { buyRelics } from "../services/Firebase";
+import { buyRelics } from "../services/RelicsService";
 
 interface IShopItemProps {
   relic: IRelic;
