@@ -35,11 +35,11 @@ export const ShopItem = ({ relic, userGold, userRelics }: IShopItemProps) => {
       <ShopItemInfo>
         <ShopItemImg src={placeholder} />
         <ShopItemInfoContainer>
-          <TextMedium>Damage</TextMedium>
-          <TextSmall>Shadow: {relic.stats.shadowDamage}%</TextSmall>
-          <TextSmall>Fire: {relic.stats.fireDamage}%</TextSmall>
-          <TextSmall>Water: {relic.stats.waterDamage}%</TextSmall>
-          <TextSmall>Nature: {relic.stats.natureDamage}%</TextSmall>
+          <TextMedium>Resistance:</TextMedium>
+          <TextSmall>Shadow: {relic.stats.shadowRes}%</TextSmall>
+          <TextSmall>Fire: {relic.stats.fireRes}%</TextSmall>
+          <TextSmall>Water: {relic.stats.waterRes}%</TextSmall>
+          <TextSmall>Nature: {relic.stats.natureRes}%</TextSmall>
         </ShopItemInfoContainer>
         <ShopItemInfoContainer>
           <ButtonMedium

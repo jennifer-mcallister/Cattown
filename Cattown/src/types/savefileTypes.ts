@@ -32,10 +32,10 @@ export interface IRelic {
   cost: 50;
   name: string;
   stats: {
-    fireDamage: number;
-    waterDamage: number;
-    shadowDamage: number;
-    natureDamage: number;
+    fireRes: number;
+    waterRes: number;
+    shadowRes: number;
+    natureRes: number;
   };
 }
 
@@ -43,8 +43,8 @@ export interface IStats {
   luck: number;
   health: number;
   strength: number;
-  fireDamage: number;
-  waterDamage: number;
-  shadowDamage: number;
-  natureDamage: number;
+  fireRes: number;
+  waterRes: number;
+  shadowRes: number;
+  natureRes: number;
 }

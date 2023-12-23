@@ -10,12 +10,7 @@ import { Error } from "./pages/Error";
 import { Home } from "./pages/Home";
 import { SignUp } from "./pages/account/SignUp";
 import { Reset } from "./pages/account/Reset";
-import { getRelics, getSavefile } from "./services/Firebase";
-
-const loadSavefile = async () => {
-  const savefile = await getSavefile();
-  return savefile;
-};
+import { getRelics } from "./services/Firebase";
 
 const loadRelics = async () => {
   const relics = await getRelics();
@@ -55,7 +50,6 @@ export const Router = createBrowserRouter([
         path: "/home",
         id: "home",
         element: <Home></Home>,
-        loader: loadSavefile,
       },
       {
         path: "/shop",
@@ -67,25 +61,23 @@ export const Router = createBrowserRouter([
         path: "/map",
         id: "map",
         element: <Map></Map>,
-        loader: loadSavefile,
+        // loader: get missions and bosses
       },
       {
         path: "/cats",
         id: "cats",
         element: <Cats></Cats>,
-        loader: loadSavefile,
       },
       {
         path: "/training",
         id: "training",
         element: <Training></Training>,
-        loader: loadSavefile,
+        // loader: get trainings
       },
       {
         path: "/library",
         id: "library",
         element: <Library></Library>,
-        loader: loadSavefile,
       },
     ],
   },

@@ -1,6 +1,4 @@
-import { useNavigate, useRouteLoaderData } from "react-router";
-import { ISavefile } from "../types/savefileTypes";
-import { useMatches } from "react-router-dom";
+import { useNavigate } from "react-router";
 import {
   MenuBackground,
   MenuBody,
@@ -14,12 +12,11 @@ import { HeaderGold } from "./styled/HeaderStyle";
 interface IGameMenuProps {
   toggleMenu: () => void;
   show: boolean;
+  usergold: number;
 }
 
-export const GameMenu = ({ toggleMenu, show }: IGameMenuProps) => {
+export const GameMenu = ({ toggleMenu, show, usergold }: IGameMenuProps) => {
   const navigate = useNavigate();
-  const routes = useMatches();
-  const loaderSavefile = useRouteLoaderData(routes[1].id) as ISavefile;
 
   const goToLocation = (path: string) => {
     navigate(path);
@@ -31,7 +28,7 @@ export const GameMenu = ({ toggleMenu, show }: IGameMenuProps) => {
       <MenuContainer>
         <MenuHeader>
           <MenuHeaderItems>
-            <HeaderGold>{loaderSavefile.gold} GOLD</HeaderGold>
+            <HeaderGold>{usergold} GOLD</HeaderGold>
             <h2>Menu</h2>
             <ButtonMedium
               onClick={() => {

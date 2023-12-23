@@ -9,26 +9,22 @@ import {
 import { TextMedium } from "./styled/Text";
 import placeholder from "../assets/cat_placeholder.png";
 import { useNavigate } from "react-router-dom";
-import { ChangeEvent, FormEvent, useContext, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { MenuBackground } from "./styled/Menu";
 import {
   ConfirmationButtonsContainer,
   ConfirmationContainer,
 } from "./styled/Container";
 import { Form, FormInput } from "./styled/Form";
-import { CatsDispatchContext } from "../contexts/CatsDispatchContext";
-import { ActionTypeCats } from "../reducers/CatsReducers";
 import { updateCats } from "../services/Firebase";
-import { CatsContext } from "../contexts/CatsContext";
 
 interface ICatInfoProps {
   cat: ICat;
+  cats: ICat[];
 }
 
-export const CatInfo = ({ cat }: ICatInfoProps) => {
+export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
   const navigate = useNavigate();
-  const context = useContext(CatsContext);
-  const dispatch = useContext(CatsDispatchContext);
   const [changeName, setChangeName] = useState(false);
   const [newName, setNewName] = useState("");
 
@@ -45,13 +41,9 @@ export const CatInfo = ({ cat }: ICatInfoProps) => {
 
   const updateCatName = async (e: FormEvent) => {
     e.preventDefault();
-    dispatch({
-      type: ActionTypeCats.CHANGE_NAME,
-      payload: { ...cat, name: newName },
-    });
     toggleChangeName();
     try {
-      const updatedCats = [...context].map((c) => {
+      const updatedCats = [...cats].map((c) => {
         if (c.id === cat.id) {
           return {
             ...c,
@@ -69,15 +61,14 @@ export const CatInfo = ({ cat }: ICatInfoProps) => {
   };
 
   const deleteCat = async (cat: ICat) => {
-    dispatch({ type: ActionTypeCats.REMOVE_CAT, payload: { ...cat } });
-    const updatedCats = [...context].filter((c) => c.id !== cat.id);
-
     try {
+      const updatedCats = [...cats].filter((c) => c.id !== cat.id);
       await updateCats(updatedCats);
     } catch {
       throw new Error("Something when wrong");
     }
   };
+
   return (
     <CatContainer key={cat.id}>
       <CatImg src={placeholder} />

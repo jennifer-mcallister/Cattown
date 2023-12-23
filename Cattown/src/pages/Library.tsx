@@ -16,18 +16,14 @@ export const Library = () => {
         <TextMedium>
           strength: {outletContext.savefile.stats.strength}%
         </TextMedium>
-        <h2>Damage</h2>
+        <h2>Resistance:</h2>
         <TextMedium>
-          shadow: {outletContext.savefile.stats.shadowDamage}%
+          shadow: {outletContext.savefile.stats.shadowRes}%
         </TextMedium>
+        <TextMedium>fire: {outletContext.savefile.stats.fireRes}%</TextMedium>
+        <TextMedium>water: {outletContext.savefile.stats.waterRes}%</TextMedium>
         <TextMedium>
-          fire: {outletContext.savefile.stats.fireDamage}%
-        </TextMedium>
-        <TextMedium>
-          water: {outletContext.savefile.stats.waterDamage}%
-        </TextMedium>
-        <TextMedium>
-          nature: {outletContext.savefile.stats.natureDamage}%
+          nature: {outletContext.savefile.stats.natureRes}%
         </TextMedium>
         <h2>Relics</h2>
         {outletContext.savefile.relics.map((relic) => (

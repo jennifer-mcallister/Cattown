@@ -46,7 +46,12 @@ export const Layout = () => {
 
   return (
     <>
-      <Header showMenus={showMenus} setShowMenus={setShowMenus}></Header>
+      <Header
+        userGold={layoutContext.savefile.gold}
+        username={layoutContext.savefile.username}
+        showMenus={showMenus}
+        setShowMenus={setShowMenus}
+      ></Header>
       <Outlet context={layoutContext}></Outlet>
     </>
   );
