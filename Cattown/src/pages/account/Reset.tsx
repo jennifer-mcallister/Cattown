@@ -2,7 +2,6 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, FormInput } from "../../components/styled/Form";
 import { TextSmall } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
-import { resetPassword } from "../../services/Firebase";
 import {
   MenuContainer,
   MenuFooter,
@@ -10,6 +9,7 @@ import {
   MenuSmallContainer,
 } from "../../components/styled/Menu";
 import { ButtonMedium } from "../../components/styled/Button";
+import { resetPassword } from "../../services/UserService";
 
 interface ISubmit {
   success: boolean;

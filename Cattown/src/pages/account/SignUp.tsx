@@ -3,7 +3,6 @@ import { Form, FormInput, FormLabel } from "../../components/styled/Form";
 import { TextSmall } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import { IUserRegister } from "../../types/userTypes";
-import { registerUser } from "../../services/Firebase";
 import {
   MenuBody,
   MenuContainer,
@@ -14,6 +13,7 @@ import {
 import { ButtonMedium } from "../../components/styled/Button";
 import { ConfirmationContainer } from "../../components/styled/Container";
 import { MainContentSignUp } from "../../components/styled/LayoutStyle";
+import { registerUser } from "../../services/UserService";
 
 interface IRegistraion {
   success: boolean;

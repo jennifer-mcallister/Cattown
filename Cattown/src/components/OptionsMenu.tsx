@@ -8,10 +8,10 @@ import {
   MenuHeader,
   MenuHeaderItems,
 } from "./styled/Menu";
-import { logoutUser, resetSavefile } from "../services/Firebase";
 import { useNavigate } from "react-router-dom";
-
 import { Confirm } from "./Confirm";
+import { resetSavefile } from "../services/SavefileService";
+import { logoutUser } from "../services/UserService";
 
 interface IOptionsMenuProps {
   toggleOptions: () => void;

@@ -16,7 +16,7 @@ import {
   ConfirmationContainer,
 } from "./styled/Container";
 import { Form, FormInput } from "./styled/Form";
-import { updateCats } from "../services/Firebase";
+import { updateCats } from "../services/CatService";
 
 interface ICatInfoProps {
   cat: ICat;

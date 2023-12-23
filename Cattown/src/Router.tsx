@@ -10,7 +10,7 @@ import { Error } from "./pages/Error";
 import { Home } from "./pages/Home";
 import { SignUp } from "./pages/account/SignUp";
 import { Reset } from "./pages/account/Reset";
-import { getRelics } from "./services/Firebase";
+import { getRelics } from "./services/RelicsService";
 
 const loadRelics = async () => {
   const relics = await getRelics();
