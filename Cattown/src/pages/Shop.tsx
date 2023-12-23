@@ -61,6 +61,7 @@ export const Shop = () => {
                 userRelics={outletContext.savefile.relics || []}
                 key={relic.name}
                 userGold={outletContext.savefile.gold || 0}
+                userStats={outletContext.savefile.stats}
               />
             ))}
             <ShopItemContainer>

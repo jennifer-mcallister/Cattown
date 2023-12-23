@@ -1,4 +1,4 @@
-import { IRelic } from "../types/savefileTypes";
+import { IRelic, IStats } from "../types/savefileTypes";
 import {
   ShopItemContainer,
   ShopItemHeader,
@@ -10,19 +10,34 @@ import placeholder from "../assets/placeholder.png";
 import { TextMedium, TextSmall } from "./styled/Text";
 import { ButtonMedium } from "./styled/Button";
 import { buyRelics } from "../services/RelicsService";
+import { updateStats } from "../services/StatsService";
 
 interface IShopItemProps {
   relic: IRelic;
   userGold: number;
   userRelics: IRelic[];
+  userStats: IStats;
 }
 
-export const ShopItem = ({ relic, userGold, userRelics }: IShopItemProps) => {
+export const ShopItem = ({
+  relic,
+  userGold,
+  userRelics,
+  userStats,
+}: IShopItemProps) => {
   const buyItem = async () => {
     try {
+      const updatedStats = {
+        ...userStats,
+        fireRes: userStats.fireRes + relic.stats.fireRes,
+        waterRes: userStats.waterRes + relic.stats.waterRes,
+        shadowRes: userStats.shadowRes + relic.stats.shadowRes,
+        natureRes: userStats.natureRes + relic.stats.natureRes,
+      };
       const updatedRelics = [...userRelics, relic];
       const goldLeft = userGold - relic.cost;
       await buyRelics(updatedRelics, goldLeft);
+      await updateStats(updatedStats);
     } catch {
       throw new Error("Something when wrong");
     }
