@@ -21,3 +21,9 @@ export const ButtonLarge = styled.button`
   font-size: 1em;
   cursor: pointer;
 `;
+
+export const ButtonLargeSelect = styled(ButtonLarge)`
+  &:focus {
+    background-color: lightgreen;
+  }
+`;

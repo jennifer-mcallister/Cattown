@@ -28,7 +28,7 @@ export const buyCats = async (cats: ICat[], goldLeft: number) => {
 
     const savefileRef = doc(db, "savefiles", loggedInUser.uid);
     await updateDoc(savefileRef, { cats: cats, gold: goldLeft });
-    console.log("Relics updated");
+    console.log("Cats updated");
   } catch {
     throw new Error("503 Service Unavailable");
   }
