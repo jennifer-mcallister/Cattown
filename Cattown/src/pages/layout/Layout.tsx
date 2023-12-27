@@ -4,8 +4,14 @@ import { useState } from "react";
 import { auth, db } from "../../services/Firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
-import { ISavefile } from "../../types/savefileTypes";
+import { ICat, ISavefile } from "../../types/savefileTypes";
 import { defaultSavefile } from "../../models/Savefile";
+import { updateCats } from "../../services/CatService";
+import {
+  ITimeLeft,
+  countOutCatLevel,
+  countOutTimeLeft,
+} from "../../helpers/gameCalculationHelpers";
 
 export interface IShowMenus {
   showMenu: boolean;
@@ -29,11 +35,9 @@ export const Layout = () => {
   });
 
   const loggedInUser = auth.currentUser;
-
   if (!loggedInUser) {
     throw new Error("UnAuthorized");
   }
-
   const savefileRef = doc(db, "savefiles", loggedInUser.uid);
 
   useEffect(() => {
@@ -44,6 +48,54 @@ export const Layout = () => {
       });
     });
   }, []);
+
+  useEffect(() => {
+    const updateTrainingFinnished = async (catFinnished: ICat) => {
+      try {
+        const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
+          if (cat.id === catFinnished.id) {
+            return {
+              ...catFinnished,
+              level: countOutCatLevel(catFinnished.xp),
+              strength: countOutCatLevel(catFinnished.xp) * 1,
+              health: countOutCatLevel(catFinnished.xp) * 5,
+              trainingXp: 0,
+            };
+          } else {
+            return cat;
+          }
+        });
+
+        await updateCats(updatedCats);
+      } catch {
+        throw new Error("Something when wrong");
+      }
+    };
+
+    const countTimeLeft = setInterval(() => {
+      const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
+        if (cat.status === "training") {
+          const timeInMilliseconds = cat.trainingEndTime - new Date().getTime();
+          if (timeInMilliseconds < 10) {
+            updateTrainingFinnished({
+              ...cat,
+              status: "in camp",
+              xp: (cat.xp += cat.trainingXp),
+            });
+          }
+          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+          return { ...cat, trainingTimeLeft: timeLeft };
+        } else {
+          return cat;
+        }
+      });
+      setLayoutContext({
+        ...layoutContext,
+        savefile: { ...layoutContext.savefile, cats: updatedCats },
+      });
+    }, 1000);
+    return () => clearInterval(countTimeLeft);
+  }, [layoutContext]);
 
   return (
     <>

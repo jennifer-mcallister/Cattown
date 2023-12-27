@@ -1,7 +1,6 @@
-import { ISavefile } from "../types/savefileTypes";
+import { defaultCat } from "./Cat";
 
-export const defaultSavefile: ISavefile = {
-  username: "",
+export const defaultSavefile = {
   gold: 200,
   stats: {
     luck: 1,
@@ -14,14 +13,5 @@ export const defaultSavefile: ISavefile = {
   },
   uniqueItems: [],
   relics: [],
-  cats: [
-    {
-      id: "1a",
-      name: "Mjaui",
-      xp: 0,
-      level: 1,
-      health: 10,
-      strength: 1,
-    },
-  ],
+  cats: [defaultCat],
 };

@@ -5,11 +5,12 @@ import {
   CatImg,
   CatInfoColumn,
   CatInfoContainer,
+  CatStatus,
 } from "./styled/Cat";
 import { TextMedium } from "./styled/Text";
 import placeholder from "../assets/cat_placeholder.png";
 import { useNavigate } from "react-router-dom";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { MenuBackground } from "./styled/Menu";
 import {
   ConfirmationButtonsContainer,
@@ -27,6 +28,7 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
   const navigate = useNavigate();
   const [changeName, setChangeName] = useState(false);
   const [newName, setNewName] = useState("");
+  const [statusColor, setStatusColor] = useState<string>("");
 
   const toggleChangeName = () => {
     setChangeName(!changeName);
@@ -69,13 +71,30 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
     }
   };
 
+  useEffect(() => {
+    switch (cat.status) {
+      case "in camp":
+        setStatusColor("lightgreen");
+        break;
+      case "training":
+        setStatusColor("yellow");
+        break;
+      case "on mission":
+        setStatusColor("red");
+        break;
+    }
+  }, [cats]);
+
   return (
     <CatContainer key={cat.id}>
       <CatImg src={placeholder} />
       <CatInfoContainer>
         <CatInfoColumn>
-          <h3>{cat.name}</h3>
-          <TextMedium>lvl. {cat.level}</TextMedium>
+          <CatStatus color={statusColor}>{cat.status}</CatStatus>
+          <h3>
+            {cat.name} lvl. {cat.level}
+          </h3>
+          <TextMedium></TextMedium>
           <TextMedium>HP {cat.health}</TextMedium>
           <TextMedium>Str. {cat.strength}</TextMedium>
         </CatInfoColumn>

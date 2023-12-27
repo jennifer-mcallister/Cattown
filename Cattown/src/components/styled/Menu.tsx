@@ -29,6 +29,7 @@ export const MenuContainer = styled.div`
   padding: 2rem;
   background-color: grey;
   border-radius: 10px;
+  border: 6px solid black;
 `;
 
 export const MenuHeader = styled.div`

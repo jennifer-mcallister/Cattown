@@ -1,3 +1,5 @@
+import { ITimeLeft } from "../helpers/gameCalculationHelpers";
+
 export interface ISavefile {
   cats: ICat[];
   gold: number;
@@ -14,14 +16,11 @@ export interface ICat {
   level: number;
   health: number;
   strength: number;
-  // training: {
-  //   onTraining: boolean;
-  //   date: string;
-  //   durration: string;
-  //   type: string;
-  // };
+  status: string; // "training", "on misson", "in camp"
+  trainingEndTime: number;
+  trainingTimeLeft: ITimeLeft;
+  trainingXp: number;
   // mission: {
-  //   onMission: boolean;
   //   date: string;
   //   durration: string;
   //   type: string;
