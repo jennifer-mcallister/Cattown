@@ -29,7 +29,8 @@ export const MainContentSignUp = styled(MainContent)`
 export const CatsContent = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-direction: column;
   gap: 2rem;
   padding: 3rem;
   width: 100%;

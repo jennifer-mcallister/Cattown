@@ -44,7 +44,7 @@ export const logoutUser = async () => {
     await signOut(auth);
     console.log("User signed out");
   } catch {
-    console.log("503 Service Unavailable");
+    throw new Error("503 Service Unavailable");
   }
 };
 

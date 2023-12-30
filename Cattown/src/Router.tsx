@@ -11,10 +11,16 @@ import { Home } from "./pages/Home";
 import { SignUp } from "./pages/account/SignUp";
 import { Reset } from "./pages/account/Reset";
 import { getRelics } from "./services/RelicsService";
+import { getQuests } from "./services/MissionService";
 
 const loadRelics = async () => {
   const relics = await getRelics();
   return relics;
+};
+
+const loadQuests = async () => {
+  const quests = await getQuests();
+  return quests;
 };
 
 export const Router = createBrowserRouter([
@@ -61,7 +67,7 @@ export const Router = createBrowserRouter([
         path: "/map",
         id: "map",
         element: <Map></Map>,
-        // loader: get missions and bosses
+        loader: loadQuests,
       },
       {
         path: "/cats",

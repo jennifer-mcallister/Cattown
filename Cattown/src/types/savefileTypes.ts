@@ -16,19 +16,20 @@ export interface ICat {
   level: number;
   health: number;
   strength: number;
-  status: string; // "training", "on misson", "in camp"
+  status: string; // "training", "on misson", "in camp", "downed"
   trainingEndTime: number;
   trainingTimeLeft: ITimeLeft;
   trainingXp: number;
-  // mission: {
-  //   date: string;
-  //   durration: string;
-  //   type: string;
-  // };
+  missionEndTime: number;
+  missionTimeLeft: ITimeLeft;
+  downedEndTime: number;
+  downedTimeLeft: ITimeLeft;
+  missionGold: number;
+  missionXp: number;
 }
 
 export interface IRelic {
-  cost: 50;
+  cost: number;
   name: string;
   stats: {
     fireRes: number;
@@ -40,6 +41,7 @@ export interface IRelic {
 
 export interface IStats {
   luck: number;
+  critChance: number;
   health: number;
   strength: number;
   fireRes: number;

@@ -12,6 +12,7 @@ import {
   countOutCatLevel,
   countOutTimeLeft,
 } from "../../helpers/gameCalculationHelpers";
+import { updateGold } from "../../services/SavefileService";
 
 export interface IShowMenus {
   showMenu: boolean;
@@ -50,16 +51,15 @@ export const Layout = () => {
   }, []);
 
   useEffect(() => {
-    const updateTrainingFinnished = async (catFinnished: ICat) => {
+    const updateCatFinnished = async (catFinnished: ICat) => {
       try {
         const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
           if (cat.id === catFinnished.id) {
             return {
               ...catFinnished,
               level: countOutCatLevel(catFinnished.xp),
-              strength: countOutCatLevel(catFinnished.xp) * 1,
-              health: countOutCatLevel(catFinnished.xp) * 5,
-              trainingXp: 0,
+              strength: countOutCatLevel(catFinnished.xp) * 2,
+              health: countOutCatLevel(catFinnished.xp) * 10,
             };
           } else {
             return cat;
@@ -72,12 +72,20 @@ export const Layout = () => {
       }
     };
 
+    const updateSavefileGold = async (goldReceived: number) => {
+      try {
+        await updateGold(layoutContext.savefile.gold + goldReceived);
+      } catch {
+        throw new Error("Something when wrong");
+      }
+    };
+
     const countTimeLeft = setInterval(() => {
       const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
         if (cat.status === "training") {
           const timeInMilliseconds = cat.trainingEndTime - new Date().getTime();
           if (timeInMilliseconds < 10) {
-            updateTrainingFinnished({
+            updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: (cat.xp += cat.trainingXp),
@@ -85,9 +93,35 @@ export const Layout = () => {
           }
           const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
           return { ...cat, trainingTimeLeft: timeLeft };
-        } else {
-          return cat;
         }
+        if (cat.status === "on mission") {
+          const timeInMilliseconds = cat.missionEndTime - new Date().getTime();
+          if (timeInMilliseconds < 10) {
+            updateSavefileGold(cat.missionGold);
+            updateCatFinnished({
+              ...cat,
+              status: "in camp",
+              xp: (cat.xp += cat.missionXp),
+              missionGold: 0,
+            });
+          }
+          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+          return { ...cat, missionTimeLeft: timeLeft };
+        }
+        if (cat.status === "downed") {
+          const timeInMilliseconds = cat.downedEndTime - new Date().getTime();
+          if (timeInMilliseconds < 10) {
+            updateCatFinnished({
+              ...cat,
+              status: "in camp",
+              xp: cat.xp,
+            });
+          }
+          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+          return { ...cat, downedTimeLeft: timeLeft };
+        }
+
+        return cat;
       });
       setLayoutContext({
         ...layoutContext,

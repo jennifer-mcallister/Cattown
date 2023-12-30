@@ -19,3 +19,5 @@ export const db = getFirestore();
 export const auth = getAuth();
 export const savefilesCollection = collection(db, "savefiles");
 export const relicsCollection = collection(db, "relics");
+export const missionCollection = collection(db, "missions");
+export const bossesCollection = collection(db, "bosses");

@@ -12,6 +12,9 @@ export const Library = () => {
         <h2>{outletContext.savefile.username}</h2>
         <TextMedium>gold: {outletContext.savefile.gold}</TextMedium>
         <TextMedium>health: {outletContext.savefile.stats.health}%</TextMedium>
+        <TextMedium>
+          crit chance: {outletContext.savefile.stats.critChance}%
+        </TextMedium>
         <TextMedium>luck: {outletContext.savefile.stats.luck}%</TextMedium>
         <TextMedium>
           strength: {outletContext.savefile.stats.strength}%

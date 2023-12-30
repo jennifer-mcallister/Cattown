@@ -4,16 +4,6 @@ interface ICatStatusProps {
   color: string;
 }
 
-export const CatsContent = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: wrap;
-  width: 80%;
-  height: 80%;
-  gap: 3rem;
-`;
-
 export const CatContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -22,7 +12,6 @@ export const CatContainer = styled.div`
   height: 8rem;
   border-radius: 0.5rem;
   border: 3px solid black;
-  position: relative;
 
   background: grey;
 `;
@@ -43,10 +32,15 @@ export const CatInfoColumn = styled.div`
   height: 80%;
 `;
 
+export const CatImgContainer = styled.div`
+  width: 3.7rem;
+  position: relative;
+`;
+
 export const CatImg = styled.img`
   width: 3.7rem;
   position: absolute;
-  left: 0;
+  right: 26rem;
   z-index: 1;
 `;
 
