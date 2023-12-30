@@ -4,6 +4,7 @@ export const defaultSavefile = {
   gold: 200,
   stats: {
     luck: 1,
+    critChance: 5,
     health: 1,
     strength: 1,
     fireRes: 0,

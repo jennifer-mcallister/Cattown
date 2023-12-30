@@ -30,7 +30,7 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
       setConfirmLogOut(!confirmLogOut);
       navigate("/");
     } catch {
-      console.log("Something went wrong");
+      throw new Error("Something went wrong");
     }
   };
 
@@ -45,7 +45,7 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
       toggleOptions();
       navigate("/home");
     } catch {
-      console.log("Something went wrong");
+      throw new Error("Something went wrong");
     }
   };
 

@@ -3,13 +3,13 @@ import { ButtonMedium } from "./styled/Button";
 import {
   CatContainer,
   CatImg,
+  CatImgContainer,
   CatInfoColumn,
   CatInfoContainer,
   CatStatus,
 } from "./styled/Cat";
-import { TextMedium } from "./styled/Text";
+import { TextMedium, TextSmall } from "./styled/Text";
 import placeholder from "../assets/cat_placeholder.png";
-import { useNavigate } from "react-router-dom";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { MenuBackground } from "./styled/Menu";
 import {
@@ -18,6 +18,7 @@ import {
 } from "./styled/Container";
 import { Form, FormInput } from "./styled/Form";
 import { updateCats } from "../services/CatService";
+import { ProgressBar } from "./ProgressBar";
 
 interface ICatInfoProps {
   cat: ICat;
@@ -25,7 +26,6 @@ interface ICatInfoProps {
 }
 
 export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
-  const navigate = useNavigate();
   const [changeName, setChangeName] = useState(false);
   const [newName, setNewName] = useState("");
   const [statusColor, setStatusColor] = useState<string>("");
@@ -82,49 +82,14 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
       case "on mission":
         setStatusColor("red");
         break;
+      case "downed":
+        setStatusColor("blue");
+        break;
     }
   }, [cats]);
 
   return (
     <CatContainer key={cat.id}>
-      <CatImg src={placeholder} />
-      <CatInfoContainer>
-        <CatInfoColumn>
-          <CatStatus color={statusColor}>{cat.status}</CatStatus>
-          <h3>
-            {cat.name} lvl. {cat.level}
-          </h3>
-          <TextMedium></TextMedium>
-          <TextMedium>HP {cat.health}</TextMedium>
-          <TextMedium>Str. {cat.strength}</TextMedium>
-        </CatInfoColumn>
-        <CatInfoColumn>
-          <ButtonMedium
-            onClick={() => {
-              navigate("/map");
-            }}
-          >
-            Mission
-          </ButtonMedium>
-          <ButtonMedium
-            onClick={() => {
-              navigate("/training");
-            }}
-          >
-            Training
-          </ButtonMedium>
-        </CatInfoColumn>
-        <CatInfoColumn>
-          <ButtonMedium onClick={toggleChangeName}>Change name</ButtonMedium>
-          <ButtonMedium
-            onClick={() => {
-              deleteCat(cat);
-            }}
-          >
-            Retire
-          </ButtonMedium>
-        </CatInfoColumn>
-      </CatInfoContainer>
       {changeName && (
         <MenuBackground show={"true"}>
           <ConfirmationContainer>
@@ -149,6 +114,51 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
           </ConfirmationContainer>
         </MenuBackground>
       )}
+      <CatImgContainer>
+        <CatImg src={placeholder} />
+      </CatImgContainer>
+      <CatInfoContainer>
+        <CatInfoColumn>
+          <h3>
+            {cat.name} lvl. {cat.level}
+          </h3>
+          <TextMedium>HP {cat.health}</TextMedium>
+          <TextMedium>Str. {cat.strength}</TextMedium>
+        </CatInfoColumn>
+        <CatInfoColumn>
+          <CatStatus color={statusColor}>{cat.status}</CatStatus>
+          {cat.status === "training" && (
+            <TextSmall>
+              Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
+              {cat.trainingTimeLeft?.sec}
+            </TextSmall>
+          )}
+          {cat.status === "on mission" && (
+            <TextSmall>
+              Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
+              {cat.missionTimeLeft?.sec}
+            </TextSmall>
+          )}
+          {cat.status === "downed" && (
+            <TextSmall>
+              Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
+              {cat.downedTimeLeft?.sec}
+            </TextSmall>
+          )}
+          <TextSmall>{cat.xp} XP</TextSmall>
+          <ProgressBar catLevel={cat.level} catXP={cat.xp} />
+        </CatInfoColumn>
+        <CatInfoColumn>
+          <ButtonMedium onClick={toggleChangeName}>Change name</ButtonMedium>
+          <ButtonMedium
+            onClick={() => {
+              deleteCat(cat);
+            }}
+          >
+            Retire
+          </ButtonMedium>
+        </CatInfoColumn>
+      </CatInfoContainer>
     </CatContainer>
   );
 };

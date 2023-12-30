@@ -4,6 +4,7 @@ import {
   CatContainer,
   CatFooter,
   CatImg,
+  CatImgContainer,
   CatInfoColumn,
   CatInfoContainer,
   CatStatus,
@@ -62,13 +63,19 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
       case "on mission":
         setStatusColor("red");
         break;
+      case "downed":
+        setStatusColor("blue");
+        break;
     }
   }, [cats]);
 
   return (
     <>
       <CatContainer key={cat.id}>
-        <CatImg src={placeholder} />
+        <CatImgContainer>
+          <CatImg src={placeholder} />
+        </CatImgContainer>
+
         <CatInfoContainer>
           <CatInfoColumn>
             <h3>{cat.name}</h3>
@@ -80,10 +87,22 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
           </CatInfoColumn>
           <CatInfoColumn>
             <CatStatus color={statusColor}>{cat.status}</CatStatus>
-            {cat.trainingEndTime && cat.status === "training" && (
+            {cat.status === "training" && (
               <TextSmall>
                 Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
                 {cat.trainingTimeLeft?.sec}
+              </TextSmall>
+            )}
+            {cat.status === "on mission" && (
+              <TextSmall>
+                Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
+                {cat.missionTimeLeft?.sec}
+              </TextSmall>
+            )}
+            {cat.status === "downed" && (
+              <TextSmall>
+                Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
+                {cat.downedTimeLeft?.sec}
               </TextSmall>
             )}
             <ButtonMedium

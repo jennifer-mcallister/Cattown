@@ -18,6 +18,38 @@ export const getSavefile = async () => {
   }
 };
 
+export const updateGold = async (gold: number) => {
+  try {
+    const loggedInUser = await auth.currentUser;
+
+    if (!loggedInUser) {
+      throw new Error("UnAuthorized");
+    }
+
+    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    await updateDoc(savefileRef, { gold: gold });
+    console.log("Gold is updated");
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
+
+export const updateUniqueItems = async (uniqueItems: number[]) => {
+  try {
+    const loggedInUser = await auth.currentUser;
+
+    if (!loggedInUser) {
+      throw new Error("UnAuthorized");
+    }
+
+    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    await updateDoc(savefileRef, { uniqueItems: uniqueItems });
+    console.log("Unique items is updated");
+  } catch {
+    throw new Error("503 Service Unavailable");
+  }
+};
+
 export const resetSavefile = async () => {
   try {
     const loggedInUser = await auth.currentUser;

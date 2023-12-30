@@ -57,7 +57,7 @@ export const Home = () => {
               navigate("/shop");
             }}
           />
-          <TextMedium>Witches Shop</TextMedium>
+          <TextMedium>Bobbens Shop</TextMedium>
         </HomeNavContainer>
       </HomeContainer>
     </MainContent>

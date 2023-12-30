@@ -12,15 +12,15 @@ interface IProgressBar {
 }
 
 export const ProgressBar = ({ catLevel, catXP }: IProgressBar) => {
-  const [progress, setProgress] = useState(0);
+  const [userProgress, setUserProgress] = useState(0);
 
   useEffect(() => {
-    setProgress(countOutLevelProgress(catXP));
+    setUserProgress(countOutLevelProgress(catXP));
   }, [catXP]);
 
   return (
     <ProgressBarContainer>
-      <ProgressBarFill progress={progress} />
+      <ProgressBarFill progress={userProgress} />
       <ProgressBarNextLevel>Level {catLevel + 1}</ProgressBarNextLevel>
     </ProgressBarContainer>
   );

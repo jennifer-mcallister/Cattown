@@ -51,7 +51,7 @@ export const Shop = () => {
   return (
     <>
       <MainContent>
-        <h1>Witches Shop</h1>
+        <h1>Bobbens Shop</h1>
         <h2>You have {outletContext.savefile.gold} gold to spend</h2>
         <ShopMenuContainer>
           <ShopMenuItemsContainer>
