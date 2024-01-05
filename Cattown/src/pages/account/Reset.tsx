@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Form, FormInput } from "../../components/styled/Form";
-import { TextSmall } from "../../components/styled/Text";
+import { Form, FormInput, FormLabel } from "../../components/styled/Form";
+import { HeaderSmall, TextSmall } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import {
   MenuContainer,
@@ -8,7 +8,7 @@ import {
   MenuHeader,
   MenuSmallContainer,
 } from "../../components/styled/Menu";
-import { ButtonMedium } from "../../components/styled/Button";
+import { ButtonLarge } from "../../components/styled/Button";
 import { resetPassword } from "../../services/UserService";
 
 interface ISubmit {
@@ -45,11 +45,11 @@ export const Reset = () => {
   return (
     <MenuContainer>
       <MenuHeader>
-        <h1>Forgott password?</h1>
+        <HeaderSmall>Forgott password?</HeaderSmall>
       </MenuHeader>
 
       <Form method="post" onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
+        <FormLabel htmlFor="email">Email</FormLabel>
         <FormInput
           type="email"
           placeholder="Email"
@@ -60,7 +60,7 @@ export const Reset = () => {
           onChange={handleChange}
         />
         <MenuSmallContainer>
-          <ButtonMedium type="submit">Send login link</ButtonMedium>
+          <ButtonLarge type="submit">Send login link</ButtonLarge>
           {submit.fail && <TextSmall>Account do not exists!</TextSmall>}
           {submit.success && (
             <TextSmall>An email has been sent to your account!</TextSmall>

@@ -4,12 +4,14 @@ import { HeaderContent } from "../../components/styled/LayoutStyle";
 import {
   HeaderSmallContainer,
   HeaderGold,
+  HeaderCoinImg,
 } from "../../components/styled/HeaderStyle";
 import { useNavigate } from "react-router-dom";
 import { OptionsMenu } from "../../components/OptionsMenu";
 import { IShowMenus } from "./Layout";
 import { ButtonMedium } from "../../components/styled/Button";
-import { TextMedium } from "../../components/styled/Text";
+import { HeaderSmall } from "../../components/styled/Text";
+import coin from "/assets/coin.png";
 
 interface IHeaderProps {
   userGold: number;
@@ -37,13 +39,14 @@ export const Header = ({
   return (
     <HeaderContent>
       <HeaderSmallContainer>
-        <HeaderGold>{userGold} GOLD</HeaderGold>
         <ButtonMedium onClick={() => navigate("/home")}>Home</ButtonMedium>
+        <HeaderGold>
+          <HeaderSmall>{userGold}</HeaderSmall>
+          <HeaderCoinImg src={coin} alt="Image of a coin" />
+        </HeaderGold>
       </HeaderSmallContainer>
 
-      <TextMedium>
-        Welcome Mayor {username}! Cattown is currently under development..
-      </TextMedium>
+      <HeaderSmall>Welcome {username}!</HeaderSmall>
       <HeaderSmallContainer>
         <ButtonMedium onClick={() => toggleOptions()}>Options</ButtonMedium>
         <ButtonMedium onClick={() => toggleMenu()}>Menu</ButtonMedium>

@@ -1,4 +1,14 @@
 import { styled } from "styled-components";
+import { secondaryPink, secondaryWhite } from "./theme_variables/colors";
+import {
+  borderRadiusMedium,
+  mediumBorder,
+  smallBorder,
+} from "./theme_variables/borders";
+
+interface IContainerProps {
+  bgColor?: string;
+}
 
 export const ConfirmationContainer = styled.div`
   display: flex;
@@ -8,8 +18,9 @@ export const ConfirmationContainer = styled.div`
   width: 20rem;
   min-height: 6rem;
   padding: 2rem;
-  background-color: grey;
-  border-radius: 10px;
+  background-color: ${secondaryPink};
+  border-radius: ${borderRadiusMedium};
+  border: ${mediumBorder};
 `;
 
 export const ConfirmationButtonsContainer = styled.div`
@@ -29,4 +40,15 @@ export const HomeContainer = styled.div`
   align-items: center;
   gap: 10rem;
   padding: 3rem;
+`;
+
+export const PageHeaderContainer = styled.div<IContainerProps>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50rem;
+  height: 4rem;
+  border: ${smallBorder};
+  border-radius: ${borderRadiusMedium};
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryWhite)};
 `;

@@ -1,18 +1,33 @@
 import { ProgressBar } from "../ProgressBar";
 import { ButtonLarge } from "../styled/Button";
 import {
-  ConfirmCatContainer,
   ConfirmMissionContainer,
-  QuestCatImg,
   QuestContent,
   QuestFooter,
   QuestHeader,
   QuestsMenuContent,
   QuestsMenuFooter,
 } from "../styled/Quest";
-import { TextMedium, TextSmall } from "../styled/Text";
-import catPlaceholder from "../../assets/cathead_placeholder.png";
+import {
+  HeaderSmall,
+  TextMedium,
+  TextSmall,
+  TextSmallBold,
+} from "../styled/Text";
+import placeholder from "/assets/cat_white.png";
 import { IMissionQuest } from "./QuestsMenu";
+import {
+  CatContainer,
+  CatContent,
+  CatContentColumn,
+  CatDivider,
+  CatFooter,
+  CatHeader,
+  CatImg,
+  CatImgContainer,
+  CatTextContainer,
+} from "../styled/Cat";
+import { useState } from "react";
 
 interface IConfirmMissionProps {
   quest: IMissionQuest;
@@ -22,35 +37,82 @@ export const ConfirmMission = ({
   quest,
   confirmMission: confirmMission,
 }: IConfirmMissionProps) => {
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  const handleLoading = () => {
+    setImgLoaded(true);
+  };
   return (
     <>
       <QuestsMenuContent>
         <ConfirmMissionContainer>
           <QuestHeader>
-            <h3>{quest.mission.type}</h3>
+            <HeaderSmall>{quest.mission.type}</HeaderSmall>
           </QuestHeader>
           <QuestContent>
-            <h4>Time:</h4>
-            <TextSmall>{quest.mission.timeInSec} Sec</TextSmall>
+            <TextSmall>Time: {quest.mission.timeInSec} Sec</TextSmall>
           </QuestContent>
           <QuestFooter>
             <TextMedium>{quest.mission.xpReceived} XP</TextMedium>
             <TextMedium>{quest.mission.goldReceived} GOLD</TextMedium>
           </QuestFooter>
         </ConfirmMissionContainer>
-        <ConfirmCatContainer>
-          <QuestHeader>
-            <h2>{quest.cat.name}</h2>
-            <TextMedium>Lvl. {quest.cat.level}</TextMedium>
-          </QuestHeader>
-          <QuestContent>
-            <QuestCatImg src={catPlaceholder} />
-            <TextMedium>{quest.cat.status}</TextMedium>
-          </QuestContent>
-          <QuestFooter>
+        <CatContainer key={quest.cat.id} className={imgLoaded ? "loaded" : ""}>
+          <CatHeader>
+            <CatImgContainer>
+              <CatImg
+                src={placeholder}
+                onLoad={handleLoading}
+                alt="Image of a cat"
+              />
+            </CatImgContainer>
+            <HeaderSmall>{quest.cat.name}</HeaderSmall>
             <ProgressBar catLevel={quest.cat.level} catXP={quest.cat.xp} />
-          </QuestFooter>
-        </ConfirmCatContainer>
+          </CatHeader>
+          <CatContent>
+            <CatContentColumn>
+              <TextMedium>Stats</TextMedium>
+              <CatDivider />
+              <CatTextContainer>
+                <TextSmall>Health</TextSmall>
+                <TextSmall>{quest.cat.health}</TextSmall>
+              </CatTextContainer>
+              <CatTextContainer>
+                <TextSmall>Strength</TextSmall>
+                <TextSmall>{quest.cat.strength}</TextSmall>
+              </CatTextContainer>
+            </CatContentColumn>
+            <CatContentColumn>
+              <TextMedium>Status</TextMedium>
+              <CatDivider />
+              <TextSmallBold>{quest.cat.status}</TextSmallBold>
+              {quest.cat.status === "training" && (
+                <TextSmall>
+                  Back in: {quest.cat.trainingTimeLeft?.h}:
+                  {quest.cat.trainingTimeLeft?.min}:
+                  {quest.cat.trainingTimeLeft?.sec}
+                </TextSmall>
+              )}
+              {quest.cat.status === "on mission" && (
+                <TextSmall>
+                  Back in: {quest.cat.missionTimeLeft?.h}:
+                  {quest.cat.missionTimeLeft?.min}:
+                  {quest.cat.missionTimeLeft?.sec}
+                </TextSmall>
+              )}
+              {quest.cat.status === "downed" && (
+                <TextSmall>
+                  Back in: {quest.cat.downedTimeLeft?.h}:
+                  {quest.cat.downedTimeLeft?.min}:
+                  {quest.cat.downedTimeLeft?.sec}
+                </TextSmall>
+              )}
+            </CatContentColumn>
+          </CatContent>
+          <CatFooter>
+            <HeaderSmall>I'm Ready!</HeaderSmall>
+          </CatFooter>
+        </CatContainer>
       </QuestsMenuContent>
       <QuestsMenuFooter>
         <ButtonLarge onClick={confirmMission}>OK</ButtonLarge>

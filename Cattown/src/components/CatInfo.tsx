@@ -2,15 +2,23 @@ import { ICat } from "../types/savefileTypes";
 import { ButtonMedium } from "./styled/Button";
 import {
   CatContainer,
+  CatContent,
+  CatContentColumn,
+  CatDivider,
+  CatFooter,
+  CatHeader,
   CatImg,
   CatImgContainer,
-  CatInfoColumn,
-  CatInfoContainer,
-  CatStatus,
+  CatTextContainer,
 } from "./styled/Cat";
-import { TextMedium, TextSmall } from "./styled/Text";
-import placeholder from "../assets/cat_placeholder.png";
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import {
+  HeaderSmall,
+  TextMedium,
+  TextSmall,
+  TextSmallBold,
+} from "./styled/Text";
+import placeholder from "/assets/cat_white.png";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { MenuBackground } from "./styled/Menu";
 import {
   ConfirmationButtonsContainer,
@@ -19,6 +27,11 @@ import {
 import { Form, FormInput } from "./styled/Form";
 import { updateCats } from "../services/CatService";
 import { ProgressBar } from "./ProgressBar";
+import {
+  primaryBlue,
+  primaryGreen,
+  primaryRed,
+} from "./styled/theme_variables/colors";
 
 interface ICatInfoProps {
   cat: ICat;
@@ -28,7 +41,11 @@ interface ICatInfoProps {
 export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
   const [changeName, setChangeName] = useState(false);
   const [newName, setNewName] = useState("");
-  const [statusColor, setStatusColor] = useState<string>("");
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  const handleLoading = () => {
+    setImgLoaded(true);
+  };
 
   const toggleChangeName = () => {
     setChangeName(!changeName);
@@ -71,29 +88,12 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
     }
   };
 
-  useEffect(() => {
-    switch (cat.status) {
-      case "in camp":
-        setStatusColor("lightgreen");
-        break;
-      case "training":
-        setStatusColor("yellow");
-        break;
-      case "on mission":
-        setStatusColor("red");
-        break;
-      case "downed":
-        setStatusColor("blue");
-        break;
-    }
-  }, [cats]);
-
   return (
-    <CatContainer key={cat.id}>
+    <>
       {changeName && (
         <MenuBackground show={"true"}>
           <ConfirmationContainer>
-            <h3>Enter new name for: {cat.name}</h3>
+            <HeaderSmall>Enter new name for: {cat.name}</HeaderSmall>
             <Form method="post" onSubmit={updateCatName}>
               <FormInput
                 type="text"
@@ -107,58 +107,80 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
                 onChange={handleChange}
               />
               <ConfirmationButtonsContainer>
-                <ButtonMedium type="submit">Yes</ButtonMedium>
-                <ButtonMedium onClick={toggleChangeName}>No</ButtonMedium>
+                <ButtonMedium bgColor={primaryGreen} type="submit">
+                  Yes
+                </ButtonMedium>
+                <ButtonMedium bgColor={primaryRed} onClick={toggleChangeName}>
+                  No
+                </ButtonMedium>
               </ConfirmationButtonsContainer>
             </Form>
           </ConfirmationContainer>
         </MenuBackground>
       )}
-      <CatImgContainer>
-        <CatImg src={placeholder} />
-      </CatImgContainer>
-      <CatInfoContainer>
-        <CatInfoColumn>
-          <h3>
-            {cat.name} lvl. {cat.level}
-          </h3>
-          <TextMedium>HP {cat.health}</TextMedium>
-          <TextMedium>Str. {cat.strength}</TextMedium>
-        </CatInfoColumn>
-        <CatInfoColumn>
-          <CatStatus color={statusColor}>{cat.status}</CatStatus>
-          {cat.status === "training" && (
-            <TextSmall>
-              Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
-              {cat.trainingTimeLeft?.sec}
-            </TextSmall>
-          )}
-          {cat.status === "on mission" && (
-            <TextSmall>
-              Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
-              {cat.missionTimeLeft?.sec}
-            </TextSmall>
-          )}
-          {cat.status === "downed" && (
-            <TextSmall>
-              Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
-              {cat.downedTimeLeft?.sec}
-            </TextSmall>
-          )}
-          <TextSmall>{cat.xp} XP</TextSmall>
+      <CatContainer key={cat.id} className={imgLoaded ? "loaded" : ""}>
+        <CatHeader>
+          <CatImgContainer>
+            <CatImg
+              src={placeholder}
+              onLoad={handleLoading}
+              alt="Image of a cat"
+            />
+          </CatImgContainer>
+          <HeaderSmall>{cat.name}</HeaderSmall>
           <ProgressBar catLevel={cat.level} catXP={cat.xp} />
-        </CatInfoColumn>
-        <CatInfoColumn>
-          <ButtonMedium onClick={toggleChangeName}>Change name</ButtonMedium>
+        </CatHeader>
+        <CatContent>
+          <CatContentColumn>
+            <TextMedium>Stats</TextMedium>
+            <CatDivider />
+            <CatTextContainer>
+              <TextSmall>Health</TextSmall>
+              <TextSmall>{cat.health}</TextSmall>
+            </CatTextContainer>
+            <CatTextContainer>
+              <TextSmall>Strength</TextSmall>
+              <TextSmall>{cat.strength}</TextSmall>
+            </CatTextContainer>
+          </CatContentColumn>
+          <CatContentColumn>
+            <TextMedium>Status</TextMedium>
+            <CatDivider />
+            <TextSmallBold>{cat.status}</TextSmallBold>
+            {cat.status === "training" && (
+              <TextSmall>
+                Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
+                {cat.trainingTimeLeft?.sec}
+              </TextSmall>
+            )}
+            {cat.status === "on mission" && (
+              <TextSmall>
+                Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
+                {cat.missionTimeLeft?.sec}
+              </TextSmall>
+            )}
+            {cat.status === "downed" && (
+              <TextSmall>
+                Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
+                {cat.downedTimeLeft?.sec}
+              </TextSmall>
+            )}
+          </CatContentColumn>
+        </CatContent>
+        <CatFooter>
+          <ButtonMedium bgColor={primaryBlue} onClick={toggleChangeName}>
+            New name
+          </ButtonMedium>
           <ButtonMedium
+            bgColor={primaryRed}
             onClick={() => {
               deleteCat(cat);
             }}
           >
             Retire
           </ButtonMedium>
-        </CatInfoColumn>
-      </CatInfoContainer>
-    </CatContainer>
+        </CatFooter>
+      </CatContainer>
+    </>
   );
 };

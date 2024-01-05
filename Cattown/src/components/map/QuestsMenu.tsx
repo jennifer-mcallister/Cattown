@@ -5,8 +5,10 @@ import { Boss } from "./Boss";
 import { Mission } from "./Mission";
 import { ButtonMedium } from "../styled/Button";
 import {
+  QuestMenuBackground,
   QuestsMenuContainer,
   QuestsMenuContent,
+  QuestsMenuFooter,
   QuestsMenuHeader,
 } from "../styled/Quest";
 import { defaultMission } from "../../models/Misson";
@@ -21,7 +23,7 @@ import {
   countOutCatLevel,
 } from "../../helpers/gameCalculationHelpers";
 import { updateUniqueItems } from "../../services/SavefileService";
-import { TextMedium } from "../styled/Text";
+import { HeaderBig, HeaderSmall, TextMedium } from "../styled/Text";
 
 interface IQuestMenuProps {
   zone: string;
@@ -185,61 +187,70 @@ export const QuestsMenu = ({
   };
 
   return (
-    <QuestsMenuContainer>
-      <QuestsMenuHeader>
-        <h2>Questlog for {zone}</h2>
-        {questType === "boss" && <TextMedium>Pick 3 cats</TextMedium>}
-        <ButtonMedium onClick={toggleShowQuests}>X</ButtonMedium>
-      </QuestsMenuHeader>
-      {showQuests && (
-        <QuestsMenuContent>
-          {missions.map((mission, index) => (
-            <Mission
-              mission={mission}
-              key={index}
-              selectMission={selectMission}
-            />
-          ))}
-          {!bossDead && <Boss boss={boss} selectBoss={selectBoss} />}
-        </QuestsMenuContent>
-      )}
-      {showCats && (
-        <QuestsMenuContent>
-          {cats.map((cat) => (
-            <QuestCat
-              key={cat.id}
-              cat={cat}
-              questType={questType}
-              zoneLevel={zoneLevel}
-              selectCat={selectCat}
-            />
-          ))}
-        </QuestsMenuContent>
-      )}
-      {showConfirmMission && (
-        <ConfirmMission quest={missionQuest} confirmMission={confirmMission} />
-      )}
-      {showConfirmBoss && (
-        <>
-          {!showBossFightSuccess && (
-            <ConfirmBoss
-              quest={bossQuest}
-              confirmBoss={confirmBoss}
-              userStats={userStats}
-            />
-          )}
-        </>
-      )}
-      {showBossFightSuccess && (
-        <QuestsMenuContent>
-          <h2>{bossFightSuccess ? "Success!" : "Fail"}</h2>
-          <TextMedium>
-            {bossFightSuccess
-              ? `You have slayed ${boss.name} and McGuffin ${boss.mcguffinId} is now yours! `
-              : `This time you were to weak and ${boss.name} was not defeated. Your cats will be downed for 15 minutes.`}
-          </TextMedium>
-        </QuestsMenuContent>
-      )}
-    </QuestsMenuContainer>
+    <QuestMenuBackground>
+      <QuestsMenuContainer>
+        <QuestsMenuHeader>
+          <HeaderSmall>Questlog for {zone}</HeaderSmall>
+          <ButtonMedium onClick={toggleShowQuests}>X</ButtonMedium>
+        </QuestsMenuHeader>
+        {showQuests && (
+          <QuestsMenuContent>
+            {missions.map((mission, index) => (
+              <Mission
+                mission={mission}
+                key={index}
+                selectMission={selectMission}
+              />
+            ))}
+            {!bossDead && <Boss boss={boss} selectBoss={selectBoss} />}
+          </QuestsMenuContent>
+        )}
+        {showCats && (
+          <QuestsMenuContent>
+            {cats.map((cat) => (
+              <QuestCat
+                key={cat.id}
+                cat={cat}
+                questType={questType}
+                zoneLevel={zoneLevel}
+                selectCat={selectCat}
+              />
+            ))}
+          </QuestsMenuContent>
+        )}
+        {showConfirmMission && (
+          <ConfirmMission
+            quest={missionQuest}
+            confirmMission={confirmMission}
+          />
+        )}
+        {showConfirmBoss && (
+          <>
+            {!showBossFightSuccess && (
+              <ConfirmBoss
+                quest={bossQuest}
+                confirmBoss={confirmBoss}
+                userStats={userStats}
+              />
+            )}
+          </>
+        )}
+        {showBossFightSuccess && (
+          <>
+            <HeaderBig>
+              {bossFightSuccess ? "Success!" : "Fail"}! 15 minutes downtime
+            </HeaderBig>
+            <QuestsMenuFooter>
+              {" "}
+              <TextMedium>
+                {bossFightSuccess
+                  ? `You have slayed ${boss.name} and McGuffin ${boss.mcguffinId} is now yours! `
+                  : `This time you were to weak and ${boss.name} was not defeated.`}
+              </TextMedium>
+            </QuestsMenuFooter>
+          </>
+        )}
+      </QuestsMenuContainer>
+    </QuestMenuBackground>
   );
 };

@@ -1,4 +1,7 @@
 import { styled } from "styled-components";
+import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
+import { secondaryWhite } from "./theme_variables/colors";
+import { bounceAnimation } from "./Animations";
 
 export const ShopMenuContainer = styled.div`
   display: flex;
@@ -28,37 +31,60 @@ export const ShopMenuItemsContainer = styled.div`
 export const ShopItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 18rem;
-  height: 8rem;
-  border-radius: 0.5rem;
   align-items: center;
+  justify-content: space-between;
+  width: 18rem;
+  height: 17.5rem;
+  padding: 0.5rem;
+  border-radius: ${borderRadiusMedium};
+  border: ${smallBorder};
+  background: ${secondaryWhite};
 
-  background: grey;
-  border: 3px solid black;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+  &.loaded {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: ${bounceAnimation} 1s ease-in-out;
+  }
 `;
 
-export const ShopItemHeader = styled.div`
-  width: 8rem;
-  height: 20%;
-`;
-
-export const ShopItemInfo = styled.div`
+export const ShopItemContent = styled.div`
   display: flex;
   flex-direction: row;
-  width: 18rem;
-  height: 80%;
-  border-radius: 0.5rem;
+  width: 90%;
+  height: 75%;
+`;
+
+export const ShopItemLeftBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  height: 100%;
+  gap: 1rem;
+`;
+
+export const ShopItemRightBox = styled(ShopItemLeftBox)`
+  width: 40%;
+  justify-content: center;
   align-items: center;
 `;
 
-export const ShopItemImg = styled.img`
-  width: 5rem;
+export const ShopItemFooter = styled.div`
+  display: flex;
+  width: 100%;
+  height: 25%;
 `;
 
 export const ShopItemInfoContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
   flex-direction: column;
-  width: 33%;
-  height: 80%;
+  width: 70%;
+  height: 75%;
+`;
+
+export const ShopItemRelicImg = styled.img`
+  width: 7rem;
 `;

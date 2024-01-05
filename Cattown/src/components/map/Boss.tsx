@@ -6,7 +6,7 @@ import {
   QuestFooter,
   QuestHeader,
 } from "../styled/Quest";
-import { TextMedium, TextSmall } from "../styled/Text";
+import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 
 interface IBossProps {
   boss: IBoss;
@@ -24,7 +24,7 @@ export const Boss = ({ boss, selectBoss }: IBossProps) => {
       selected={selectedBoss}
     >
       <QuestHeader>
-        <h3>Kill {boss.name}</h3>
+        <HeaderSmall>Kill {boss.name}</HeaderSmall>
       </QuestHeader>
       <QuestContent>
         <h4>Damage:</h4>

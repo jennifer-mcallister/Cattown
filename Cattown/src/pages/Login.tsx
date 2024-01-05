@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Form, FormInput } from "../components/styled/Form";
+import { Form, FormInput, FormLabel } from "../components/styled/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { TextSmall } from "../components/styled/Text";
+import { HeaderSmall, TextSmall } from "../components/styled/Text";
 import { IUserLogin } from "../types/userTypes";
 import {
   MenuContainer,
@@ -45,10 +45,10 @@ export const Login = () => {
     <>
       <MenuContainer>
         <MenuHeader>
-          <h1>Enter Cattown</h1>
+          <HeaderSmall>Welcome to Cattown</HeaderSmall>
         </MenuHeader>
         <Form method="post" onSubmit={handleSubmit}>
-          <label htmlFor="username">Email</label>
+          <FormLabel htmlFor="username">Email</FormLabel>
           <FormInput
             type="email"
             placeholder="email"
@@ -59,7 +59,7 @@ export const Login = () => {
             onChange={handleChange}
           />
 
-          <label htmlFor="password">Password</label>
+          <FormLabel htmlFor="password">Password</FormLabel>
           <FormInput
             type="password"
             placeholder="Password"

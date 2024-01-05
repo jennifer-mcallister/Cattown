@@ -2,17 +2,24 @@ import { ICat } from "../types/savefileTypes";
 import { ProgressBar } from "./ProgressBar";
 import {
   CatContainer,
+  CatContent,
+  CatContentColumn,
+  CatDivider,
   CatFooter,
+  CatHeader,
   CatImg,
   CatImgContainer,
-  CatInfoColumn,
-  CatInfoContainer,
-  CatStatus,
+  CatTextContainer,
 } from "./styled/Cat";
-import { TextMedium, TextSmall } from "./styled/Text";
-import placeholder from "../assets/cat_placeholder.png";
-import { ButtonLargeSelect, ButtonMedium } from "./styled/Button";
-import { useEffect, useState } from "react";
+import {
+  HeaderSmall,
+  TextMedium,
+  TextSmall,
+  TextSmallBold,
+} from "./styled/Text";
+import placeholder from "/assets/cat_white.png";
+import { ButtonLarge, ButtonLargeSelect, ButtonMedium } from "./styled/Button";
+import { useState } from "react";
 import {
   MenuBackground,
   MenuContainer,
@@ -27,9 +34,13 @@ interface IPickCatTraining {
 }
 
 export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
-  const [statusColor, setStatusColor] = useState<string>("");
   const [pickTime, setPickTime] = useState(false);
   const [selectedTime, setSelectedTime] = useState(0);
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  const handleLoading = () => {
+    setImgLoaded(true);
+  };
 
   const confirmTraining = async () => {
     try {
@@ -52,41 +63,37 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
     }
   };
 
-  useEffect(() => {
-    switch (cat.status) {
-      case "in camp":
-        setStatusColor("lightgreen");
-        break;
-      case "training":
-        setStatusColor("yellow");
-        break;
-      case "on mission":
-        setStatusColor("red");
-        break;
-      case "downed":
-        setStatusColor("blue");
-        break;
-    }
-  }, [cats]);
-
   return (
     <>
-      <CatContainer key={cat.id}>
-        <CatImgContainer>
-          <CatImg src={placeholder} />
-        </CatImgContainer>
-
-        <CatInfoContainer>
-          <CatInfoColumn>
-            <h3>{cat.name}</h3>
-            <TextMedium>lvl. {cat.level}</TextMedium>
-          </CatInfoColumn>
-          <CatInfoColumn>
-            <TextMedium>HP {cat.health}</TextMedium>
-            <TextMedium>str. {cat.strength}</TextMedium>
-          </CatInfoColumn>
-          <CatInfoColumn>
-            <CatStatus color={statusColor}>{cat.status}</CatStatus>
+      <CatContainer key={cat.id} className={imgLoaded ? "loaded" : ""}>
+        <CatHeader>
+          <CatImgContainer>
+            <CatImg
+              src={placeholder}
+              onLoad={handleLoading}
+              alt="Image of a cat"
+            />
+          </CatImgContainer>
+          <HeaderSmall>{cat.name}</HeaderSmall>
+          <ProgressBar catLevel={cat.level} catXP={cat.xp} />
+        </CatHeader>
+        <CatContent>
+          <CatContentColumn>
+            <TextMedium>Stats</TextMedium>
+            <CatDivider />
+            <CatTextContainer>
+              <TextSmall>Health</TextSmall>
+              <TextSmall>{cat.health}</TextSmall>
+            </CatTextContainer>
+            <CatTextContainer>
+              <TextSmall>Strength</TextSmall>
+              <TextSmall>{cat.strength}</TextSmall>
+            </CatTextContainer>
+          </CatContentColumn>
+          <CatContentColumn>
+            <TextMedium>Status</TextMedium>
+            <CatDivider />
+            <TextSmallBold>{cat.status}</TextSmallBold>
             {cat.status === "training" && (
               <TextSmall>
                 Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
@@ -105,18 +112,17 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
                 {cat.downedTimeLeft?.sec}
               </TextSmall>
             )}
-            <ButtonMedium
-              onClick={() => {
-                setPickTime(true);
-              }}
-              disabled={cat.status !== "in camp" ? true : false}
-            >
-              Train
-            </ButtonMedium>
-          </CatInfoColumn>
-        </CatInfoContainer>
+          </CatContentColumn>
+        </CatContent>
         <CatFooter>
-          <ProgressBar catLevel={cat.level} catXP={cat.xp} />
+          <ButtonLarge
+            onClick={() => {
+              setPickTime(true);
+            }}
+            disabled={cat.status !== "in camp" ? true : false}
+          >
+            Train Cat
+          </ButtonLarge>
         </CatFooter>
       </CatContainer>
       <MenuBackground show={pickTime.toString()}>

@@ -1,20 +1,42 @@
 import { styled } from "styled-components";
+import {
+  borderRadiusMedium,
+  mediumBorder,
+  smallBorder,
+} from "./theme_variables/borders";
+import { primaryRed, secondaryWhite } from "./theme_variables/colors";
 interface IQuestProps {
   selected: string;
 }
+
+export const QuestMenuBackground = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 2rem;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+`;
 
 export const QuestsMenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 36rem;
-  max-height: 36rem;
-  position: absolute;
-  background-color: #6a6a6a;
-  border: 6px solid black;
-  border-radius: 1rem;
+  gap: 2rem;
+  width: 42rem;
+  max-height: 53rem;
   padding: 2rem;
+  padding-top: 1rem;
+
+  border-radius: ${borderRadiusMedium};
+  border: ${mediumBorder};
+  background: ${primaryRed};
 `;
 
 export const QuestConfirmContainer = styled(QuestsMenuContainer)`
@@ -39,19 +61,21 @@ export const QuestsMenuContent = styled.div`
   justify-items: center;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2rem;
-  max-height: 90%;
+  max-height: 40rem;
 `;
 
 export const QuestContainer = styled.button<IQuestProps>`
   display: flex;
   flex-direction: column;
-  width: 15rem;
-  height: 15rem;
-  position: relative;
-
-  background-color: #bebebe;
+  align-items: center;
+  justify-content: space-between;
+  width: 18rem;
+  height: 17.5rem;
+  padding: 0.5rem;
+  border-radius: ${borderRadiusMedium};
+  background: ${secondaryWhite};
   border: ${({ selected }) =>
-    selected === "true" ? "3px solid yellow" : "3px solid black"};
+    selected === "true" ? "3px solid yellow" : `${smallBorder}`};
   border-radius: 1rem;
   cursor: pointer;
 
@@ -63,13 +87,14 @@ export const QuestContainer = styled.button<IQuestProps>`
 export const ConfirmCatContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 15rem;
-  height: 15rem;
-  position: relative;
-
-  background-color: grey;
-  border: 3px solid black;
-  border-radius: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  width: 18rem;
+  height: 17.5rem;
+  padding: 0.5rem;
+  border-radius: ${borderRadiusMedium};
+  background: ${secondaryWhite};
+  border: ${smallBorder};
 `;
 
 export const ConfirmMissionContainer = styled(ConfirmCatContainer)``;
@@ -83,7 +108,6 @@ export const QuestHeader = styled.div`
   width: 100%;
   height: 20%;
   position: relative;
-  background-color: lavender;
   border-radius: 1rem;
 `;
 
@@ -103,8 +127,6 @@ export const QuestFooter = styled.div`
   width: 100%;
   height: 30%;
   border-radius: 1rem;
-
-  background-color: lavender;
 `;
 
 export const QuestCatImg = styled.img`

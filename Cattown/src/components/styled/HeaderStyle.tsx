@@ -1,14 +1,19 @@
 import { styled } from "styled-components";
 
 export const HeaderGold = styled.div`
-  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  min-width: 5rem;
+  gap: 0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   height: 3rem;
-  background-color: lightgrey;
+`;
 
-  display: flex;
-  align-items: center;
+export const HeaderCoinImg = styled.img`
+  width: 2rem;
 `;
 
 export const HeaderSmallContainer = styled.div`

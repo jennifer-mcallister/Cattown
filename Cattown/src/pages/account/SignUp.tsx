@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, FormInput, FormLabel } from "../../components/styled/Form";
-import { TextSmall } from "../../components/styled/Text";
+import { HeaderSmall, TextSmall } from "../../components/styled/Text";
 import { Link } from "react-router-dom";
 import { IUserRegister } from "../../types/userTypes";
 import {
@@ -76,7 +76,7 @@ export const SignUp = () => {
     <MainContentSignUp>
       <MenuContainer>
         <MenuHeader>
-          <h1>Sign up</h1>
+          <HeaderSmall>Sign up</HeaderSmall>
         </MenuHeader>
         <MenuBody>
           <Form method="post" onSubmit={handleSubmit}>
@@ -151,7 +151,7 @@ export const SignUp = () => {
         </MenuFooter>
       </MenuContainer>
       <ConfirmationContainer>
-        <h3> Sign up Terms</h3>
+        <HeaderSmall> Sign up Terms</HeaderSmall>
         <TextSmall>
           By choosing to join our community by clicking 'Sign Up,' you are
           giving your consent for us to collect and store your data in our

@@ -1,15 +1,26 @@
 import { ProgressBar } from "../ProgressBar";
 import {
-  QuestCatImg,
-  QuestContainer,
-  QuestContent,
-  QuestFooter,
-  QuestHeader,
-} from "../styled/Quest";
-import { TextMedium, TextSmall } from "../styled/Text";
-import catPlaceholder from "../../assets/cathead_placeholder.png";
+  HeaderSmall,
+  TextMedium,
+  TextSmall,
+  TextSmallBold,
+} from "../styled/Text";
+import placeholder from "/assets/cat_white.png";
 import { ICat } from "../../types/savefileTypes";
 import { useState } from "react";
+import {
+  CatContainer,
+  CatContent,
+  CatContentColumn,
+  CatDivider,
+  CatFooter,
+  CatHeader,
+  CatImg,
+  CatImgContainer,
+  CatTextContainer,
+} from "../styled/Cat";
+import { ButtonLarge } from "../styled/Button";
+import { primaryGreen } from "../styled/theme_variables/colors";
 
 interface IQuestCatProps {
   cat: ICat;
@@ -24,46 +35,133 @@ export const QuestCat = ({
   zoneLevel,
   selectCat,
 }: IQuestCatProps) => {
-  const [selectedCat, setSelectedCat] = useState<string>("false");
+  const [buttonColor, setButtonColor] = useState<string>();
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  const handleLoading = () => {
+    setImgLoaded(true);
+  };
 
   return (
-    <QuestContainer
-      onClick={() => {
-        selectCat(cat, questType);
-        setSelectedCat("true");
-      }}
-      disabled={cat.status !== "in camp" || cat.level < zoneLevel}
-      selected={selectedCat}
-    >
-      <QuestHeader>
-        <h2>{cat.name}</h2>
-        <TextMedium>Lvl. {cat.level}</TextMedium>
-      </QuestHeader>
-      <QuestContent>
-        <QuestCatImg src={catPlaceholder} />
-        <TextMedium>{cat.status}</TextMedium>
-        {cat.status === "training" && (
-          <TextSmall>
-            Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
-            {cat.trainingTimeLeft?.sec}
-          </TextSmall>
-        )}
-        {cat.status === "on mission" && (
-          <TextSmall>
-            Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
-            {cat.missionTimeLeft?.sec}
-          </TextSmall>
-        )}
-        {cat.status === "downed" && (
-          <TextSmall>
-            Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
-            {cat.downedTimeLeft?.sec}
-          </TextSmall>
-        )}
-      </QuestContent>
-      <QuestFooter>
+    <CatContainer key={cat.id} className={imgLoaded ? "loaded" : ""}>
+      <CatHeader>
+        <CatImgContainer>
+          <CatImg
+            src={placeholder}
+            onLoad={handleLoading}
+            alt="Image of a cat"
+          />
+        </CatImgContainer>
+        <HeaderSmall>{cat.name}</HeaderSmall>
         <ProgressBar catLevel={cat.level} catXP={cat.xp} />
-      </QuestFooter>
-    </QuestContainer>
+      </CatHeader>
+      <CatContent>
+        <CatContentColumn>
+          <TextMedium>Stats</TextMedium>
+          <CatDivider />
+          <CatTextContainer>
+            <TextSmall>Health</TextSmall>
+            <TextSmall>{cat.health}</TextSmall>
+          </CatTextContainer>
+          <CatTextContainer>
+            <TextSmall>Strength</TextSmall>
+            <TextSmall>{cat.strength}</TextSmall>
+          </CatTextContainer>
+        </CatContentColumn>
+        <CatContentColumn>
+          <TextMedium>Status</TextMedium>
+          <CatDivider />
+          <TextSmallBold>{cat.status}</TextSmallBold>
+          {cat.status === "training" && (
+            <TextSmall>
+              Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
+              {cat.trainingTimeLeft?.sec}
+            </TextSmall>
+          )}
+          {cat.status === "on mission" && (
+            <TextSmall>
+              Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
+              {cat.missionTimeLeft?.sec}
+            </TextSmall>
+          )}
+          {cat.status === "downed" && (
+            <TextSmall>
+              Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
+              {cat.downedTimeLeft?.sec}
+            </TextSmall>
+          )}
+        </CatContentColumn>
+      </CatContent>
+      <CatFooter>
+        <ButtonLarge
+          onClick={() => {
+            selectCat(cat, questType);
+            setButtonColor(primaryGreen);
+          }}
+          disabled={cat.status !== "in camp" || cat.level < zoneLevel}
+          bgColor={buttonColor}
+        >
+          Send on mission
+        </ButtonLarge>
+      </CatFooter>
+    </CatContainer>
+    // <CatContainer key={cat.id}>
+    //   <CatHeader>
+    //     <CatImgContainer>
+    //       <CatImg src={placeholder} />
+    //     </CatImgContainer>
+    //     <HeaderSmall>{cat.name}</HeaderSmall>
+    //     <ProgressBar catLevel={cat.level} catXP={cat.xp} />
+    //   </CatHeader>
+    //   <CatContent>
+    //     <CatContentColumn>
+    //       <TextMedium>Stats</TextMedium>
+    //       <CatDivider />
+    //       <CatTextContainer>
+    //         <TextSmall>Health</TextSmall>
+    //         <TextSmall>{cat.health}</TextSmall>
+    //       </CatTextContainer>
+    //       <CatTextContainer>
+    //         <TextSmall>Strength</TextSmall>
+    //         <TextSmall>{cat.strength}</TextSmall>
+    //       </CatTextContainer>
+    //     </CatContentColumn>
+    //     <CatContentColumn>
+    //       <TextMedium>Status</TextMedium>
+    //       <CatDivider />
+    //       <TextSmallBold>{cat.status}</TextSmallBold>
+    //       {cat.status === "training" && (
+    //         <TextSmall>
+    //           Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
+    //           {cat.trainingTimeLeft?.sec}
+    //         </TextSmall>
+    //       )}
+    //       {cat.status === "on mission" && (
+    //         <TextSmall>
+    //           Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
+    //           {cat.missionTimeLeft?.sec}
+    //         </TextSmall>
+    //       )}
+    //       {cat.status === "downed" && (
+    //         <TextSmall>
+    //           Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
+    //           {cat.downedTimeLeft?.sec}
+    //         </TextSmall>
+    //       )}
+    //     </CatContentColumn>
+    //   </CatContent>
+    //   <CatFooter>
+    //     <ButtonLarge
+    //       onClick={() => {
+    //         selectCat(cat, questType);
+    //         setButtonColor(primaryYellow);
+    //       }}
+    //       disabled={cat.status !== "in camp" || cat.level < zoneLevel}
+    //       bgColor={buttonColor}
+    //     >
+    //       Send on mission
+    //     </ButtonLarge>
+    //   </CatFooter>
+    // </CatContainer>
   );
 };
