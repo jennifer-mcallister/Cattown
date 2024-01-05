@@ -132,8 +132,8 @@ export const ConfirmBoss = ({
           </CatContainer>
         ))}
       </QuestsMenuContent>
-      <HeaderSmall>Success Rate: {successChance}% </HeaderSmall>
       <QuestsMenuFooter>
+        <HeaderSmall>Success Rate: {successChance}% </HeaderSmall>
         <ButtonLarge onClick={confirmBoss}>OK</ButtonLarge>
       </QuestsMenuFooter>
     </>

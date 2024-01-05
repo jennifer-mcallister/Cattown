@@ -250,6 +250,11 @@ export const QuestsMenu = ({
             </QuestsMenuFooter>
           </>
         )}
+        <QuestsMenuFooter>
+          {questType === "boss" && bossQuest.cats.length < 3 && (
+            <HeaderSmall>Pick 3 cats</HeaderSmall>
+          )}
+        </QuestsMenuFooter>
       </QuestsMenuContainer>
     </QuestMenuBackground>
   );
