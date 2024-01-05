@@ -15,7 +15,6 @@ export const QuestMenuBackground = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  padding-top: 2rem;
 
   position: absolute;
   top: 0;
@@ -30,9 +29,8 @@ export const QuestsMenuContainer = styled.div`
   align-items: center;
   gap: 2rem;
   width: 42rem;
-  max-height: 53rem;
+  max-height: 50rem;
   padding: 2rem;
-  padding-top: 1rem;
 
   border-radius: ${borderRadiusMedium};
   border: ${mediumBorder};
@@ -54,6 +52,7 @@ export const QuestsMenuHeader = styled.div`
 
 export const QuestsMenuFooter = styled(QuestsMenuHeader)`
   justify-content: center;
+  gap: 2rem;
 `;
 
 export const QuestsMenuContent = styled.div`
