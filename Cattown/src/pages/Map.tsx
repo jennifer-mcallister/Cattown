@@ -4,6 +4,7 @@ import { ILayoutContext } from "./layout/Layout";
 import { MapOverviewContainer } from "../components/styled/MapStyle";
 import { IBoss, IMission } from "../types/missionTypes";
 import { MapZone } from "../components/map/MapZone";
+import { HeaderBig } from "../components/styled/Text";
 
 export interface IQuests {
   missions: IMission[];
@@ -33,7 +34,7 @@ export const Map = () => {
   return (
     <>
       <MainContent>
-        <h1>Catland</h1>
+        <HeaderBig>Catland</HeaderBig>
         <MapOverviewContainer>
           <MapZone
             zone={"woods"}

@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { IBoss, IMission } from "../../types/missionTypes";
 import { ICat, IStats } from "../../types/savefileTypes";
 import { MapOverviewImg, MapOverviewLocation } from "../styled/MapStyle";
-import { TextMedium } from "../styled/Text";
-import placeholder from "../../assets/placeholder.png";
 import { QuestsMenu } from "./QuestsMenu";
 import { useOutletContext } from "react-router-dom";
 import { ILayoutContext } from "../../pages/layout/Layout";
@@ -29,6 +27,12 @@ export const MapZone = ({
   const [showQuests, setShowQuests] = useState(false);
   const [bossDead, setBossDead] = useState(false);
   const [zoneLevel, setZoneLevel] = useState(0);
+  const [imgLoaded, setImgLoaded] = useState(false);
+  const imgPath = `/assets/map_${zone}.png`;
+
+  const handleLoading = () => {
+    setImgLoaded(true);
+  };
 
   const toggleShowQuests = () => {
     setShowQuests(!showQuests);
@@ -62,12 +66,19 @@ export const MapZone = ({
 
   return (
     <>
-      <MapOverviewLocation onClick={toggleShowQuests}>
-        <MapOverviewImg src={placeholder} />
-        <TextMedium>{zone}</TextMedium>
+      <MapOverviewLocation
+        onClick={toggleShowQuests}
+        className={imgLoaded ? "loaded" : ""}
+      >
+        <MapOverviewImg
+          src={imgPath}
+          onLoad={handleLoading}
+          alt="Image of a forest"
+        />
+        {/* <TextMedium>{zone}</TextMedium>
         <TextMedium>
           Level {zoneLevel}-{zoneLevel + 5}
-        </TextMedium>
+        </TextMedium> */}
       </MapOverviewLocation>
       {showQuests && (
         <QuestsMenu

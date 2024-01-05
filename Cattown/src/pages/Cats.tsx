@@ -4,6 +4,9 @@ import { CatsContent } from "../components/styled/LayoutStyle";
 import { CatInfo } from "../components/CatInfo";
 import { ILayoutContext } from "./layout/Layout";
 import { ButtonMedium } from "../components/styled/Button";
+import { PageHeaderContainer } from "../components/styled/Container";
+import { HeaderBig, HeaderSmall } from "../components/styled/Text";
+import { NoCatsContainer } from "../components/styled/Cat";
 
 export const Cats = () => {
   const outletContext = useOutletContext<ILayoutContext>();
@@ -12,7 +15,25 @@ export const Cats = () => {
   return (
     <>
       <MainContent>
-        <CatsContent className="test">
+        <PageHeaderContainer bgColor="#C4689C">
+          <HeaderBig>Cats</HeaderBig>
+        </PageHeaderContainer>
+        {outletContext.savefile.cats.length < 1 && (
+          <NoCatsContainer>
+            <HeaderSmall>
+              Hmm.. looks like you do not have any cats. Maybe the Bobben has
+              one you can recruit?
+            </HeaderSmall>
+            <ButtonMedium
+              onClick={() => {
+                navigate("/shop");
+              }}
+            >
+              Witches Shop
+            </ButtonMedium>
+          </NoCatsContainer>
+        )}
+        <CatsContent>
           {outletContext.savefile.cats.map((cat) => (
             <CatInfo
               cat={cat}
@@ -20,21 +41,6 @@ export const Cats = () => {
               key={cat.id}
             />
           ))}
-          {outletContext.savefile.cats.length < 1 && (
-            <>
-              <h2>
-                Hmm.. looks like you do not have any cats. Maybe the Bobben has
-                one you can recruit?
-              </h2>
-              <ButtonMedium
-                onClick={() => {
-                  navigate("/shop");
-                }}
-              >
-                Witches Shop
-              </ButtonMedium>
-            </>
-          )}
         </CatsContent>
       </MainContent>
     </>

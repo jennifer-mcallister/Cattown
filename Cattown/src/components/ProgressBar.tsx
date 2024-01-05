@@ -20,8 +20,9 @@ export const ProgressBar = ({ catLevel, catXP }: IProgressBar) => {
 
   return (
     <ProgressBarContainer>
-      <ProgressBarFill progress={userProgress} />
-      <ProgressBarNextLevel>Level {catLevel + 1}</ProgressBarNextLevel>
+      <ProgressBarFill progress={userProgress}>
+        <ProgressBarNextLevel>Lvl. {catLevel + 1}</ProgressBarNextLevel>
+      </ProgressBarFill>
     </ProgressBarContainer>
   );
 };

@@ -1,4 +1,6 @@
 import { styled } from "styled-components";
+import { secondaryWhite } from "./theme_variables/colors";
+import { borderRadiusMedium, mediumBorder } from "./theme_variables/borders";
 
 interface IMenuProps {
   show: string;
@@ -27,9 +29,9 @@ export const MenuContainer = styled.div`
   width: 20rem;
   min-height: 25rem;
   padding: 2rem;
-  background-color: grey;
-  border-radius: 10px;
-  border: 6px solid black;
+  background-color: ${secondaryWhite};
+  border-radius: ${borderRadiusMedium};
+  border: ${mediumBorder};
 `;
 
 export const MenuHeader = styled.div`

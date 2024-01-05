@@ -3,10 +3,10 @@ import { defaultCat } from "./Cat";
 export const defaultSavefile = {
   gold: 200,
   stats: {
-    luck: 1,
+    luck: 0,
     critChance: 5,
-    health: 1,
-    strength: 1,
+    health: 0,
+    strength: 0,
     fireRes: 0,
     waterRes: 0,
     shadowRes: 0,

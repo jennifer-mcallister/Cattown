@@ -18,6 +18,7 @@ export const MainContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 3rem;
 `;
 
 export const MainContentSignUp = styled(MainContent)`
@@ -27,12 +28,13 @@ export const MainContentSignUp = styled(MainContent)`
 `;
 
 export const CatsContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 3rem;
-  width: 100%;
-  height: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3rem;
+  height: 43rem;
+`;
+
+export const ShopContent = styled(CatsContent)`
+  grid-template-columns: 1fr 1fr 1fr;
 `;

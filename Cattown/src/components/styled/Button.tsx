@@ -1,29 +1,67 @@
 import { styled } from "styled-components";
+import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
+import { primaryYellow, secondaryPink } from "./theme_variables/colors";
 
-export const ButtonMedium = styled.button`
-  min-width: 3rem;
+interface IButtonProps {
+  bgColor?: string;
+}
+
+export const ButtonMedium = styled.button<IButtonProps>`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
   height: 3rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 0.8em;
+  margin-top: 0.5rem;
+  border-radius: ${borderRadiusMedium};
+  font-size: 1.5rem;
   cursor: pointer;
+  border: ${smallBorder};
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryPink)};
+
+  &:hover {
+    filter: brightness(120%);
+  }
+
+  &:disabled {
+    background-color: #d4d4d4;
+    color: #8f8f8f;
+  }
 `;
 
-export const ButtonLarge = styled.button`
+export const ButtonLarge = styled.button<IButtonProps>`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
   width: 20rem;
-  height: 3rem;
+  height: 3.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  margin: 0.5rem;
-  border-radius: 0.5rem;
-  font-size: 1em;
+  margin-top: 0.5rem;
+  border-radius: ${borderRadiusMedium};
+  font-size: 2em;
   cursor: pointer;
+  border: ${smallBorder};
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryPink)};
+
+  &:hover {
+    background-color: ${({ bgColor }) => (bgColor ? bgColor : "#ffd5d5")};
+  }
+
+  &:disabled {
+    background-color: #d4d4d4;
+    color: #8f8f8f;
+  }
 `;
 
-export const ButtonLargeSelect = styled(ButtonLarge)`
+export const ButtonLargeSelect = styled(ButtonLarge)<IButtonProps>`
+  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryPink)};
   &:focus {
-    background-color: lightgreen;
+    background-color: ${primaryYellow};
   }
 `;
