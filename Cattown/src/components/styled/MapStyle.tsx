@@ -1,5 +1,7 @@
 import { styled } from "styled-components";
 import { bounceAnimation } from "./Animations";
+import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
+import { secondaryWhite } from "./theme_variables/colors";
 
 export const MapOverviewContainer = styled.div`
   display: flex;
@@ -39,4 +41,20 @@ export const MapOverviewLocation = styled.div`
 
 export const MapOverviewImg = styled.img`
   width: 110%;
+  position: relative;
+`;
+
+export const MapHoverContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 6rem;
+  height: 5rem;
+  border-radius: ${borderRadiusMedium};
+  border: ${smallBorder};
+  background: ${secondaryWhite};
+  position: absolute;
+  top: 0;
+  pointer-events: none;
 `;
