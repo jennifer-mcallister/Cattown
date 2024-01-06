@@ -16,14 +16,19 @@ export const countOutCatLevel = (catXP: number) => {
 };
 
 export const countOutXpForLevel = (level: number) => {
-  return Math.floor(baseXP * Math.pow(level, exponent));
+  const xp = Math.floor(baseXP * Math.pow(level, exponent));
+  return xp;
 };
 
 export const countOutLevelProgress = (catXP: number) => {
   const catLevel = countOutCatLevel(catXP);
+  const currentLevelXP = countOutXpForLevel(catLevel);
   const nextLevelXP = countOutXpForLevel(catLevel + 1);
-  const progressInPrecentage = (catXP / nextLevelXP) * 100;
-  return Math.min(100, Math.max(0, progressInPrecentage));
+  const levelXPDifference = nextLevelXP - currentLevelXP;
+  const progressInPrecentage = Math.floor(
+    ((levelXPDifference - (nextLevelXP - catXP)) / levelXPDifference) * 100
+  );
+  return progressInPrecentage;
 };
 
 export const countOutTimeLeft = (timeInMilliseconds: number) => {

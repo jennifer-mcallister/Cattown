@@ -4,7 +4,10 @@ import {
   ProgressBarFill,
   ProgressBarNextLevel,
 } from "./styled/ProgressBarStyle";
-import { countOutLevelProgress } from "../helpers/gameCalculationHelpers";
+import {
+  countOutLevelProgress,
+  countOutXpForLevel,
+} from "../helpers/gameCalculationHelpers";
 
 interface IProgressBar {
   catLevel: number;
@@ -13,16 +16,21 @@ interface IProgressBar {
 
 export const ProgressBar = ({ catLevel, catXP }: IProgressBar) => {
   const [userProgress, setUserProgress] = useState(0);
+  const [nextLevelXP, setNextLevelXP] = useState(0);
 
   useEffect(() => {
     setUserProgress(countOutLevelProgress(catXP));
+    setNextLevelXP(countOutXpForLevel(catLevel + 1));
   }, [catXP]);
 
   return (
-    <ProgressBarContainer>
-      <ProgressBarFill progress={userProgress}>
-        <ProgressBarNextLevel>Lvl. {catLevel + 1}</ProgressBarNextLevel>
-      </ProgressBarFill>
-    </ProgressBarContainer>
+    <>
+      <ProgressBarNextLevel>
+        {catXP}/{nextLevelXP} XP
+      </ProgressBarNextLevel>
+      <ProgressBarContainer>
+        <ProgressBarFill progress={userProgress}></ProgressBarFill>
+      </ProgressBarContainer>
+    </>
   );
 };

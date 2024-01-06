@@ -7,6 +7,7 @@ import {
   CatDivider,
   CatFooter,
   CatHeader,
+  CatHeaderTitleContainer,
   CatImg,
   CatImgContainer,
   CatTextContainer,
@@ -127,7 +128,10 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
               alt="Image of a cat"
             />
           </CatImgContainer>
-          <HeaderSmall>{cat.name}</HeaderSmall>
+          <CatHeaderTitleContainer>
+            <HeaderSmall>{cat.name} </HeaderSmall>
+            <TextSmallBold>Lvl. {cat.level}</TextSmallBold>
+          </CatHeaderTitleContainer>
           <ProgressBar catLevel={cat.level} catXP={cat.xp} />
         </CatHeader>
         <CatContent>

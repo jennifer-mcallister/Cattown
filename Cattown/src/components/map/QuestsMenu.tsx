@@ -171,7 +171,11 @@ export const QuestsMenu = ({
           );
 
           if (foundCat) {
-            return { ...cat, xp: countOutCatLevel(cat.xp + 500) };
+            return {
+              ...cat,
+              xp: cat.xp + 500,
+              level: countOutCatLevel(cat.xp + 500),
+            };
           }
           return cat;
         });
@@ -238,7 +242,7 @@ export const QuestsMenu = ({
         {showBossFightSuccess && (
           <>
             <HeaderBig>
-              {bossFightSuccess ? "Success!" : "Fail"}! 15 minutes downtime
+              {bossFightSuccess ? "Success!" : "Fail! 15 minutes downtime"}
             </HeaderBig>
             <QuestsMenuFooter>
               {" "}
