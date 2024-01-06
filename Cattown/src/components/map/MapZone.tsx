@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { IBoss, IMission } from "../../types/missionTypes";
 import { ICat, IStats } from "../../types/savefileTypes";
-import { MapOverviewImg, MapOverviewLocation } from "../styled/MapStyle";
+import {
+  MapHoverContainer,
+  MapOverviewImg,
+  MapOverviewLocation,
+} from "../styled/MapStyle";
 import { QuestsMenu } from "./QuestsMenu";
 import { useOutletContext } from "react-router-dom";
 import { ILayoutContext } from "../../pages/layout/Layout";
+import { HeaderSmall, TextSmallBold } from "../styled/Text";
 
 interface IMapZoneProps {
   zone: string;
@@ -29,6 +34,7 @@ export const MapZone = ({
   const [zoneLevel, setZoneLevel] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
   const imgPath = `/assets/map_${zone}.png`;
+  const [showLevelCap, setShowLevelCap] = useState(false);
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -74,7 +80,21 @@ export const MapZone = ({
           src={imgPath}
           onLoad={handleLoading}
           alt="Image of a forest"
+          onMouseEnter={() => {
+            setShowLevelCap(true);
+          }}
+          onMouseLeave={() => {
+            setShowLevelCap(false);
+          }}
         />
+        {showLevelCap && (
+          <MapHoverContainer>
+            <HeaderSmall>{zone}</HeaderSmall>
+            <TextSmallBold>
+              lvl. {zoneLevel} - {zoneLevel + 5}
+            </TextSmallBold>
+          </MapHoverContainer>
+        )}
         {/* <TextMedium>{zone}</TextMedium>
         <TextMedium>
           Level {zoneLevel}-{zoneLevel + 5}

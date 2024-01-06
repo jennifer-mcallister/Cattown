@@ -52,18 +52,19 @@ export const Map = () => {
             userStats={outletContext.savefile.stats}
             uniqueItems={outletContext.savefile.uniqueItems}
           />
+
           <MapZone
-            zone={"cave"}
-            missions={showMissionsForZone("cave")}
-            boss={showBossForZone("cave")}
+            zone={"swamp"}
+            missions={showMissionsForZone("swamp")}
+            boss={showBossForZone("swamp")}
             cats={outletContext.savefile.cats}
             userStats={outletContext.savefile.stats}
             uniqueItems={outletContext.savefile.uniqueItems}
           />
           <MapZone
-            zone={"swamp"}
-            missions={showMissionsForZone("swamp")}
-            boss={showBossForZone("swamp")}
+            zone={"cave"}
+            missions={showMissionsForZone("cave")}
+            boss={showBossForZone("cave")}
             cats={outletContext.savefile.cats}
             userStats={outletContext.savefile.stats}
             uniqueItems={outletContext.savefile.uniqueItems}
