@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { IMission } from "../../types/missionTypes";
 import {
   QuestContainer,
@@ -16,15 +15,12 @@ interface IMissionProps {
 }
 
 export const Mission = ({ mission, selectMission }: IMissionProps) => {
-  const [selectedMission, setSelectedMission] = useState<string>("false");
   return (
     <>
       <QuestContainer
         onClick={() => {
           selectMission(mission);
-          setSelectedMission("true");
         }}
-        selected={selectedMission}
       >
         <QuestHeader>
           <HeaderSmall>{mission.type}</HeaderSmall>
