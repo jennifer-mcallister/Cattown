@@ -5,9 +5,6 @@ import {
   smallBorder,
 } from "./theme_variables/borders";
 import { primaryRed, secondaryWhite } from "./theme_variables/colors";
-interface IQuestProps {
-  selected: string;
-}
 
 export const QuestMenuBackground = styled.div`
   display: flex;
@@ -63,7 +60,7 @@ export const QuestsMenuContent = styled.div`
   max-height: 40rem;
 `;
 
-export const QuestContainer = styled.button<IQuestProps>`
+export const QuestContainer = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -73,14 +70,9 @@ export const QuestContainer = styled.button<IQuestProps>`
   padding: 0.5rem;
   border-radius: ${borderRadiusMedium};
   background: ${secondaryWhite};
-  border: ${({ selected }) =>
-    selected === "true" ? "3px solid yellow" : `${smallBorder}`};
+  border: ${smallBorder};
   border-radius: 1rem;
   cursor: pointer;
-
-  &:focus {
-    border: 3px solid yellow;
-  }
 `;
 
 export const ConfirmCatContainer = styled.div`

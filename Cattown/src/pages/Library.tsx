@@ -95,12 +95,12 @@ export const Library = () => {
               </TextSmall>
             )}
             <McGuffinsContainer>
-              {outletContext.savefile.uniqueItems.map((uniqueItem, index) => (
+              {outletContext.savefile.uniqueItems.map((uniqueItem) => (
                 <McGuffinContainer
                   key={uniqueItem}
                   className={imgLoaded ? "loaded" : ""}
                 >
-                  <HeaderSmall>McGuffin {index + 1}</HeaderSmall>
+                  <HeaderSmall>McGuffin {uniqueItem}</HeaderSmall>
                   <McGuffinImg
                     src={placeholder}
                     alt="Image of an McGuffin"

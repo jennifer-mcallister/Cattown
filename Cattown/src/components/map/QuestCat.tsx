@@ -103,7 +103,7 @@ export const QuestCat = ({
             setButtonColor(primaryGreen);
           }}
           disabled={cat.status !== "in camp" || cat.level < zoneLevel}
-          bgColor={buttonColor}
+          bgcolor={buttonColor}
         >
           Send on mission
         </ButtonLarge>

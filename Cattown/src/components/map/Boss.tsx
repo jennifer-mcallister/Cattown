@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { IBoss } from "../../types/missionTypes";
 import {
   QuestContainer,
@@ -14,14 +13,11 @@ interface IBossProps {
 }
 
 export const Boss = ({ boss, selectBoss }: IBossProps) => {
-  const [selectedBoss, setSelectedBoss] = useState<string>("false");
   return (
     <QuestContainer
       onClick={() => {
         selectBoss(boss);
-        setSelectedBoss("true");
       }}
-      selected={selectedBoss}
     >
       <QuestHeader>
         <HeaderSmall>Kill {boss.name}</HeaderSmall>

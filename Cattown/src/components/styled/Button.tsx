@@ -3,7 +3,7 @@ import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
 import { primaryYellow, secondaryPink } from "./theme_variables/colors";
 
 interface IButtonProps {
-  bgColor?: string;
+  bgcolor?: string;
 }
 
 export const ButtonMedium = styled.button<IButtonProps>`
@@ -20,7 +20,8 @@ export const ButtonMedium = styled.button<IButtonProps>`
   font-size: 1.5rem;
   cursor: pointer;
   border: ${smallBorder};
-  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryPink)};
+  background-color: ${({ bgcolor: bgColor }) =>
+    bgColor ? bgColor : secondaryPink};
 
   &:hover {
     filter: brightness(120%);
@@ -47,10 +48,12 @@ export const ButtonLarge = styled.button<IButtonProps>`
   font-size: 2em;
   cursor: pointer;
   border: ${smallBorder};
-  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryPink)};
+  background-color: ${({ bgcolor: bgColor }) =>
+    bgColor ? bgColor : secondaryPink};
 
   &:hover {
-    background-color: ${({ bgColor }) => (bgColor ? bgColor : "#ffd5d5")};
+    background-color: ${({ bgcolor: bgColor }) =>
+      bgColor ? bgColor : "#ffd5d5"};
   }
 
   &:disabled {
@@ -60,7 +63,8 @@ export const ButtonLarge = styled.button<IButtonProps>`
 `;
 
 export const ButtonLargeSelect = styled(ButtonLarge)<IButtonProps>`
-  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryPink)};
+  background-color: ${({ bgcolor: bgColor }) =>
+    bgColor ? bgColor : secondaryPink};
   &:focus {
     background-color: ${primaryYellow};
   }

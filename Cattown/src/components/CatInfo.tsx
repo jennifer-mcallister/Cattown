@@ -108,10 +108,10 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
                 onChange={handleChange}
               />
               <ConfirmationButtonsContainer>
-                <ButtonMedium bgColor={primaryGreen} type="submit">
+                <ButtonMedium bgcolor={primaryGreen} type="submit">
                   Yes
                 </ButtonMedium>
-                <ButtonMedium bgColor={primaryRed} onClick={toggleChangeName}>
+                <ButtonMedium bgcolor={primaryRed} onClick={toggleChangeName}>
                   No
                 </ButtonMedium>
               </ConfirmationButtonsContainer>
@@ -172,11 +172,11 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
           </CatContentColumn>
         </CatContent>
         <CatFooter>
-          <ButtonMedium bgColor={primaryBlue} onClick={toggleChangeName}>
+          <ButtonMedium bgcolor={primaryBlue} onClick={toggleChangeName}>
             New name
           </ButtonMedium>
           <ButtonMedium
-            bgColor={primaryRed}
+            bgcolor={primaryRed}
             onClick={() => {
               deleteCat(cat);
             }}
