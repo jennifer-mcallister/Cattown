@@ -88,7 +88,7 @@ export const Layout = () => {
             updateCatFinnished({
               ...cat,
               status: "in camp",
-              xp: (cat.xp += cat.trainingXp),
+              xp: cat.xp + cat.trainingXp,
             });
           }
           const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
@@ -101,7 +101,7 @@ export const Layout = () => {
             updateCatFinnished({
               ...cat,
               status: "in camp",
-              xp: (cat.xp += cat.missionXp),
+              xp: cat.xp + cat.missionXp,
               missionGold: 0,
             });
           }

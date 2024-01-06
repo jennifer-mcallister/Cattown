@@ -44,6 +44,13 @@ export const CatHeader = styled.div`
   width: 90%;
 `;
 
+export const CatHeaderTitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 70%;
+`;
+
 export const CatContent = styled(CatHeader)`
   flex-direction: row;
   align-items: center;

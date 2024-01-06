@@ -23,6 +23,7 @@ import {
   CatDivider,
   CatFooter,
   CatHeader,
+  CatHeaderTitleContainer,
   CatImg,
   CatImgContainer,
   CatTextContainer,
@@ -66,7 +67,10 @@ export const ConfirmMission = ({
                 alt="Image of a cat"
               />
             </CatImgContainer>
-            <HeaderSmall>{quest.cat.name}</HeaderSmall>
+            <CatHeaderTitleContainer>
+              <HeaderSmall>{quest.cat.name} </HeaderSmall>
+              <TextSmallBold>Lvl. {quest.cat.level}</TextSmallBold>
+            </CatHeaderTitleContainer>
             <ProgressBar catLevel={quest.cat.level} catXP={quest.cat.xp} />
           </CatHeader>
           <CatContent>

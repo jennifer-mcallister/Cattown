@@ -17,13 +17,16 @@ export const ProgressBarContainer = styled.div`
 `;
 
 export const ProgressBarFill = styled(ProgressBarContainer)<IProgressBar>`
+  display: flex;
+  gap: 1rem;
+  min-width: 1rem;
   width: ${({ progress }) => (progress ? `${progress}%` : "0%")};
   background-color: ${primaryGreen};
   border: ${smallBorder};
   border-radius: ${borderRadiusSmall};
   padding-left: 0.5rem;
   top: -2px;
-  left: -2px;
+  left: -0.8rem;
   display: flex;
   align-items: center;
 `;
