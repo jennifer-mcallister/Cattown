@@ -4,6 +4,7 @@ import {
   QuestContent,
   QuestFooter,
   QuestHeader,
+  QuestRewardBox,
 } from "../styled/Quest";
 import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 
@@ -30,7 +31,10 @@ export const Boss = ({ boss, selectBoss }: IBossProps) => {
         <TextSmall>Nature: {boss.natureDamage}</TextSmall>
       </QuestContent>
       <QuestFooter>
-        <TextMedium>MCGUFFIN {boss.mcguffinId} </TextMedium>
+        <QuestRewardBox>
+          <TextMedium>MCGUFFIN</TextMedium>
+          <HeaderSmall> {boss.mcguffinId} </HeaderSmall>
+        </QuestRewardBox>
       </QuestFooter>
     </QuestContainer>
   );

@@ -4,9 +4,11 @@ import {
   QuestContent,
   QuestFooter,
   QuestHeader,
+  QuestRewardBox,
+  QuestRewardContainer,
 } from "../styled/Quest";
 import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
-import { HeaderCoinImg, HeaderGold } from "../styled/HeaderStyle";
+import { HeaderCoinImg } from "../styled/HeaderStyle";
 import coin from "/assets/coin.png";
 
 interface IMissionProps {
@@ -31,14 +33,18 @@ export const Mission = ({ mission, selectMission }: IMissionProps) => {
               ? "Explore the lands"
               : "Scavenge for hidden treasures"}
           </TextMedium>
-          <TextSmall>Time: {mission.timeInSec} Sec</TextSmall>
+          <TextSmall>{mission.timeInSec / 60} min</TextSmall>
         </QuestContent>
         <QuestFooter>
-          <TextMedium>{mission.xpReceived} XP</TextMedium>
-          <HeaderGold>
-            <TextMedium>{mission.goldReceived}</TextMedium>
-            <HeaderCoinImg src={coin} />
-          </HeaderGold>
+          <QuestRewardContainer>
+            <QuestRewardBox>
+              <TextMedium>{mission.xpReceived} XP</TextMedium>
+            </QuestRewardBox>
+            <QuestRewardBox>
+              <TextMedium>{mission.goldReceived}</TextMedium>
+              <HeaderCoinImg src={coin} />
+            </QuestRewardBox>
+          </QuestRewardContainer>
         </QuestFooter>
       </QuestContainer>
     </>
