@@ -33,6 +33,7 @@ import {
   primaryGreen,
   primaryRed,
 } from "./styled/theme_variables/colors";
+import { formatTime } from "../helpers/gameCalculationHelpers";
 
 interface ICatInfoProps {
   cat: ICat;
@@ -153,20 +154,32 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
             <TextSmallBold>{cat.status}</TextSmallBold>
             {cat.status === "training" && (
               <TextSmall>
-                Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}:
-                {cat.trainingTimeLeft?.sec}
+                Back in:
+                {formatTime(
+                  cat.trainingTimeLeft.h,
+                  cat.trainingTimeLeft.min,
+                  cat.trainingTimeLeft.sec
+                )}
               </TextSmall>
             )}
             {cat.status === "on mission" && (
               <TextSmall>
-                Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
-                {cat.missionTimeLeft?.sec}
+                Back in:
+                {formatTime(
+                  cat.missionTimeLeft?.h,
+                  cat.missionTimeLeft?.min,
+                  cat.missionTimeLeft?.sec
+                )}
               </TextSmall>
             )}
             {cat.status === "downed" && (
               <TextSmall>
-                Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
-                {cat.downedTimeLeft?.sec}
+                Back in:
+                {formatTime(
+                  cat.downedTimeLeft?.h,
+                  cat.downedTimeLeft?.min,
+                  cat.downedTimeLeft?.sec
+                )}
               </TextSmall>
             )}
           </CatContentColumn>
