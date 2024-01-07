@@ -9,7 +9,7 @@ export const tertiaryGreen = "#BEFFB9";
 export const primaryPink = "#D85E74";
 export const secondaryPink = "#EF96A6";
 
-export const primaryYellow = "#EBDB86";
+export const primaryYellow = "#FFE486";
 
 export const primaryRed = "#E86767";
 
