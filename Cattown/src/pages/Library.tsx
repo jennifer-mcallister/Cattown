@@ -39,7 +39,7 @@ export const Library = () => {
   return (
     <>
       <MainContent>
-        <PageHeaderContainer bgColor="#797EC5">
+        <PageHeaderContainer bgcolor="#797EC5">
           <HeaderBig>Library</HeaderBig>
         </PageHeaderContainer>
         <TopSection>

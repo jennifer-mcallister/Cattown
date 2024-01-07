@@ -12,6 +12,7 @@ import { SignUp } from "./pages/account/SignUp";
 import { Reset } from "./pages/account/Reset";
 import { getRelics } from "./services/RelicsService";
 import { getQuests } from "./services/MissionService";
+import { RequireAuth } from "./RequireAuth";
 
 const loadRelics = async () => {
   const relics = await getRelics();
@@ -30,10 +31,9 @@ export const Router = createBrowserRouter([
     id: "account",
     children: [
       {
-        path: "/",
+        path: "/login",
         element: <Login></Login>,
         id: "login",
-        index: true,
       },
       {
         path: "/account/signup",
@@ -49,12 +49,17 @@ export const Router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Layout></Layout>,
+    element: (
+      <RequireAuth>
+        <Layout></Layout>
+      </RequireAuth>
+    ),
     errorElement: <Error></Error>,
     children: [
       {
-        path: "/home",
+        path: "/",
         id: "home",
+        index: true,
         element: <Home></Home>,
       },
       {

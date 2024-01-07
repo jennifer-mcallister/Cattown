@@ -7,7 +7,7 @@ import {
 } from "./theme_variables/borders";
 
 interface IContainerProps {
-  bgColor?: string;
+  bgcolor?: string;
 }
 
 export const ConfirmationContainer = styled.div`
@@ -50,5 +50,5 @@ export const PageHeaderContainer = styled.div<IContainerProps>`
   height: 4rem;
   border: ${smallBorder};
   border-radius: ${borderRadiusMedium};
-  background-color: ${({ bgColor }) => (bgColor ? bgColor : secondaryWhite)};
+  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryWhite)};
 `;

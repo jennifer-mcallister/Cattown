@@ -39,6 +39,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
   const [pickTime, setPickTime] = useState(false);
   const [selectedTimeMin, setSelectedTimeMin] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const xpPerMinute = 150;
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -52,7 +53,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
             ...c,
             status: "training",
             trainingEndTime: new Date().getTime() + selectedTimeMin * 60000,
-            trainingXp: selectedTimeMin * 100,
+            trainingXp: selectedTimeMin * xpPerMinute,
           };
         } else {
           return c;
@@ -151,7 +152,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               setSelectedTimeMin(1);
             }}
           >
-            <QuestRewardBox>{1 * 100} xp</QuestRewardBox>
+            <QuestRewardBox>{1 * xpPerMinute} xp</QuestRewardBox>
             <SecondaryInfoBox>
               <TextMedium>1 min</TextMedium>
             </SecondaryInfoBox>
@@ -161,7 +162,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               setSelectedTimeMin(5);
             }}
           >
-            <QuestRewardBox>{5 * 100} xp</QuestRewardBox>
+            <QuestRewardBox>{5 * xpPerMinute} xp</QuestRewardBox>
             <SecondaryInfoBox>
               <TextMedium>5 min</TextMedium>
             </SecondaryInfoBox>
@@ -171,7 +172,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               setSelectedTimeMin(15);
             }}
           >
-            <QuestRewardBox>{15 * 100} xp</QuestRewardBox>
+            <QuestRewardBox>{15 * xpPerMinute} xp</QuestRewardBox>
             <SecondaryInfoBox>
               <TextMedium>15 min</TextMedium>
             </SecondaryInfoBox>
@@ -181,7 +182,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               setSelectedTimeMin(60);
             }}
           >
-            <QuestRewardBox>{60 * 100} xp</QuestRewardBox>
+            <QuestRewardBox>{60 * xpPerMinute} xp</QuestRewardBox>
             <SecondaryInfoBox>
               <TextMedium>1 h</TextMedium>
             </SecondaryInfoBox>
@@ -191,7 +192,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               setSelectedTimeMin(120);
             }}
           >
-            <QuestRewardBox>{120 * 100} xp</QuestRewardBox>
+            <QuestRewardBox>{120 * xpPerMinute} xp</QuestRewardBox>
             <SecondaryInfoBox>
               <TextMedium>2 h</TextMedium>
             </SecondaryInfoBox>
@@ -201,7 +202,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               setSelectedTimeMin(480);
             }}
           >
-            <QuestRewardBox>{480 * 100} xp</QuestRewardBox>
+            <QuestRewardBox>{480 * xpPerMinute} xp</QuestRewardBox>
             <SecondaryInfoBox>
               <TextMedium>8 h</TextMedium>
             </SecondaryInfoBox>

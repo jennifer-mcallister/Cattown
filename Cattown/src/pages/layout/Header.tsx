@@ -39,7 +39,7 @@ export const Header = ({
   return (
     <HeaderContent>
       <HeaderSmallContainer>
-        <ButtonMedium onClick={() => navigate("/home")}>Home</ButtonMedium>
+        <ButtonMedium onClick={() => navigate("/")}>Home</ButtonMedium>
         <HeaderGold>
           <HeaderSmall>{userGold}</HeaderSmall>
           <HeaderCoinImg src={coin} alt="Image of a coin" />

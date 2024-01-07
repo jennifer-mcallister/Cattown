@@ -15,7 +15,7 @@ export const Cats = () => {
   return (
     <>
       <MainContent>
-        <PageHeaderContainer bgColor="#C4689C">
+        <PageHeaderContainer bgcolor="#C4689C">
           <HeaderBig>Cats</HeaderBig>
         </PageHeaderContainer>
         {outletContext.savefile.cats.length < 1 && (
