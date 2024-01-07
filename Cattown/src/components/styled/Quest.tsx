@@ -8,6 +8,7 @@ import {
 import {
   primaryBlue,
   primaryRed,
+  primaryYellow,
   secondaryWhite,
   tertiaryGreen,
 } from "./theme_variables/colors";
@@ -157,4 +158,8 @@ export const QuestRewardBox = styled.div`
 
 export const SecondaryInfoBox = styled(QuestRewardBox)`
   background: ${primaryBlue};
+`;
+
+export const TertiaryInfoBox = styled(QuestRewardBox)`
+  background: ${primaryYellow};
 `;

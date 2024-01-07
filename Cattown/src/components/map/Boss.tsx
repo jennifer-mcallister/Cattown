@@ -5,36 +5,52 @@ import {
   QuestFooter,
   QuestHeader,
   QuestRewardBox,
+  TertiaryInfoBox,
 } from "../styled/Quest";
 import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 
 interface IBossProps {
   boss: IBoss;
+  bossDead: boolean;
   selectBoss: (boss: IBoss) => void;
 }
 
-export const Boss = ({ boss, selectBoss }: IBossProps) => {
+export const Boss = ({ boss, bossDead, selectBoss }: IBossProps) => {
   return (
     <QuestContainer
       onClick={() => {
         selectBoss(boss);
       }}
+      disabled={bossDead}
     >
       <QuestHeader>
         <HeaderSmall>Kill {boss.name}</HeaderSmall>
       </QuestHeader>
       <QuestContent>
-        <h4>Damage:</h4>
-        <TextSmall>Fire: {boss.fireDamage}</TextSmall>
-        <TextSmall>Shadow: {boss.shadowDamage}</TextSmall>
-        <TextSmall>Water: {boss.waterDamage}</TextSmall>
-        <TextSmall>Nature: {boss.natureDamage}</TextSmall>
+        <TextMedium>Damage</TextMedium>
+        {boss.fireDamage > 0 && <TextSmall>Fire: {boss.fireDamage}%</TextSmall>}
+        {boss.shadowDamage > 0 && (
+          <TextSmall>Shadow: {boss.shadowDamage}%</TextSmall>
+        )}
+        {boss.waterDamage > 0 && (
+          <TextSmall>Water: {boss.waterDamage}%</TextSmall>
+        )}
+        {boss.natureDamage > 0 && (
+          <TextSmall>Nature: {boss.natureDamage}%</TextSmall>
+        )}
       </QuestContent>
       <QuestFooter>
-        <QuestRewardBox>
-          <TextMedium>MCGUFFIN</TextMedium>
-          <HeaderSmall> {boss.mcguffinId} </HeaderSmall>
-        </QuestRewardBox>
+        {bossDead && (
+          <TertiaryInfoBox>
+            <TextMedium>{boss.name} is Defeated!</TextMedium>
+          </TertiaryInfoBox>
+        )}
+        {!bossDead && (
+          <QuestRewardBox>
+            <TextMedium>MCGUFFIN</TextMedium>
+            <HeaderSmall> {boss.mcguffinId} </HeaderSmall>
+          </QuestRewardBox>
+        )}
       </QuestFooter>
     </QuestContainer>
   );

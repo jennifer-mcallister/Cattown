@@ -206,7 +206,7 @@ export const QuestsMenu = ({
                 selectMission={selectMission}
               />
             ))}
-            {!bossDead && <Boss boss={boss} selectBoss={selectBoss} />}
+            <Boss boss={boss} bossDead={bossDead} selectBoss={selectBoss} />
           </QuestsMenuContent>
         )}
         {showCats && (
