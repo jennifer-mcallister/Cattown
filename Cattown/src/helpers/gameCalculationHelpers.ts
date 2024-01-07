@@ -8,10 +8,10 @@ export interface ITimeLeft {
 }
 
 const baseXP = 100;
-const exponent = 1.5;
+const exponent = 2;
 
 export const countOutCatLevel = (catXP: number) => {
-  const level = Math.pow(catXP / baseXP, 1 / exponent);
+  const level = Math.pow((catXP + 1) / baseXP, 1 / exponent);
   return Math.floor(level);
 };
 
@@ -25,9 +25,11 @@ export const countOutLevelProgress = (catXP: number) => {
   const currentLevelXP = countOutXpForLevel(catLevel);
   const nextLevelXP = countOutXpForLevel(catLevel + 1);
   const levelXPDifference = nextLevelXP - currentLevelXP;
-  const progressInPrecentage = Math.floor(
-    ((levelXPDifference - (nextLevelXP - catXP)) / levelXPDifference) * 100
-  );
+  const catXpToNextLevel = levelXPDifference - (catXP - currentLevelXP);
+  const progressInPrecentage =
+    catLevel < 2
+      ? (catXP / nextLevelXP) * 100
+      : Math.floor((1 - catXpToNextLevel / levelXPDifference) * 100);
   return progressInPrecentage;
 };
 

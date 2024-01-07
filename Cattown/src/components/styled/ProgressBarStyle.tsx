@@ -19,14 +19,14 @@ export const ProgressBarContainer = styled.div`
 export const ProgressBarFill = styled(ProgressBarContainer)<IProgressBar>`
   display: flex;
   gap: 1rem;
-  min-width: 1rem;
+  min-width: 0.5rem;
   width: ${({ progress }) => (progress ? `${progress}%` : "0%")};
   background-color: ${primaryGreen};
-  border: ${smallBorder};
   border-radius: ${borderRadiusSmall};
   padding-left: 0.5rem;
   top: -2px;
-  left: -0.8rem;
+  left: -2px;
+
   display: flex;
   align-items: center;
 `;

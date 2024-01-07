@@ -1,6 +1,6 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "./Firebase";
-import { defaultSavefile } from "../models/Savefile";
+import { newGameSavefile } from "../models/Savefile";
 
 export const getSavefile = async () => {
   try {
@@ -59,7 +59,7 @@ export const resetSavefile = async () => {
     }
 
     const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { ...defaultSavefile });
+    await updateDoc(savefileRef, { ...newGameSavefile });
     console.log("Savefiles reset to default");
   } catch {
     throw new Error("503 Service Unavailable");

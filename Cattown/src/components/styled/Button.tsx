@@ -20,8 +20,7 @@ export const ButtonMedium = styled.button<IButtonProps>`
   font-size: 1.5rem;
   cursor: pointer;
   border: ${smallBorder};
-  background-color: ${({ bgcolor: bgColor }) =>
-    bgColor ? bgColor : secondaryPink};
+  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
 
   &:hover {
     filter: brightness(120%);
@@ -48,12 +47,10 @@ export const ButtonLarge = styled.button<IButtonProps>`
   font-size: 2em;
   cursor: pointer;
   border: ${smallBorder};
-  background-color: ${({ bgcolor: bgColor }) =>
-    bgColor ? bgColor : secondaryPink};
+  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
 
   &:hover {
-    background-color: ${({ bgcolor: bgColor }) =>
-      bgColor ? bgColor : "#ffd5d5"};
+    background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : "#ffd5d5")};
   }
 
   &:disabled {
@@ -64,8 +61,7 @@ export const ButtonLarge = styled.button<IButtonProps>`
 
 export const ButtonLargeSelect = styled(ButtonLarge)<IButtonProps>`
   gap: 2rem;
-  background-color: ${({ bgcolor: bgColor }) =>
-    bgColor ? bgColor : secondaryPink};
+  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
   &:focus {
     background-color: ${primaryPink};
   }

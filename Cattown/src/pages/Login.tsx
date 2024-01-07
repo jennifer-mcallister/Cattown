@@ -25,7 +25,7 @@ export const Login = () => {
     e.preventDefault();
     try {
       await loginUser(user);
-      navigate("/home");
+      navigate("/");
     } catch {
       setLoginFail(true);
     }

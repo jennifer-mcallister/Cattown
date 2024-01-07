@@ -43,7 +43,7 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
       await resetSavefile();
       setConfirmRestart(!confirmRestart);
       toggleOptions();
-      navigate("/home");
+      navigate("/");
     } catch {
       throw new Error("Something went wrong");
     }

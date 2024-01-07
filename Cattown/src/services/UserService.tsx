@@ -8,7 +8,7 @@ import { auth, savefilesCollection } from "./Firebase";
 import { IUserLogin, IUserRegister } from "../types/userTypes";
 import { ISavefile } from "../types/savefileTypes";
 import { doc, setDoc } from "firebase/firestore";
-import { defaultSavefile } from "../models/Savefile";
+import { newGameSavefile } from "../models/Savefile";
 
 export const registerUser = async (user: IUserRegister) => {
   try {
@@ -19,7 +19,7 @@ export const registerUser = async (user: IUserRegister) => {
     );
 
     const newSavefile: ISavefile = {
-      ...defaultSavefile,
+      ...newGameSavefile,
       username: user.username,
     };
 

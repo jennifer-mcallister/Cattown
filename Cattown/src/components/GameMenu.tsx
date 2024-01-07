@@ -42,7 +42,7 @@ export const GameMenu = ({ toggleMenu, show, usergold }: IGameMenuProps) => {
         <MenuBody>
           <ButtonLarge
             onClick={() => {
-              goToLocation("/home");
+              goToLocation("/");
             }}
           >
             Home

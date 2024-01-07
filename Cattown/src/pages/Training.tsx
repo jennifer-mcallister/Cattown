@@ -14,7 +14,7 @@ export const Training = () => {
   return (
     <>
       <MainContent>
-        <PageHeaderContainer bgColor="#F7C968">
+        <PageHeaderContainer bgcolor="#F7C968">
           <HeaderBig>Training</HeaderBig>
         </PageHeaderContainer>
         {outletContext.savefile.cats.length < 1 && (
