@@ -1,12 +1,19 @@
 import { styled } from "styled-components";
 import {
   borderRadiusMedium,
+  borderRadiusRoundSmall,
   mediumBorder,
   smallBorder,
 } from "./theme_variables/borders";
-import { primaryRed, secondaryWhite } from "./theme_variables/colors";
+import {
+  primaryBlue,
+  primaryRed,
+  secondaryWhite,
+  tertiaryGreen,
+} from "./theme_variables/colors";
 
 export const QuestMenuBackground = styled.div`
+  background-color: rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,6 +120,7 @@ export const QuestContent = styled.div`
 
 export const QuestFooter = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
@@ -123,4 +131,30 @@ export const QuestFooter = styled.div`
 export const QuestCatImg = styled.img`
   width: 3.5rem;
   z-index: 1;
+`;
+
+export const QuestRewardContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const QuestRewardBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 3rem;
+  height: 2rem;
+  padding: 0.2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: ${borderRadiusRoundSmall};
+  background: ${tertiaryGreen};
+`;
+
+export const SecondaryInfoBox = styled(QuestRewardBox)`
+  background: ${primaryBlue};
 `;

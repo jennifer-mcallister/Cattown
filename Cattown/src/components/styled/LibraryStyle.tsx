@@ -124,3 +124,8 @@ export const TopSectionRightBox = styled.div`
   width: 80%;
   height: 100%;
 `;
+
+export const InfoContainer = styled.div`
+  width: 30rem;
+  height: 10rem;
+`;

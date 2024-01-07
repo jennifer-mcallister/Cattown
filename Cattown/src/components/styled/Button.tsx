@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
-import { primaryYellow, secondaryPink } from "./theme_variables/colors";
+import { primaryPink, secondaryPink } from "./theme_variables/colors";
 
 interface IButtonProps {
   bgcolor?: string;
@@ -63,9 +63,10 @@ export const ButtonLarge = styled.button<IButtonProps>`
 `;
 
 export const ButtonLargeSelect = styled(ButtonLarge)<IButtonProps>`
+  gap: 2rem;
   background-color: ${({ bgcolor: bgColor }) =>
     bgColor ? bgColor : secondaryPink};
   &:focus {
-    background-color: ${primaryYellow};
+    background-color: ${primaryPink};
   }
 `;

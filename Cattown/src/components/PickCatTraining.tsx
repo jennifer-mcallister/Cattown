@@ -28,6 +28,7 @@ import {
   MenuHeaderItems,
 } from "./styled/Menu";
 import { updateCats } from "../services/CatService";
+import { QuestRewardBox, SecondaryInfoBox } from "./styled/Quest";
 
 interface IPickCatTraining {
   cat: ICat;
@@ -36,7 +37,7 @@ interface IPickCatTraining {
 
 export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
   const [pickTime, setPickTime] = useState(false);
-  const [selectedTime, setSelectedTime] = useState(0);
+  const [selectedTimeMin, setSelectedTimeMin] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   const handleLoading = () => {
@@ -50,8 +51,8 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
           return {
             ...c,
             status: "training",
-            trainingEndTime: new Date().getTime() + selectedTime,
-            trainingXp: selectedTime / 1000,
+            trainingEndTime: new Date().getTime() + selectedTimeMin * 60000,
+            trainingXp: selectedTimeMin * 100,
           };
         } else {
           return c;
@@ -147,45 +148,63 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
 
           <ButtonLargeSelect
             onClick={() => {
-              setSelectedTime(60000);
+              setSelectedTimeMin(1);
             }}
           >
-            1 min
+            <QuestRewardBox>{1 * 100} xp</QuestRewardBox>
+            <SecondaryInfoBox>
+              <TextMedium>1 min</TextMedium>
+            </SecondaryInfoBox>
           </ButtonLargeSelect>
           <ButtonLargeSelect
             onClick={() => {
-              setSelectedTime(300000);
+              setSelectedTimeMin(5);
             }}
           >
-            5 min
+            <QuestRewardBox>{5 * 100} xp</QuestRewardBox>
+            <SecondaryInfoBox>
+              <TextMedium>5 min</TextMedium>
+            </SecondaryInfoBox>
           </ButtonLargeSelect>
           <ButtonLargeSelect
             onClick={() => {
-              setSelectedTime(900000);
+              setSelectedTimeMin(15);
             }}
           >
-            15 min
+            <QuestRewardBox>{15 * 100} xp</QuestRewardBox>
+            <SecondaryInfoBox>
+              <TextMedium>15 min</TextMedium>
+            </SecondaryInfoBox>
           </ButtonLargeSelect>
           <ButtonLargeSelect
             onClick={() => {
-              setSelectedTime(3600000);
+              setSelectedTimeMin(60);
             }}
           >
-            1 h
+            <QuestRewardBox>{60 * 100} xp</QuestRewardBox>
+            <SecondaryInfoBox>
+              <TextMedium>1 h</TextMedium>
+            </SecondaryInfoBox>
           </ButtonLargeSelect>
           <ButtonLargeSelect
             onClick={() => {
-              setSelectedTime(7200000);
+              setSelectedTimeMin(120);
             }}
           >
-            2 h
+            <QuestRewardBox>{120 * 100} xp</QuestRewardBox>
+            <SecondaryInfoBox>
+              <TextMedium>2 h</TextMedium>
+            </SecondaryInfoBox>
           </ButtonLargeSelect>
           <ButtonLargeSelect
             onClick={() => {
-              setSelectedTime(28800000);
+              setSelectedTimeMin(480);
             }}
           >
-            8 h
+            <QuestRewardBox>{480 * 100} xp</QuestRewardBox>
+            <SecondaryInfoBox>
+              <TextMedium>8 h</TextMedium>
+            </SecondaryInfoBox>
           </ButtonLargeSelect>
           <ButtonMedium onClick={confirmTraining}>Ok</ButtonMedium>
         </MenuContainer>

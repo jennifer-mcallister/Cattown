@@ -52,3 +52,18 @@ export const HomeNavHeader = styled.div`
   position: absolute;
   top: 10rem;
 `;
+
+export const HomeInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+  width: 30rem;
+  height: 20rem;
+  text-align: center;
+  border: ${smallBorder};
+  background-color: ${secondaryWhite};
+  border-radius: ${borderRadiusMedium};
+`;

@@ -5,3 +5,4 @@ export const smallBorder = `2px solid ${black}`;
 
 export const borderRadiusMedium = "1rem";
 export const borderRadiusSmall = "0.7rem";
+export const borderRadiusRoundSmall = "2rem";

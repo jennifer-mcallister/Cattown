@@ -9,6 +9,7 @@ import {
 } from "../components/styled/Text";
 import {
   GeneralStatsContainer,
+  InfoContainer,
   LibraryDivider,
   McGuffinContainer,
   McGuffinImg,
@@ -90,9 +91,14 @@ export const Library = () => {
           <TopSectionRightBox>
             <HeaderSmall>McGuffins</HeaderSmall>
             {outletContext.savefile.uniqueItems.length < 1 && (
-              <TextSmall>
-                Looks like you don't have any McGuffins yet!
-              </TextSmall>
+              <InfoContainer>
+                {" "}
+                <TextSmall>
+                  It seems you haven't acquired any McGuffins yet. Take on the
+                  challenge of defeating the four bosses in Catland to start
+                  collecting them.
+                </TextSmall>
+              </InfoContainer>
             )}
             <McGuffinsContainer>
               {outletContext.savefile.uniqueItems.map((uniqueItem) => (
@@ -111,7 +117,15 @@ export const Library = () => {
             </McGuffinsContainer>
             <HeaderSmall>Relics</HeaderSmall>
             {outletContext.savefile.relics.length < 1 && (
-              <TextSmall>Looks like you don't have any relics yet!</TextSmall>
+              <InfoContainer>
+                {" "}
+                <TextSmall>
+                  It appears you haven't gathered any Relics yet. Pay a visit to
+                  Bobben's shop, perhaps he has one available for purchase. The
+                  right relic could provide the edge you need to conquer one of
+                  the bosses in Catland.
+                </TextSmall>
+              </InfoContainer>
             )}
             <RelicsContainer>
               {outletContext.savefile.relics.map((relic, index) => (
