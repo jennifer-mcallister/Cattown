@@ -17,6 +17,12 @@ import { HeaderBig, TextMedium } from "../components/styled/Text";
 import { useState } from "react";
 import { ButtonMedium } from "../components/styled/Button";
 import { QuestMenuBackground } from "../components/styled/Quest";
+import {
+  catColor,
+  libraryColor,
+  mapColor,
+  trainingColor,
+} from "../components/styled/theme_variables/colors";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -53,7 +59,10 @@ export const Home = () => {
       )}
 
       <HomeContainer>
-        <HomeNavContainer className={imgLoaded ? "loaded" : ""}>
+        <HomeNavContainer
+          className={imgLoaded ? "loaded" : ""}
+          hovercolor={trainingColor}
+        >
           <HomeNavImg
             src={training}
             alt="Image of a cat training"
@@ -66,7 +75,10 @@ export const Home = () => {
             <TextMedium>Training</TextMedium>
           </HomeNavHeader>
         </HomeNavContainer>
-        <HomeNavContainer className={imgLoaded ? "loaded" : ""}>
+        <HomeNavContainer
+          className={imgLoaded ? "loaded" : ""}
+          hovercolor={catColor}
+        >
           <HomeNavImg
             src={cats}
             alt="Image of a cats"
@@ -79,7 +91,10 @@ export const Home = () => {
             <TextMedium>Cats</TextMedium>
           </HomeNavHeader>
         </HomeNavContainer>
-        <HomeNavContainer className={imgLoaded ? "loaded" : ""}>
+        <HomeNavContainer
+          className={imgLoaded ? "loaded" : ""}
+          hovercolor={mapColor}
+        >
           <HomeNavImg
             src={map}
             alt="Image of a map"
@@ -94,7 +109,10 @@ export const Home = () => {
         </HomeNavContainer>
       </HomeContainer>
       <HomeContainer>
-        <HomeNavContainer className={imgLoaded ? "loaded" : ""}>
+        <HomeNavContainer
+          className={imgLoaded ? "loaded" : ""}
+          hovercolor={libraryColor}
+        >
           <HomeNavImg
             src={library}
             alt="Image of a magic book"
@@ -107,7 +125,10 @@ export const Home = () => {
             <TextMedium>Library</TextMedium>
           </HomeNavHeader>
         </HomeNavContainer>
-        <HomeNavContainer className={imgLoaded ? "loaded" : ""}>
+        <HomeNavContainer
+          className={imgLoaded ? "loaded" : ""}
+          hovercolor={trainingColor}
+        >
           <HomeNavImg
             src={shop}
             alt="Image of a cat holding a bag of money"

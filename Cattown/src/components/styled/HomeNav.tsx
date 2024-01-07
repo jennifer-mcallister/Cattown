@@ -3,7 +3,11 @@ import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
 import { secondaryWhite } from "./theme_variables/colors";
 import { bounceAnimation } from "./Animations";
 
-export const HomeNavContainer = styled.div`
+interface IHomeNavProps {
+  hovercolor: string;
+}
+
+export const HomeNavContainer = styled.div<IHomeNavProps>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,7 +26,10 @@ export const HomeNavContainer = styled.div`
     transform: translateY(0) scale(1);
     animation: ${bounceAnimation} 1s ease-in-out;
     &:hover {
-      box-shadow: 0 0 10px #f021be, 0 0 40px #f021be, 0 0 80px #f021be;
+      box-shadow: ${({ hovercolor }) =>
+        hovercolor
+          ? ` 0 0 200px ${hovercolor}, 0 0 40px ${hovercolor}, 0 0 80px ${hovercolor}`
+          : " 0 0 10px #f021be, 0 0 70px #f021be, 0 0 80px #f021be"};
     }
   }
 
@@ -32,6 +39,9 @@ export const HomeNavContainer = styled.div`
 export const HomeNavImg = styled.img`
   width: 20rem;
   cursor: pointer;
+  &:hover {
+    width: 20.5rem;
+  }
 `;
 
 export const HomeNavHeader = styled.div`
