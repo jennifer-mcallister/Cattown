@@ -1,7 +1,8 @@
 import { styled } from "styled-components";
 import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
-import { secondaryWhite } from "./theme_variables/colors";
-import { bounceAnimation } from "./Animations";
+import { primaryWhite, secondaryWhite } from "./theme_variables/colors";
+import { bounceAnimation, buyRelicAnimation } from "./Animations";
+import { HeaderBig, HeaderSmall } from "./Text";
 
 export const ShopMenuContainer = styled.div`
   display: flex;
@@ -49,6 +50,12 @@ export const ShopItemContainer = styled.div`
     transform: translateY(0) scale(1);
     animation: ${bounceAnimation} 1s ease-in-out;
   }
+
+  &.bought-item {
+    opacity: 1;
+    transform: translatyY(0) scale(1);
+    animation: ${buyRelicAnimation} 1s ease-in-out;
+  }
 `;
 
 export const ShopItemContent = styled.div`
@@ -87,4 +94,40 @@ export const ShopItemInfoContainer = styled.div`
 
 export const ShopItemRelicImg = styled.img`
   width: 7rem;
+`;
+
+export const RevealCatContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  width: auto;
+  height: auto;
+
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+
+  &.loaded {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation: ${bounceAnimation} 1s ease-in-out;
+  }
+`;
+
+export const RevealCatTitle = styled(HeaderBig)`
+  color: ${primaryWhite};
+`;
+
+export const RevealCatSubTitle = styled(HeaderSmall)`
+  color: ${primaryWhite};
+`;
+
+export const RevealCatStats = styled(HeaderSmall)`
+  color: ${primaryWhite};
+`;
+
+export const RevealCatImg = styled.img`
+  width: 15rem;
 `;

@@ -15,7 +15,7 @@ export const ConfirmationContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 20rem;
+  width: 22rem;
   min-height: 6rem;
   padding: 2rem;
   background-color: ${secondaryPink};

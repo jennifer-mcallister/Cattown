@@ -21,6 +21,10 @@ export const MenuBackground = styled.div<IMenuProps>`
   background-color: rgba(0, 0, 0, 0.3);
 `;
 
+export const BoughtItemBackground = styled(MenuBackground)`
+  background-color: rgba(0, 0, 0, 0.9);
+`;
+
 export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;

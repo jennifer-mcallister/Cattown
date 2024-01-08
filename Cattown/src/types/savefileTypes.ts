@@ -11,6 +11,8 @@ export interface ISavefile {
 
 export interface ICat {
   id: string;
+  img?: string;
+  rarity?: string;
   name: string;
   xp: number;
   level: number;

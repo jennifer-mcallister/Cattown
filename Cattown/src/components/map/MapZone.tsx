@@ -95,10 +95,6 @@ export const MapZone = ({
             </TextSmallBold>
           </MapHoverContainer>
         )}
-        {/* <TextMedium>{zone}</TextMedium>
-        <TextMedium>
-          Level {zoneLevel}-{zoneLevel + 5}
-        </TextMedium> */}
       </MapOverviewLocation>
       {showQuests && (
         <QuestsMenu

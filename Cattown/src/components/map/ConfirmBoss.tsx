@@ -82,7 +82,7 @@ export const ConfirmBoss = ({
             <CatHeader>
               <CatImgContainer>
                 <CatImg
-                  src={placeholder}
+                  src={cat.img ? `/assets/${cat.img}` : placeholder}
                   onLoad={handleLoading}
                   alt="Image of a cat"
                 />
