@@ -17,3 +17,21 @@ export const bounceAnimation = keyframes`
     transform: scale(1);
   }
 `;
+
+export const buyRelicAnimation = keyframes`
+  100% {
+    transform: scale(1);
+  }
+  80% {
+    transform: scale(1.01);
+  }
+  50% {
+    transform: scale(0.9);
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  0% {
+    transform: scale(0.5);
+  }
+`;

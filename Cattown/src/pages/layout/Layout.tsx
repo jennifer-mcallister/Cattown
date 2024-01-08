@@ -55,11 +55,18 @@ export const Layout = () => {
       try {
         const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
           if (cat.id === catFinnished.id) {
+            const levelAfterXpGain = countOutCatLevel(catFinnished.xp);
             return {
               ...catFinnished,
               level: countOutCatLevel(catFinnished.xp),
-              strength: countOutCatLevel(catFinnished.xp) * 2,
-              health: countOutCatLevel(catFinnished.xp) * 10,
+              strength:
+                levelAfterXpGain > catFinnished.level
+                  ? catFinnished.strength + catFinnished.level * 2
+                  : catFinnished.strength,
+              health:
+                levelAfterXpGain > catFinnished.level
+                  ? catFinnished.health + catFinnished.level * 10
+                  : catFinnished.health,
             };
           } else {
             return cat;

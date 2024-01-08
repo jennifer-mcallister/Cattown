@@ -39,6 +39,7 @@ export const ConfirmMission = ({
   confirmMission: confirmMission,
 }: IConfirmMissionProps) => {
   const [imgLoaded, setImgLoaded] = useState(false);
+  const imgPath = `/assets/${quest.cat.img}`;
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -62,7 +63,7 @@ export const ConfirmMission = ({
           <CatHeader>
             <CatImgContainer>
               <CatImg
-                src={placeholder}
+                src={quest.cat.img ? imgPath : placeholder}
                 onLoad={handleLoading}
                 alt="Image of a cat"
               />

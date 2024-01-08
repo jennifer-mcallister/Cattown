@@ -44,6 +44,8 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
   const [changeName, setChangeName] = useState(false);
   const [newName, setNewName] = useState("");
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [showConfirmDeleteCat, setShowConfirmDeleteCat] = useState(false);
+  const imgPath = `/assets/${cat.img}`;
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -90,8 +92,40 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
     }
   };
 
+  const handleChangeName = () => {
+    toggleChangeName();
+    setNewName("");
+  };
+
   return (
     <>
+      {showConfirmDeleteCat && (
+        <MenuBackground show={"true"}>
+          <ConfirmationContainer>
+            <HeaderSmall>
+              Are you sure you want to delete {cat.name}?
+            </HeaderSmall>
+            <ConfirmationButtonsContainer>
+              <ButtonMedium
+                bgcolor={primaryGreen}
+                onClick={() => {
+                  deleteCat(cat);
+                }}
+              >
+                Yes
+              </ButtonMedium>
+              <ButtonMedium
+                bgcolor={primaryRed}
+                onClick={() => {
+                  setShowConfirmDeleteCat(false);
+                }}
+              >
+                No
+              </ButtonMedium>
+            </ConfirmationButtonsContainer>
+          </ConfirmationContainer>
+        </MenuBackground>
+      )}
       {changeName && (
         <MenuBackground show={"true"}>
           <ConfirmationContainer>
@@ -104,7 +138,7 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
                 id="name"
                 value={newName}
                 minLength={3}
-                maxLength={30}
+                maxLength={14}
                 required
                 onChange={handleChange}
               />
@@ -124,7 +158,7 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
         <CatHeader>
           <CatImgContainer>
             <CatImg
-              src={placeholder}
+              src={cat.img ? imgPath : placeholder}
               onLoad={handleLoading}
               alt="Image of a cat"
             />
@@ -185,13 +219,19 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
           </CatContentColumn>
         </CatContent>
         <CatFooter>
-          <ButtonMedium bgcolor={primaryBlue} onClick={toggleChangeName}>
+          <ButtonMedium
+            bgcolor={primaryBlue}
+            onClick={() => {
+              handleChangeName();
+            }}
+          >
             New name
           </ButtonMedium>
           <ButtonMedium
+            disabled={cats.length < 2}
             bgcolor={primaryRed}
             onClick={() => {
-              deleteCat(cat);
+              setShowConfirmDeleteCat(true);
             }}
           >
             Retire

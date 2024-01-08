@@ -2,6 +2,11 @@ import { useLoaderData, useOutletContext } from "react-router-dom";
 import { ShopItem } from "../components/ShopItem";
 import { MainContent, ShopContent } from "../components/styled/LayoutStyle";
 import {
+  RevealCatContainer,
+  RevealCatImg,
+  RevealCatStats,
+  RevealCatSubTitle,
+  RevealCatTitle,
   ShopItemContainer,
   ShopItemContent,
   ShopItemFooter,
@@ -11,8 +16,14 @@ import {
   ShopItemRightBox,
 } from "../components/styled/ShopMenu";
 import { useEffect, useState } from "react";
-import { IRelic } from "../types/savefileTypes";
-import { defaultCat } from "../models/Cat";
+import { ICat, IRelic } from "../types/savefileTypes";
+import {
+  commonCat,
+  defaultCat,
+  legendaryCat,
+  rareCat,
+  uncommonCat,
+} from "../models/Cat";
 import { ILayoutContext } from "./layout/Layout";
 import { buyCats } from "../services/CatService";
 import { PageHeaderContainer } from "../components/styled/Container";
@@ -23,16 +34,27 @@ import {
   TextSmall,
 } from "../components/styled/Text";
 import { CatDivider, CatTextContainer } from "../components/styled/Cat";
-import { ButtonLarge } from "../components/styled/Button";
+import { ButtonLarge, ButtonMedium } from "../components/styled/Button";
 import mysteryCat from "/assets/mystery_cat.png";
+import placeholder from "/assets/cat_white.png";
 import coin from "/assets/coin.png";
 import { HeaderCoinImg } from "../components/styled/HeaderStyle";
+import { BoughtItemBackground } from "../components/styled/Menu";
+import { throwD20 } from "../helpers/gameCalculationHelpers";
 
 export const Shop = () => {
   const outletContext = useOutletContext<ILayoutContext>();
-  const data: IRelic[] = useLoaderData() as IRelic[];
-  const [relics, setRelics] = useState<IRelic[]>(data);
+  const relics: IRelic[] = useLoaderData() as IRelic[];
+  const [availableRelics, setAvailableRelics] = useState<IRelic[]>(relics);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [revealImgLoaded, setRevealImgLoaded] = useState(false);
+  const [boughtCat, setBoughtCat] = useState(false);
+  const [randomizedCat, setRandomizedCat] = useState<ICat>(defaultCat);
+  const imgPath = `/assets/${randomizedCat.img}`;
+
+  const handleRevealLoading = () => {
+    setRevealImgLoaded(true);
+  };
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -43,19 +65,41 @@ export const Shop = () => {
   };
 
   useEffect(() => {
-    const showRelics: IRelic[] = relics.filter(
+    const showRelics: IRelic[] = availableRelics.filter(
       (relic) =>
         !outletContext.savefile.relics.some((userRelic) =>
           userHasRelic(relic, userRelic)
         )
     );
 
-    setRelics(showRelics);
+    setAvailableRelics(showRelics);
   }, [outletContext.savefile.relics]);
+
+  const rollNewCat = () => {
+    const diceRoll = throwD20();
+    if (diceRoll < 9) {
+      setRandomizedCat(commonCat);
+      return commonCat;
+    }
+    if (diceRoll > 8 && diceRoll < 15) {
+      setRandomizedCat(uncommonCat);
+      return uncommonCat;
+    }
+    if (diceRoll > 14 && diceRoll < 18) {
+      setRandomizedCat(rareCat);
+      return rareCat;
+    }
+    if (diceRoll > 17 && diceRoll < 20) {
+      setRandomizedCat(legendaryCat);
+      return legendaryCat;
+    }
+    return commonCat;
+  };
 
   const buyCat = async () => {
     try {
-      const cat = { ...defaultCat, id: Date.now().toString() };
+      setBoughtCat(true);
+      const cat = { ...rollNewCat(), id: Date.now().toString() };
       const updatedCats = [...outletContext.savefile.cats, cat];
       const goldLeft = outletContext.savefile.gold - 75;
       await buyCats(updatedCats, goldLeft);
@@ -66,6 +110,35 @@ export const Shop = () => {
 
   return (
     <>
+      {boughtCat && (
+        <BoughtItemBackground
+          show={"true"}
+          onClick={() => {
+            setBoughtCat(false);
+          }}
+        >
+          <RevealCatContainer className={revealImgLoaded ? "loaded" : ""}>
+            <RevealCatTitle>
+              {randomizedCat.rarity ? randomizedCat.rarity : ""}
+            </RevealCatTitle>
+            <RevealCatSubTitle>{randomizedCat.name}</RevealCatSubTitle>
+            <RevealCatImg
+              src={randomizedCat.img ? imgPath : placeholder}
+              onLoad={handleRevealLoading}
+              alt="Image of a cat"
+            />
+            <RevealCatStats>Health: {randomizedCat.health}</RevealCatStats>
+            <RevealCatStats>Strength: {randomizedCat.strength}</RevealCatStats>
+            <ButtonMedium
+              onClick={() => {
+                setBoughtCat(false);
+              }}
+            >
+              Back to shop
+            </ButtonMedium>
+          </RevealCatContainer>
+        </BoughtItemBackground>
+      )}
       <MainContent>
         <PageHeaderContainer>
           <HeaderBig>Bobben's shop</HeaderBig>
@@ -74,6 +147,7 @@ export const Shop = () => {
           {relics.map((relic) => (
             <ShopItem
               relic={relic}
+              availableRelics={availableRelics}
               userRelics={outletContext.savefile.relics || []}
               key={relic.name}
               userGold={outletContext.savefile.gold || 0}
@@ -109,7 +183,8 @@ export const Shop = () => {
               <ButtonLarge
                 disabled={
                   outletContext.savefile.gold < 75 ||
-                  outletContext.savefile.cats.length >= 4
+                  outletContext.savefile.cats.length >= 4 ||
+                  boughtCat
                 }
                 onClick={() => {
                   buyCat();
@@ -124,30 +199,6 @@ export const Shop = () => {
               </ButtonLarge>
             </ShopItemFooter>
           </ShopItemContainer>
-          {/* <ShopItemContainer>
-              <ShopItemHeader>
-                <h3>Mystery Cat</h3>
-              </ShopItemHeader>
-              <ShopItemInfo>
-                <ShopItemImg src={placeholder} />
-                <ShopItemInfoContainer>
-                  <h2>?</h2>
-                </ShopItemInfoContainer>
-                <ShopItemInfoContainer>
-                  <ButtonMedium
-                    disabled={
-                      outletContext.savefile.gold < 75 ||
-                      outletContext.savefile.cats.length >= 4
-                    }
-                    onClick={() => {
-                      buyCat();
-                    }}
-                  >
-                    75$
-                  </ButtonMedium>
-                </ShopItemInfoContainer>
-              </ShopItemInfo>
-            </ShopItemContainer> */}
         </ShopContent>
       </MainContent>
     </>

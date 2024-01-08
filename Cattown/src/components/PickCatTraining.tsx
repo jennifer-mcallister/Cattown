@@ -40,6 +40,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
   const [pickTime, setPickTime] = useState(false);
   const [selectedTimeMin, setSelectedTimeMin] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const imgPath = `/assets/${cat.img}`;
   const xpPerMinute = 150;
 
   const handleLoading = () => {
@@ -73,7 +74,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
         <CatHeader>
           <CatImgContainer>
             <CatImg
-              src={placeholder}
+              src={cat.img ? imgPath : placeholder}
               onLoad={handleLoading}
               alt="Image of a cat"
             />

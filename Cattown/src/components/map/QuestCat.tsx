@@ -38,6 +38,7 @@ export const QuestCat = ({
 }: IQuestCatProps) => {
   const [buttonColor, setButtonColor] = useState<string>();
   const [imgLoaded, setImgLoaded] = useState(false);
+  const imgPath = `/assets/${cat.img}`;
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -48,7 +49,7 @@ export const QuestCat = ({
       <CatHeader>
         <CatImgContainer>
           <CatImg
-            src={placeholder}
+            src={cat.img ? imgPath : placeholder}
             onLoad={handleLoading}
             alt="Image of a cat"
           />
