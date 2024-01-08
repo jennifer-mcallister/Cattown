@@ -118,7 +118,6 @@ export const Library = () => {
             <HeaderSmall>Relics</HeaderSmall>
             {outletContext.savefile.relics.length < 1 && (
               <InfoContainer>
-                {" "}
                 <TextSmall>
                   It appears you haven't gathered any Relics yet. Pay a visit to
                   Bobben's shop, perhaps he has one available for purchase. The
@@ -148,27 +147,19 @@ export const Library = () => {
                     <LibraryDivider />
                     <CatTextContainer>
                       <TextSmall>Nature</TextSmall>
-                      <TextSmall>
-                        {outletContext.savefile.stats.natureRes}%
-                      </TextSmall>
+                      <TextSmall>{relic.stats.natureRes}%</TextSmall>
                     </CatTextContainer>
                     <CatTextContainer>
                       <TextSmall>Shadow</TextSmall>
-                      <TextSmall>
-                        {outletContext.savefile.stats.shadowRes}%
-                      </TextSmall>
+                      <TextSmall>{relic.stats.shadowRes}%</TextSmall>
                     </CatTextContainer>
                     <CatTextContainer>
                       <TextSmall>Water</TextSmall>
-                      <TextSmall>
-                        {outletContext.savefile.stats.waterRes}%
-                      </TextSmall>
+                      <TextSmall>{relic.stats.waterRes}%</TextSmall>
                     </CatTextContainer>
                     <CatTextContainer>
                       <TextSmall>Fire</TextSmall>
-                      <TextSmall>
-                        {outletContext.savefile.stats.fireRes}%
-                      </TextSmall>
+                      <TextSmall>{relic.stats.fireRes}%</TextSmall>
                     </CatTextContainer>
                   </GeneralStatsContainer>
                 </RelicContainer>
