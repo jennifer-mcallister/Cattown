@@ -37,6 +37,7 @@ export const SignUp = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setConfirmPassword({ ...confirmPassword, showWarning: false });
 
     if (user.password !== confirmPassword.password) {
       setConfirmPassword({ ...confirmPassword, showWarning: true });
@@ -80,6 +81,17 @@ export const SignUp = () => {
         </MenuHeader>
         <MenuBody>
           <Form method="post" onSubmit={handleSubmit}>
+            <FormLabel htmlFor="email">Email</FormLabel>
+            <FormInput
+              type="email"
+              placeholder="Email"
+              name="email"
+              id="email"
+              value={user.email}
+              required
+              disabled={registration.success}
+              onChange={handleChange}
+            />
             <FormLabel htmlFor="username">Username</FormLabel>
             <FormInput
               type="text"
@@ -89,17 +101,6 @@ export const SignUp = () => {
               value={user.username}
               minLength={3}
               maxLength={30}
-              required
-              disabled={registration.success}
-              onChange={handleChange}
-            />
-            <FormLabel htmlFor="email">Email</FormLabel>
-            <FormInput
-              type="email"
-              placeholder="Email"
-              name="email"
-              id="email"
-              value={user.email}
               required
               disabled={registration.success}
               onChange={handleChange}

@@ -63,7 +63,10 @@ export const Reset = () => {
           <ButtonLarge type="submit">Send login link</ButtonLarge>
           {submit.fail && <TextSmall>Account do not exists!</TextSmall>}
           {submit.success && (
-            <TextSmall>An email has been sent to your account!</TextSmall>
+            <TextSmall>
+              An email has been sent to your account, remember to check your
+              junk folder!
+            </TextSmall>
           )}
         </MenuSmallContainer>
       </Form>

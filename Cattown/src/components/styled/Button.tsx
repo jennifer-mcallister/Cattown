@@ -15,7 +15,6 @@ export const ButtonMedium = styled.button<IButtonProps>`
   height: 3rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
-  margin-top: 0.5rem;
   border-radius: ${borderRadiusMedium};
   font-size: 1.5rem;
   cursor: pointer;

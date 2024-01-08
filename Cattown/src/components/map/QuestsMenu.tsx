@@ -199,13 +199,15 @@ export const QuestsMenu = ({
         </QuestsMenuHeader>
         {showQuests && (
           <QuestsMenuContent>
-            {missions.map((mission, index) => (
-              <Mission
-                mission={mission}
-                key={index}
-                selectMission={selectMission}
-              />
-            ))}
+            {missions
+              .sort((a, b) => (a.type > b.type ? 1 : b.type > a.type ? -1 : 0))
+              .map((mission, index) => (
+                <Mission
+                  mission={mission}
+                  key={index}
+                  selectMission={selectMission}
+                />
+              ))}
             <Boss boss={boss} bossDead={bossDead} selectBoss={selectBoss} />
           </QuestsMenuContent>
         )}
