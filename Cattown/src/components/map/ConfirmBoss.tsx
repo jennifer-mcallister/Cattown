@@ -1,5 +1,5 @@
 import { ProgressBar } from "../ProgressBar";
-import { ButtonLarge } from "../styled/Button";
+import { ButtonMedium } from "../styled/Button";
 import {
   ConfirmBossContainer,
   QuestContent,
@@ -7,6 +7,7 @@ import {
   QuestHeader,
   QuestsMenuContent,
   QuestsMenuFooter,
+  TertiaryInfoBox,
 } from "../styled/Quest";
 import {
   HeaderSmall,
@@ -137,8 +138,11 @@ export const ConfirmBoss = ({
         ))}
       </QuestsMenuContent>
       <QuestsMenuFooter>
-        <HeaderSmall>Success Rate: {successChance}% </HeaderSmall>
-        <ButtonLarge onClick={confirmBoss}>OK</ButtonLarge>
+        <TertiaryInfoBox>
+          <HeaderSmall>Success Rate: {successChance}% </HeaderSmall>
+        </TertiaryInfoBox>
+
+        <ButtonMedium onClick={confirmBoss}>OK</ButtonMedium>
       </QuestsMenuFooter>
     </>
   );

@@ -162,4 +162,5 @@ export const SecondaryInfoBox = styled(QuestRewardBox)`
 
 export const TertiaryInfoBox = styled(QuestRewardBox)`
   background: ${primaryYellow};
+  height: 3rem;
 `;
