@@ -16,6 +16,10 @@ export const TextMedium = styled.p`
   font-size: 1.5rem;
 `;
 
+export const TextMediumCenter = styled(TextMedium)`
+  text-align: center;
+`;
+
 export const HeaderBig = styled.h1`
   font-size: 3rem;
 `;

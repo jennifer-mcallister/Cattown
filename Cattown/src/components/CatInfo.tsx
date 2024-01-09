@@ -15,6 +15,7 @@ import {
 import {
   HeaderSmall,
   TextMedium,
+  TextMediumCenter,
   TextSmall,
   TextSmallBold,
 } from "./styled/Text";
@@ -102,9 +103,9 @@ export const CatInfo = ({ cat, cats }: ICatInfoProps) => {
       {showConfirmDeleteCat && (
         <MenuBackground show={"true"}>
           <ConfirmationContainer>
-            <HeaderSmall>
+            <TextMediumCenter>
               Are you sure you want to delete {cat.name}?
-            </HeaderSmall>
+            </TextMediumCenter>
             <ConfirmationButtonsContainer>
               <ButtonMedium
                 bgcolor={primaryGreen}

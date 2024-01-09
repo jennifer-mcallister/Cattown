@@ -1,20 +1,17 @@
-import { MainContent } from "../components/styled/LayoutStyle";
+import { HomeContent, MainContent } from "../components/styled/LayoutStyle";
 import "@pixi/events";
-import { HomeContainer } from "../components/styled/Container";
 import {
-  HomeInfoContainer,
-  HomeNavContainer,
-  HomeNavHeader,
-  HomeNavImg,
-} from "../components/styled/HomeNav";
+  HomeContainerDesktop,
+  HomeContainerMobile,
+} from "../components/styled/Container";
+import { HomeInfoContainer } from "../components/styled/HomeNav";
 import shop from "/assets/shop.png";
 import map from "/assets/map.png";
 import library from "/assets/library.png";
 import cats from "/assets/cats.png";
 import training from "/assets/training.png";
-import { useNavigate } from "react-router-dom";
 import { HeaderBig, TextMedium } from "../components/styled/Text";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ButtonMedium } from "../components/styled/Button";
 import { QuestMenuBackground } from "../components/styled/Quest";
 import {
@@ -23,21 +20,28 @@ import {
   mapColor,
   trainingColor,
 } from "../components/styled/theme_variables/colors";
+import { IconLarge } from "../components/IconLarge";
 
 export const Home = () => {
-  const navigate = useNavigate();
-  const [imgLoaded, setImgLoaded] = useState(false);
   const [showNewPlayerInfo, setShowNewPlayerInfo] = useState(
     localStorage.getItem("newPlayer")?.toString() || "true"
   );
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const startGame = () => {
     setShowNewPlayerInfo("false");
     localStorage.setItem("newPlayer", "false");
-  };
-
-  const handleLoading = () => {
-    setImgLoaded(true);
   };
 
   return (
@@ -57,91 +61,58 @@ export const Home = () => {
           </HomeInfoContainer>
         </QuestMenuBackground>
       )}
-
-      <HomeContainer>
-        <HomeNavContainer
-          className={imgLoaded ? "loaded" : ""}
-          hovercolor={trainingColor}
-        >
-          <HomeNavImg
-            src={training}
-            alt="Image of a cat training"
-            onLoad={handleLoading}
-            onClick={() => {
-              navigate("/training");
-            }}
-          />
-          <HomeNavHeader>
-            <TextMedium>Training</TextMedium>
-          </HomeNavHeader>
-        </HomeNavContainer>
-        <HomeNavContainer
-          className={imgLoaded ? "loaded" : ""}
-          hovercolor={catColor}
-        >
-          <HomeNavImg
-            src={cats}
-            alt="Image of a cats"
-            onLoad={handleLoading}
-            onClick={() => {
-              navigate("/cats");
-            }}
-          />
-          <HomeNavHeader>
-            <TextMedium>Cats</TextMedium>
-          </HomeNavHeader>
-        </HomeNavContainer>
-        <HomeNavContainer
-          className={imgLoaded ? "loaded" : ""}
-          hovercolor={mapColor}
-        >
-          <HomeNavImg
-            src={map}
-            alt="Image of a map"
-            onLoad={handleLoading}
-            onClick={() => {
-              navigate("/map");
-            }}
-          />
-          <HomeNavHeader>
-            <TextMedium>Map</TextMedium>
-          </HomeNavHeader>
-        </HomeNavContainer>
-      </HomeContainer>
-      <HomeContainer>
-        <HomeNavContainer
-          className={imgLoaded ? "loaded" : ""}
-          hovercolor={libraryColor}
-        >
-          <HomeNavImg
-            src={library}
-            alt="Image of a magic book"
-            onLoad={handleLoading}
-            onClick={() => {
-              navigate("/library");
-            }}
-          />
-          <HomeNavHeader>
-            <TextMedium>Library</TextMedium>
-          </HomeNavHeader>
-        </HomeNavContainer>
-        <HomeNavContainer
-          className={imgLoaded ? "loaded" : ""}
-          hovercolor={trainingColor}
-        >
-          <HomeNavImg
-            src={shop}
-            alt="Image of a cat holding a bag of money"
-            onLoad={handleLoading}
-            onClick={() => {
-              navigate("/shop");
-            }}
-          />
-          <HomeNavHeader>
-            <TextMedium>Bobbens Shop</TextMedium>
-          </HomeNavHeader>
-        </HomeNavContainer>
-      </HomeContainer>
+      <HomeContent>
+        {windowWidth < 769 && (
+          <HomeContainerMobile>
+            <IconLarge
+              hoverColor={trainingColor}
+              img={training}
+              locationPath={"training"}
+            />
+            <IconLarge hoverColor={catColor} img={cats} locationPath={"cats"} />
+            <IconLarge hoverColor={mapColor} img={map} locationPath={"map"} />
+            <IconLarge
+              hoverColor={libraryColor}
+              img={library}
+              locationPath={"library"}
+            />
+            <IconLarge
+              hoverColor={trainingColor}
+              img={shop}
+              locationPath={"shop"}
+            />
+          </HomeContainerMobile>
+        )}
+        {windowWidth > 768 && (
+          <>
+            <HomeContainerDesktop>
+              <IconLarge
+                hoverColor={trainingColor}
+                img={training}
+                locationPath={"training"}
+              />
+              <IconLarge
+                hoverColor={catColor}
+                img={cats}
+                locationPath={"cats"}
+              />
+              <IconLarge hoverColor={mapColor} img={map} locationPath={"map"} />
+            </HomeContainerDesktop>
+            <HomeContainerDesktop>
+              <IconLarge
+                hoverColor={libraryColor}
+                img={library}
+                locationPath={"library"}
+              />
+              <IconLarge
+                hoverColor={trainingColor}
+                img={shop}
+                locationPath={"shop"}
+              />
+            </HomeContainerDesktop>
+          </>
+        )}
+      </HomeContent>
     </MainContent>
   );
 };

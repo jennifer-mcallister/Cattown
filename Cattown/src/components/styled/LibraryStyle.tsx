@@ -2,14 +2,26 @@ import { styled } from "styled-components";
 import { bounceAnimation } from "./Animations";
 import { borderRadiusSmall, smallBorder } from "./theme_variables/borders";
 import { black, secondaryWhite } from "./theme_variables/colors";
+import { devices } from "./theme_variables/devices";
 
 export const TopSection = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 4rem;
   height: 80%;
-  width: 70rem;
+  width: 100vw;
+
+  @media (${devices.tablet}) {
+    width: 46rem;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  @media (${devices.desktop}) {
+    width: 70rem;
+  }
 `;
 
 export const StatsInfoContainer = styled.div`
@@ -39,16 +51,36 @@ export const LibraryDivider = styled.div`
 
 export const McGuffinsContainer = styled.div`
   display: grid;
-  justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-gap: 1rem;
-  width: 35rem;
-  height: 10rem;
+  width: 17rem;
+  height: auto;
+
+  @media (${devices.tablet}) {
+    grid-template-columns: 1fr 1fr;
+    width: 17rem;
+  }
+
+  @media (${devices.desktop}) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 35rem;
+  }
 `;
 
 export const RelicsContainer = styled(McGuffinsContainer)`
-  height: 20rem;
-  width: 50rem;
+  width: 12rem;
+  height: auto;
+  grid-template-columns: 1fr;
+
+  @media (${devices.tablet}) {
+    grid-template-columns: 1fr 1fr;
+    width: 26rem;
+  }
+
+  @media (${devices.desktop}) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    width: 50rem;
+  }
 `;
 
 export const RelicContainer = styled.div`
@@ -120,9 +152,14 @@ export const RelicImg = styled.img`
 export const TopSectionRightBox = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2rem;
   width: 80%;
   height: 100%;
+
+  @media (${devices.tablet}) {
+    align-items: flex-start;
+  }
 `;
 
 export const InfoContainer = styled.div`

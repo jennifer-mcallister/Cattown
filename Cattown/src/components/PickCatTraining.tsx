@@ -19,17 +19,25 @@ import {
   TextSmallBold,
 } from "./styled/Text";
 import placeholder from "/assets/cat_white.png";
-import { ButtonLarge, ButtonLargeSelect, ButtonMedium } from "./styled/Button";
+import {
+  ButtonIcon,
+  ButtonLarge,
+  ButtonLargeSelect,
+  ButtonMedium,
+} from "./styled/Button";
 import { useState } from "react";
 import {
   MenuBackground,
   MenuContainer,
+  MenuFooter,
   MenuHeader,
   MenuHeaderItems,
 } from "./styled/Menu";
 import { updateCats } from "../services/CatService";
 import { QuestRewardBox, SecondaryInfoBox } from "./styled/Quest";
 import { formatTime } from "../helpers/gameCalculationHelpers";
+import exitIcon from "/assets/icons/exit.png";
+import { Icon } from "./styled/Icon";
 
 interface IPickCatTraining {
   cat: ICat;
@@ -150,14 +158,14 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
         <MenuContainer>
           <MenuHeader>
             <MenuHeaderItems>
-              <h3>Pick time</h3>
-              <ButtonMedium
+              <HeaderSmall>Pick time</HeaderSmall>
+              <ButtonIcon
                 onClick={() => {
                   setPickTime(false);
                 }}
               >
-                X
-              </ButtonMedium>
+                <Icon src={exitIcon} alt="exit" />
+              </ButtonIcon>
             </MenuHeaderItems>
           </MenuHeader>
 
@@ -221,7 +229,9 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
               <TextMedium>8 h</TextMedium>
             </SecondaryInfoBox>
           </ButtonLargeSelect>
-          <ButtonMedium onClick={confirmTraining}>Ok</ButtonMedium>
+          <MenuFooter>
+            <ButtonMedium onClick={confirmTraining}>Ok</ButtonMedium>
+          </MenuFooter>
         </MenuContainer>
       </MenuBackground>
     </>

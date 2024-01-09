@@ -1,5 +1,9 @@
 import { styled } from "styled-components";
-import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
+import {
+  borderRadiusMedium,
+  borderRadiusRoundSmall,
+  smallBorder,
+} from "./theme_variables/borders";
 import { primaryPink, secondaryPink } from "./theme_variables/colors";
 
 interface IButtonProps {
@@ -64,4 +68,10 @@ export const ButtonLargeSelect = styled(ButtonLarge)<IButtonProps>`
   &:focus {
     background-color: ${primaryPink};
   }
+`;
+
+export const ButtonIcon = styled(ButtonMedium)`
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: ${borderRadiusRoundSmall};
 `;

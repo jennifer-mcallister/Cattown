@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { devices } from "./theme_variables/devices";
 
 export const HeaderContent = styled.div`
   position: relative;
@@ -13,28 +14,63 @@ export const HeaderContent = styled.div`
 
 export const MainContent = styled.div`
   width: 100vw;
-  height: 90vh;
+  min-height: 90vh;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   gap: 3rem;
 `;
 
 export const MainContentSignUp = styled(MainContent)`
-  flex-direction: row;
-  align-items: flex-start;
-  gap: 5rem;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+
+  @media (${devices.tablet}) {
+    flex-direction: row;
+    align-items: flex-start;
+  }
 `;
 
 export const CatsContent = styled.div`
   display: grid;
   justify-items: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 3rem;
-  height: 43rem;
+
+  @media (${devices.tablet}) {
+    grid-template-columns: 1fr 1fr;
+  }
+`;
+
+export const HomeContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  gap: 1rem;
+  width: 60%;
+
+  @media (${devices.desktop}) {
+    gap: 3rem;
+  }
+`;
+
+export const MapContent = styled(HomeContent)`
+  height: 80vh;
 `;
 
 export const ShopContent = styled(CatsContent)`
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+
+  @media (${devices.tablet}) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media (${devices.desktop}) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 `;

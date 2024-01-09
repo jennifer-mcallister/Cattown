@@ -11,14 +11,14 @@ export const MenuBackground = styled.div<IMenuProps>`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
 
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 
 export const BoughtItemBackground = styled(MenuBackground)`
@@ -30,7 +30,7 @@ export const MenuContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 20rem;
+  max-width: 75vw;
   min-height: 25rem;
   padding: 2rem;
   background-color: ${secondaryWhite};

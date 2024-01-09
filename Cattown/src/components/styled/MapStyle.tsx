@@ -2,15 +2,24 @@ import { styled } from "styled-components";
 import { bounceAnimation } from "./Animations";
 import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
 import { secondaryWhite } from "./theme_variables/colors";
+import { devices } from "./theme_variables/devices";
 
 export const MapOverviewContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding-top: 25rem;
+
   flex-direction: row;
   justify-content: space-between;
   align-items: space-between;
   flex-wrap: wrap;
-  width: 42rem;
-  height: 32rem;
+
+  @media (${devices.tablet}) {
+    padding-top: 0;
+    display: flex;
+    width: 42rem;
+    height: 32rem;
+  }
 `;
 
 export const MapOverviewLocation = styled.div`

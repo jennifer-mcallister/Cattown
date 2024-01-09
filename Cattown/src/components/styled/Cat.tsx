@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { black, secondaryWhite } from "./theme_variables/colors";
 import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
 import { bounceAnimation } from "./Animations";
+import { devices } from "./theme_variables/devices";
 
 export const CatContainer = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ export const CatContainer = styled.div`
   justify-content: space-between;
   width: 18rem;
   height: 17.5rem;
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: ${borderRadiusMedium};
   border: ${smallBorder};
   background: ${secondaryWhite};
@@ -24,6 +25,12 @@ export const CatContainer = styled.div`
     transform: translateY(0) scale(1);
     animation: ${bounceAnimation} 1s ease-in-out;
   }
+`;
+
+export const CatContainerQuest = styled(CatContainer)`
+  height: 6.5rem;
+  width: 15rem;
+  padding: 0.5rem;
 `;
 
 export const NoCatsContainer = styled.div`
@@ -41,14 +48,14 @@ export const CatHeader = styled.div`
   justify-content: space-between;
 
   height: 5.5rem;
-  width: 90%;
+  width: 100%;
 `;
 
 export const CatHeaderTitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;
-  width: 70%;
+  width: 60%;
 `;
 
 export const CatContent = styled(CatHeader)`
@@ -56,7 +63,9 @@ export const CatContent = styled(CatHeader)`
   align-items: center;
 `;
 
-export const CatFooter = styled(CatContent)``;
+export const CatFooter = styled(CatContent)`
+  align-items: flex-end;
+`;
 
 export const CatContentColumn = styled.div`
   display: flex;
@@ -65,6 +74,9 @@ export const CatContentColumn = styled.div`
   width: 46%;
 `;
 
+export const CatTextColumn = styled(CatContentColumn)`
+  width: 60%;
+`;
 export const CatTextContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -81,14 +93,27 @@ export const CatDivider = styled.div`
 `;
 
 export const CatImgContainer = styled.div`
-  width: 8rem;
+  width: 7.5rem;
+  position: relative;
+
+  @media (${devices.tablet}) {
+    width: 8rem;
+  }
+`;
+
+export const CatImgContainerQuest = styled.div`
+  width: 5rem;
   position: relative;
 `;
 
 export const CatImg = styled.img`
   width: 100%;
   position: absolute;
-  right: -11.5rem;
-  top: -2.5rem;
+  right: -12rem;
+  top: -3rem;
   z-index: 1;
+`;
+export const CatImgQuest = styled(CatImg)`
+  right: -9.5rem;
+  top: -3rem;
 `;
