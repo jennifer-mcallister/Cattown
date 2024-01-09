@@ -90,11 +90,16 @@ export const Layout = () => {
       const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
         if (cat.status === "training") {
           const timeInMilliseconds = cat.trainingEndTime - new Date().getTime();
-          if (timeInMilliseconds < 10) {
+          if (timeInMilliseconds < 1001) {
             updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp + cat.trainingXp,
+              trainingTimeLeft: {
+                h: 0,
+                min: 0,
+                sec: 0,
+              },
             });
           }
           const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);

@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { black, secondaryWhite } from "./theme_variables/colors";
+import { secondaryWhite } from "./theme_variables/colors";
 import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
 import { bounceAnimation } from "./Animations";
 import { devices } from "./theme_variables/devices";
@@ -87,8 +87,8 @@ export const CatTextContainer = styled.div`
 
 export const CatDivider = styled.div`
   width: 7rem;
-  height: 0.1rem;
-  background-color: ${black};
+  height: 0rem;
+  border-bottom: ${smallBorder};
   margin-top: 0.5rem;
 `;
 
