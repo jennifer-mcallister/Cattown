@@ -69,7 +69,7 @@ export const PageHeaderContainer = styled.div<IContainerProps>`
   align-items: center;
   width: 20rem;
   height: 3rem;
-  border: ${smallBorder};
+  // border: ${smallBorder};
   border-radius: ${borderRadiusMedium};
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryWhite)};
   margin-top: 0.5rem;

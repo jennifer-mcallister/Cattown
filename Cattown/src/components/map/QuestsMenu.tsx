@@ -178,11 +178,11 @@ export const QuestsMenu = ({
               xp: cat.xp + 500,
               level: countOutCatLevel(cat.xp + 500),
               strength:
-                countOutCatLevel(cat.xp) > cat.level
+                countOutCatLevel(cat.xp + 500) > cat.level
                   ? cat.strength + cat.level * 2
                   : cat.strength,
               health:
-                countOutCatLevel(cat.xp) > cat.level
+                countOutCatLevel(cat.xp + 500) > cat.level
                   ? cat.health + cat.level * 10
                   : cat.health,
             };

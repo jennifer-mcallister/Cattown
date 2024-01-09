@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { bounceAnimation } from "./Animations";
 import { borderRadiusSmall, smallBorder } from "./theme_variables/borders";
-import { black, secondaryWhite } from "./theme_variables/colors";
+import { secondaryWhite } from "./theme_variables/colors";
 import { devices } from "./theme_variables/devices";
 
 export const TopSection = styled.div`
@@ -44,8 +44,8 @@ export const GeneralStatsContainer = styled.div`
 
 export const LibraryDivider = styled.div`
   width: 90%;
-  height: 0.1rem;
-  background-color: ${black};
+  height: 0rem;
+  border-bottom: ${smallBorder};
   margin-top: 0.5rem;
 `;
 
