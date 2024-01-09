@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ButtonLarge, ButtonMedium } from "./styled/Button";
+import { ButtonIcon, ButtonLarge } from "./styled/Button";
 import {
   MenuBackground,
   MenuBody,
@@ -12,6 +12,10 @@ import { useNavigate } from "react-router-dom";
 import { Confirm } from "./Confirm";
 import { resetSavefile } from "../services/SavefileService";
 import { logoutUser } from "../services/UserService";
+import exitIcon from "/assets/icons/exit.png";
+import soundOff from "/assets/icons/sound_off.png";
+import { Icon } from "./styled/Icon";
+import { HeaderSmall } from "./styled/Text";
 
 interface IOptionsMenuProps {
   toggleOptions: () => void;
@@ -60,11 +64,13 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
           <MenuHeader>
             <MenuHeaderItems>
               {/* add func when added sounds */}
-              <ButtonMedium onClick={() => {}} disabled={true}>
-                Sound
-              </ButtonMedium>
-              <h2>Options</h2>
-              <ButtonMedium onClick={() => toggleOptions()}>X</ButtonMedium>
+              <ButtonIcon onClick={() => {}} disabled={true}>
+                <Icon src={soundOff} alt="Sound off" />
+              </ButtonIcon>
+              <HeaderSmall>Options</HeaderSmall>
+              <ButtonIcon onClick={() => toggleOptions()}>
+                <Icon src={exitIcon} alt="exit" />
+              </ButtonIcon>
             </MenuHeaderItems>
           </MenuHeader>
           <MenuBody>

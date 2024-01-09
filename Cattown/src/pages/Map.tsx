@@ -1,5 +1,5 @@
 import { useLoaderData, useOutletContext } from "react-router-dom";
-import { MainContent } from "../components/styled/LayoutStyle";
+import { MainContent, MapContent } from "../components/styled/LayoutStyle";
 import { ILayoutContext } from "./layout/Layout";
 import { MapOverviewContainer } from "../components/styled/MapStyle";
 import { IBoss, IMission } from "../types/missionTypes";
@@ -35,41 +35,43 @@ export const Map = () => {
     <>
       <MainContent>
         <HeaderBig>Catland</HeaderBig>
-        <MapOverviewContainer>
-          <MapZone
-            zone={"woods"}
-            missions={showMissionsForZone("woods")}
-            boss={showBossForZone("woods")}
-            cats={outletContext.savefile.cats}
-            userStats={outletContext.savefile.stats}
-            uniqueItems={outletContext.savefile.uniqueItems}
-          />
-          <MapZone
-            zone={"theCity"}
-            missions={showMissionsForZone("theCity")}
-            boss={showBossForZone("theCity")}
-            cats={outletContext.savefile.cats}
-            userStats={outletContext.savefile.stats}
-            uniqueItems={outletContext.savefile.uniqueItems}
-          />
+        <MapContent>
+          <MapOverviewContainer>
+            <MapZone
+              zone={"woods"}
+              missions={showMissionsForZone("woods")}
+              boss={showBossForZone("woods")}
+              cats={outletContext.savefile.cats}
+              userStats={outletContext.savefile.stats}
+              uniqueItems={outletContext.savefile.uniqueItems}
+            />
+            <MapZone
+              zone={"theCity"}
+              missions={showMissionsForZone("theCity")}
+              boss={showBossForZone("theCity")}
+              cats={outletContext.savefile.cats}
+              userStats={outletContext.savefile.stats}
+              uniqueItems={outletContext.savefile.uniqueItems}
+            />
 
-          <MapZone
-            zone={"swamp"}
-            missions={showMissionsForZone("swamp")}
-            boss={showBossForZone("swamp")}
-            cats={outletContext.savefile.cats}
-            userStats={outletContext.savefile.stats}
-            uniqueItems={outletContext.savefile.uniqueItems}
-          />
-          <MapZone
-            zone={"cave"}
-            missions={showMissionsForZone("cave")}
-            boss={showBossForZone("cave")}
-            cats={outletContext.savefile.cats}
-            userStats={outletContext.savefile.stats}
-            uniqueItems={outletContext.savefile.uniqueItems}
-          />
-        </MapOverviewContainer>
+            <MapZone
+              zone={"swamp"}
+              missions={showMissionsForZone("swamp")}
+              boss={showBossForZone("swamp")}
+              cats={outletContext.savefile.cats}
+              userStats={outletContext.savefile.stats}
+              uniqueItems={outletContext.savefile.uniqueItems}
+            />
+            <MapZone
+              zone={"cave"}
+              missions={showMissionsForZone("cave")}
+              boss={showBossForZone("cave")}
+              cats={outletContext.savefile.cats}
+              userStats={outletContext.savefile.stats}
+              uniqueItems={outletContext.savefile.uniqueItems}
+            />
+          </MapOverviewContainer>
+        </MapContent>
       </MainContent>
     </>
   );

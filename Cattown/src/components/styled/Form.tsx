@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 import { borderRadiusSmall, smallBorder } from "./theme_variables/borders";
 
 export const Form = styled.form`
-  width: 20rem;
+  width: 18rem;
   height: 100%;
   display: flex;
   flex-direction: column;

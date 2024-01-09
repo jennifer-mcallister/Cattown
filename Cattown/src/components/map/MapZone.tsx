@@ -35,14 +35,18 @@ export const MapZone = ({
   const [imgLoaded, setImgLoaded] = useState(false);
   const imgPath = `/assets/map_${zone}.png`;
   const [showLevelCap, setShowLevelCap] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  const handleLoading = () => {
-    setImgLoaded(true);
-  };
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
 
-  const toggleShowQuests = () => {
-    setShowQuests(!showQuests);
-  };
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     switch (zone) {
@@ -70,6 +74,14 @@ export const MapZone = ({
     );
   }, [outletContext]);
 
+  const handleLoading = () => {
+    setImgLoaded(true);
+  };
+
+  const toggleShowQuests = () => {
+    setShowQuests(!showQuests);
+  };
+
   return (
     <>
       <MapOverviewLocation
@@ -87,6 +99,14 @@ export const MapZone = ({
             setShowLevelCap(false);
           }}
         />
+        {windowWidth < 769 && (
+          <MapHoverContainer>
+            <HeaderSmall>{zone}</HeaderSmall>
+            <TextSmallBold>
+              lvl. {zoneLevel} - {zoneLevel + 5}
+            </TextSmallBold>
+          </MapHoverContainer>
+        )}
         {showLevelCap && (
           <MapHoverContainer>
             <HeaderSmall>{zone}</HeaderSmall>

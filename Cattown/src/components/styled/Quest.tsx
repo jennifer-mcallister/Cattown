@@ -12,6 +12,7 @@ import {
   secondaryWhite,
   tertiaryGreen,
 } from "./theme_variables/colors";
+import { devices } from "./theme_variables/devices";
 
 export const QuestMenuBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
@@ -21,7 +22,7 @@ export const QuestMenuBackground = styled.div`
   width: 100vw;
   height: 100vh;
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
@@ -32,14 +33,22 @@ export const QuestsMenuContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2rem;
-  width: 42rem;
-  max-height: 50rem;
+  gap: 0.5rem;
+  width: 70vw;
+  max-height: 90vh;
   padding: 2rem;
+  padding-top: 1rem;
 
   border-radius: ${borderRadiusMedium};
   border: ${mediumBorder};
   background: ${primaryRed};
+
+  @media (${devices.tablet}) {
+    padding: 3rem;
+    padding-top: 1rem;
+    width: 42rem;
+    gap: 2rem;
+  }
 `;
 
 export const QuestConfirmContainer = styled(QuestsMenuContainer)`
@@ -51,8 +60,12 @@ export const QuestsMenuHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
-  height: 4rem;
+  width: 100%;
+  height: 3.5rem;
+
+  @media (${devices.tablet}) {
+    height: 4rem;
+  }
 `;
 
 export const QuestsMenuFooter = styled(QuestsMenuHeader)`
@@ -63,9 +76,14 @@ export const QuestsMenuFooter = styled(QuestsMenuHeader)`
 export const QuestsMenuContent = styled.div`
   display: grid;
   justify-items: center;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 2rem;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
   max-height: 40rem;
+
+  @media (${devices.tablet}) {
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 2rem;
+  }
 `;
 
 export const QuestContainer = styled.button`
@@ -73,14 +91,20 @@ export const QuestContainer = styled.button`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 18rem;
-  height: 17.5rem;
+  width: 15rem;
+  min-height: 10.5rem;
   padding: 0.5rem;
   border-radius: ${borderRadiusMedium};
   background: ${secondaryWhite};
   border: ${smallBorder};
   border-radius: 1rem;
   cursor: pointer;
+
+  @media (${devices.tablet}) {
+    height: 17.5rem;
+    width: 18rem;
+    padding: 1rem;
+  }
 `;
 
 export const ConfirmCatContainer = styled.div`
@@ -88,12 +112,18 @@ export const ConfirmCatContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 18rem;
-  height: 17.5rem;
+  width: 15rem;
+  min-height: 5.5rem;
   padding: 0.5rem;
   border-radius: ${borderRadiusMedium};
   background: ${secondaryWhite};
   border: ${smallBorder};
+
+  @media (${devices.tablet}) {
+    height: 17.5rem;
+    width: 18rem;
+    padding: 1rem;
+  }
 `;
 
 export const ConfirmMissionContainer = styled(ConfirmCatContainer)``;
@@ -154,6 +184,7 @@ export const QuestRewardBox = styled.div`
   padding-right: 1rem;
   border-radius: ${borderRadiusRoundSmall};
   background: ${tertiaryGreen};
+  white-space: nowrap;
 `;
 
 export const SecondaryInfoBox = styled(QuestRewardBox)`

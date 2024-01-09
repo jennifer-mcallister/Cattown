@@ -3,7 +3,7 @@ import { IBoss, IMission } from "../../types/missionTypes";
 import { ICat, IStats } from "../../types/savefileTypes";
 import { Boss } from "./Boss";
 import { Mission } from "./Mission";
-import { ButtonMedium } from "../styled/Button";
+import { ButtonIcon } from "../styled/Button";
 import {
   QuestMenuBackground,
   QuestsMenuContainer,
@@ -23,7 +23,9 @@ import {
   countOutCatLevel,
 } from "../../helpers/gameCalculationHelpers";
 import { updateUniqueItems } from "../../services/SavefileService";
-import { HeaderBig, HeaderSmall, TextMedium } from "../styled/Text";
+import { HeaderBig, HeaderSmall, TextMediumCenter } from "../styled/Text";
+import exitIcon from "/assets/icons/exit.png";
+import { Icon } from "../styled/Icon";
 
 interface IQuestMenuProps {
   zone: string;
@@ -175,6 +177,14 @@ export const QuestsMenu = ({
               ...cat,
               xp: cat.xp + 500,
               level: countOutCatLevel(cat.xp + 500),
+              strength:
+                countOutCatLevel(cat.xp) > cat.level
+                  ? cat.strength + cat.level * 2
+                  : cat.strength,
+              health:
+                countOutCatLevel(cat.xp) > cat.level
+                  ? cat.health + cat.level * 10
+                  : cat.health,
             };
           }
           return cat;
@@ -194,8 +204,10 @@ export const QuestsMenu = ({
     <QuestMenuBackground>
       <QuestsMenuContainer>
         <QuestsMenuHeader>
-          <HeaderSmall>Questlog for {zone}</HeaderSmall>
-          <ButtonMedium onClick={toggleShowQuests}>X</ButtonMedium>
+          <HeaderSmall>{zone}</HeaderSmall>
+          <ButtonIcon onClick={toggleShowQuests}>
+            <Icon src={exitIcon} alt="exit" />
+          </ButtonIcon>
         </QuestsMenuHeader>
         {showQuests && (
           <QuestsMenuContent>
@@ -247,12 +259,11 @@ export const QuestsMenu = ({
               {bossFightSuccess ? "Success!" : "Fail! 15 minutes downtime"}
             </HeaderBig>
             <QuestsMenuFooter>
-              {" "}
-              <TextMedium>
+              <TextMediumCenter>
                 {bossFightSuccess
                   ? `You have slayed ${boss.name} and McGuffin ${boss.mcguffinId} is now yours! `
                   : `This time you were to weak and ${boss.name} was not defeated.`}
-              </TextMedium>
+              </TextMediumCenter>
             </QuestsMenuFooter>
           </>
         )}

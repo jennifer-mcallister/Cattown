@@ -6,8 +6,13 @@ import {
   MenuHeader,
   MenuHeaderItems,
 } from "./styled/Menu";
-import { ButtonLarge, ButtonMedium } from "./styled/Button";
-import { HeaderGold } from "./styled/HeaderStyle";
+import { ButtonIcon, ButtonLarge } from "./styled/Button";
+import { HeaderCoinImg, HeaderGold } from "./styled/HeaderStyle";
+import { TertiaryInfoBox } from "./styled/Quest";
+import { HeaderSmall } from "./styled/Text";
+import coin from "/assets/coin.png";
+import exitIcon from "/assets/icons/exit.png";
+import { Icon } from "./styled/Icon";
 
 interface IGameMenuProps {
   toggleMenu: () => void;
@@ -28,15 +33,19 @@ export const GameMenu = ({ toggleMenu, show, usergold }: IGameMenuProps) => {
       <MenuContainer>
         <MenuHeader>
           <MenuHeaderItems>
-            <HeaderGold>{usergold} GOLD</HeaderGold>
-            <h2>Menu</h2>
-            <ButtonMedium
+            <TertiaryInfoBox>
+              <HeaderGold>
+                <HeaderSmall>{usergold}</HeaderSmall>
+                <HeaderCoinImg src={coin} alt="Image of a coin" />
+              </HeaderGold>
+            </TertiaryInfoBox>
+            <ButtonIcon
               onClick={() => {
                 toggleMenu();
               }}
             >
-              X
-            </ButtonMedium>
+              <Icon src={exitIcon} alt="Exit" />
+            </ButtonIcon>
           </MenuHeaderItems>
         </MenuHeader>
         <MenuBody>

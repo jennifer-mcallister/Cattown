@@ -75,6 +75,19 @@ export const SignUp = () => {
 
   return (
     <MainContentSignUp>
+      <ConfirmationContainer>
+        <HeaderSmall> Sign up Terms</HeaderSmall>
+        <TextSmall>
+          By choosing to join our community by clicking 'Sign Up,' you are
+          giving your consent for us to collect and store your data in our
+          database. This is essential for enabling you to seamlessly log in and
+          pick up where you left off in your gaming journey. Please be assured
+          that we prioritize your privacy – your data will not be shared with
+          any third party. Our data collection encompasses your user information
+          and game progress, ensuring a personalized and uninterrupted
+          experience tailored just for you.
+        </TextSmall>
+      </ConfirmationContainer>
       <MenuContainer>
         <MenuHeader>
           <HeaderSmall>Sign up</HeaderSmall>
@@ -151,19 +164,6 @@ export const SignUp = () => {
           <Link to="/">Log in</Link>
         </MenuFooter>
       </MenuContainer>
-      <ConfirmationContainer>
-        <HeaderSmall> Sign up Terms</HeaderSmall>
-        <TextSmall>
-          By choosing to join our community by clicking 'Sign Up,' you are
-          giving your consent for us to collect and store your data in our
-          database. This is essential for enabling you to seamlessly log in and
-          pick up where you left off in your gaming journey. Please be assured
-          that we prioritize your privacy – your data will not be shared with
-          any third party. Our data collection encompasses your user information
-          and game progress, ensuring a personalized and uninterrupted
-          experience tailored just for you.
-        </TextSmall>
-      </ConfirmationContainer>
     </MainContentSignUp>
   );
 };

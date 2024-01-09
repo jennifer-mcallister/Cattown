@@ -1,4 +1,5 @@
 import { styled } from "styled-components";
+import { devices } from "./theme_variables/devices";
 
 export const HeaderGold = styled.div`
   display: flex;
@@ -22,8 +23,13 @@ export const HeaderSmallContainer = styled.div`
   justify-content: center;
   align-items: center;
   min-width: auto;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
   gap: 1rem;
   height: 100%;
+
+  @media (${devices.tablet}) {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;

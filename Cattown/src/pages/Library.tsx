@@ -92,7 +92,6 @@ export const Library = () => {
             <HeaderSmall>McGuffins</HeaderSmall>
             {outletContext.savefile.uniqueItems.length < 1 && (
               <InfoContainer>
-                {" "}
                 <TextSmall>
                   It seems you haven't acquired any McGuffins yet. Take on the
                   challenge of defeating the four bosses in Catland to start

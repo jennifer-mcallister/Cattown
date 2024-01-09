@@ -2,6 +2,7 @@ import { styled } from "styled-components";
 import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
 import { secondaryWhite } from "./theme_variables/colors";
 import { bounceAnimation } from "./Animations";
+import { devices } from "./theme_variables/devices";
 
 interface IHomeNavProps {
   hovercolor: string;
@@ -12,8 +13,8 @@ export const HomeNavContainer = styled.div<IHomeNavProps>`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 10rem;
-  height: 10rem;
+  width: 5rem;
+  height: 5rem;
   position: relative;
   border-radius: 10rem;
 
@@ -31,16 +32,27 @@ export const HomeNavContainer = styled.div<IHomeNavProps>`
           ? ` 0 0 200px ${hovercolor}, 0 0 40px ${hovercolor}, 0 0 80px ${hovercolor}`
           : " 0 0 10px #f021be, 0 0 70px #f021be, 0 0 80px #f021be"};
     }
-  }
 
-  background: black;
+    @media (${devices.tablet}) {
+      width: 10rem;
+      height: 10rem;
+    }
+  }
 `;
 
 export const HomeNavImg = styled.img`
-  width: 20rem;
+  width: 10rem;
   cursor: pointer;
   &:hover {
-    width: 20.5rem;
+    width: 10.5rem;
+  }
+
+  @media (${devices.tablet}) {
+    width: 20rem;
+
+    &:hover {
+      width: 20.5rem;
+    }
   }
 `;
 
@@ -48,8 +60,8 @@ export const HomeNavHeader = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 8rem;
-  height: 3rem;
+  width: 4rem;
+  height: 2rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   margin-top: 0.5rem;
@@ -60,7 +72,13 @@ export const HomeNavHeader = styled.div`
   background-color: ${secondaryWhite};
 
   position: absolute;
-  top: 10rem;
+  top: 4.5rem;
+
+  @media (${devices.tablet}) {
+    top: 10rem;
+    width: 8rem;
+    height: 3rem;
+  }
 `;
 
 export const HomeInfoContainer = styled.div`
@@ -70,10 +88,14 @@ export const HomeInfoContainer = styled.div`
   align-items: center;
   padding: 2rem;
   gap: 2rem;
-  width: 30rem;
-  height: 20rem;
+  max-width: 70vw;
+  min-height: 20rem;
   text-align: center;
   border: ${smallBorder};
   background-color: ${secondaryWhite};
   border-radius: ${borderRadiusMedium};
+
+  @media (${devices.tablet}) {
+    width: 30rem;
+  }
 `;
