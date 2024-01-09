@@ -32,3 +32,8 @@ html {
 a {
   font-size: 22px;
 }
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
