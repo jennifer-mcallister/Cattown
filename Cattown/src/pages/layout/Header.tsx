@@ -25,12 +25,7 @@ interface IHeaderProps {
   setShowMenus: Dispatch<SetStateAction<IShowMenus>>;
 }
 
-export const Header = ({
-  userGold,
-  username,
-  showMenus,
-  setShowMenus,
-}: IHeaderProps) => {
+export const Header = ({ userGold, showMenus, setShowMenus }: IHeaderProps) => {
   const toggleMenu = () => {
     setShowMenus({ ...showMenus, showMenu: !showMenus.showMenu });
   };
@@ -54,8 +49,6 @@ export const Header = ({
           </HeaderGold>
         </TertiaryInfoBox>
       </HeaderSmallContainer>
-      {/* 
-      <HeaderSmall>Welcome {username}!</HeaderSmall> */}
       <HeaderSmallContainer>
         <ButtonIcon onClick={() => toggleOptions()}>
           <Icon src={optionsIcon} alt="Options" />
