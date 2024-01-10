@@ -146,7 +146,7 @@ export const Layout = () => {
     <>
       <Header
         userGold={layoutContext.savefile.gold}
-        username={layoutContext.savefile.username}
+        cats={layoutContext.savefile.cats}
         showMenus={showMenus}
         setShowMenus={setShowMenus}
       ></Header>

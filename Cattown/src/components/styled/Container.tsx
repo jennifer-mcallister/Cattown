@@ -1,10 +1,6 @@
 import { styled } from "styled-components";
-import { secondaryPink, secondaryWhite } from "./theme_variables/colors";
-import {
-  borderRadiusMedium,
-  mediumBorder,
-  smallBorder,
-} from "./theme_variables/borders";
+import { secondaryWhite } from "./theme_variables/colors";
+import { borderRadiusMedium, mediumBorder } from "./theme_variables/borders";
 import { devices } from "./theme_variables/devices";
 
 interface IContainerProps {
@@ -21,7 +17,7 @@ export const ConfirmationContainer = styled.div`
   margin: 0.5rem;
   padding: 1rem;
   gap: 1rem;
-  background-color: ${secondaryPink};
+  background-color: ${secondaryWhite};
   border-radius: ${borderRadiusMedium};
   border: ${mediumBorder};
 
@@ -37,6 +33,7 @@ export const ConfirmationButtonsContainer = styled.div`
   align-items: center;
   width: 50%%;
   height: 50%;
+  gap: 2rem;
 `;
 
 export const HomeContainerDesktop = styled.div`
@@ -69,7 +66,6 @@ export const PageHeaderContainer = styled.div<IContainerProps>`
   align-items: center;
   width: 20rem;
   height: 3rem;
-  // border: ${smallBorder};
   border-radius: ${borderRadiusMedium};
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryWhite)};
   margin-top: 0.5rem;

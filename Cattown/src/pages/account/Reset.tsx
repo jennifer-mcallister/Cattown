@@ -55,6 +55,7 @@ export const Reset = () => {
           placeholder="Email"
           name="mail"
           id="email"
+          autoComplete="email"
           value={mail}
           required
           onChange={handleChange}

@@ -107,7 +107,11 @@ export const Library = () => {
                 >
                   <HeaderSmall>McGuffin {uniqueItem}</HeaderSmall>
                   <McGuffinImg
-                    src={placeholder}
+                    src={
+                      uniqueItem
+                        ? `/assets/mcguffin_${uniqueItem}.png`
+                        : placeholder
+                    }
                     alt="Image of an McGuffin"
                     onLoad={handleLoading}
                   />

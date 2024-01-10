@@ -17,15 +17,23 @@ import optionsIcon from "/assets/icons/settings.png";
 import menuIcon from "/assets/icons/menu.png";
 import { Icon } from "../../components/styled/Icon";
 import { TertiaryInfoBox } from "../../components/styled/Quest";
+import { Notification } from "../../components/Notification";
+import { ICat } from "../../types/savefileTypes";
+import { NotificationContainer } from "../../components/styled/NotificationStyle";
 
 interface IHeaderProps {
   userGold: number;
-  username: string;
   showMenus: IShowMenus;
+  cats: ICat[];
   setShowMenus: Dispatch<SetStateAction<IShowMenus>>;
 }
 
-export const Header = ({ userGold, showMenus, setShowMenus }: IHeaderProps) => {
+export const Header = ({
+  userGold,
+  showMenus,
+  cats,
+  setShowMenus,
+}: IHeaderProps) => {
   const toggleMenu = () => {
     setShowMenus({ ...showMenus, showMenu: !showMenus.showMenu });
   };
@@ -49,6 +57,12 @@ export const Header = ({ userGold, showMenus, setShowMenus }: IHeaderProps) => {
           </HeaderGold>
         </TertiaryInfoBox>
       </HeaderSmallContainer>
+      <NotificationContainer>
+        {cats.map((cat) => (
+          <Notification cat={cat} key={cat.id} />
+        ))}
+      </NotificationContainer>
+
       <HeaderSmallContainer>
         <ButtonIcon onClick={() => toggleOptions()}>
           <Icon src={optionsIcon} alt="Options" />

@@ -41,8 +41,7 @@ export const QuestsMenuContainer = styled.div`
 
   border-radius: ${borderRadiusMedium};
   border: ${mediumBorder};
-  background: ${primaryRed};
-
+  background-color: ${primaryRed};
   @media (${devices.tablet}) {
     padding: 3rem;
     padding-top: 1rem;

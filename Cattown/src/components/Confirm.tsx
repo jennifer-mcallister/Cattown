@@ -3,7 +3,8 @@ import {
   ConfirmationButtonsContainer,
   ConfirmationContainer,
 } from "./styled/Container";
-import { TextMediumCenter, TextSmall } from "./styled/Text";
+import { HeaderSmall, TextMediumCenter } from "./styled/Text";
+import { primaryGreen, primaryRed } from "./styled/theme_variables/colors";
 
 interface IConfirm {
   confirm: () => void;
@@ -15,11 +16,15 @@ interface IConfirm {
 export const Confirm = ({ confirm, abort, header, text }: IConfirm) => {
   return (
     <ConfirmationContainer>
-      <TextMediumCenter>{header}</TextMediumCenter>
-      <TextSmall>{text}</TextSmall>
+      <HeaderSmall>{header}</HeaderSmall>
+      <TextMediumCenter>{text}</TextMediumCenter>
       <ConfirmationButtonsContainer>
-        <ButtonMedium onClick={confirm}>Yes</ButtonMedium>
-        <ButtonMedium onClick={abort}>No</ButtonMedium>
+        <ButtonMedium onClick={confirm} bgcolor={primaryGreen}>
+          Yes
+        </ButtonMedium>
+        <ButtonMedium onClick={abort} bgcolor={primaryRed}>
+          No
+        </ButtonMedium>
       </ConfirmationButtonsContainer>
     </ConfirmationContainer>
   );
