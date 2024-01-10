@@ -15,11 +15,11 @@ interface INotificationProps {
 
 export const Notification = ({ cat }: INotificationProps) => {
   const [catActive, setCatActive] = useState(false);
-  const [isMounted, setIsMounted] = useState(true);
+  // const [isMounted, setIsMounted] = useState(true);
   const [bgColor, setBgColor] = useState("");
 
   useEffect(() => {
-    if (!isMounted && cat.status) {
+    if (cat.status) {
       if (cat.status === "training") {
         setBgColor(trainingColor);
       }
@@ -40,12 +40,12 @@ export const Notification = ({ cat }: INotificationProps) => {
 
       return () => {
         clearTimeout(removeNotification);
-        setIsMounted(false);
+        // setIsMounted(false);
       };
     }
 
     return () => {
-      setIsMounted(false);
+      // setIsMounted(false);
     };
   }, [cat.status]);
 
