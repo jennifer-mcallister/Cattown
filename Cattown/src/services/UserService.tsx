@@ -32,8 +32,12 @@ export const registerUser = async (user: IUserRegister) => {
 
 export const loginUser = async (user: IUserLogin) => {
   try {
-    await signInWithEmailAndPassword(auth, user.email, user.password);
-    console.log("User logged in");
+    const userLogin = await signInWithEmailAndPassword(
+      auth,
+      user.email,
+      user.password
+    );
+    console.log("User logged in", userLogin);
   } catch {
     throw new Error("503 Service Unavailable");
   }

@@ -4,8 +4,8 @@ import { NotificationCard, StatusBox } from "./styled/NotificationStyle";
 import { HeaderSmall } from "./styled/Text";
 import {
   primaryBlue,
-  primaryGreen,
   primaryRed,
+  secondaryGreen,
   trainingColor,
 } from "./styled/theme_variables/colors";
 
@@ -33,7 +33,7 @@ export const Notification = ({ cat }: INotificationProps) => {
         setBgColor(primaryRed);
       }
       if (cat.status === "in camp") {
-        setBgColor(primaryGreen);
+        setBgColor(secondaryGreen);
       }
       if (cat.status === "on mission") {
         setBgColor(primaryBlue);

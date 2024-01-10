@@ -36,9 +36,29 @@ export const Layout = () => {
   });
 
   const loggedInUser = auth.currentUser;
+
+  const checkToken = async () => {
+    if (loggedInUser) {
+      const tokenResult = await loggedInUser.getIdTokenResult();
+
+      const expirationTime = new Date(tokenResult.expirationTime).getTime();
+      const currentTime = new Date().getTime();
+      const timeDifference = expirationTime - currentTime;
+
+      if (timeDifference < 5 * 60 * 1000) {
+        const refreshedToken = await loggedInUser.getIdToken(true);
+        console.log("refreshed token", refreshedToken);
+      }
+    }
+  };
+
   if (!loggedInUser) {
     throw new Error("UnAuthorized");
   }
+  if (loggedInUser) {
+    checkToken();
+  }
+
   const savefileRef = doc(db, "savefiles", loggedInUser.uid);
 
   useEffect(() => {
@@ -90,7 +110,7 @@ export const Layout = () => {
       const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
         if (cat.status === "training") {
           const timeInMilliseconds = cat.trainingEndTime - new Date().getTime();
-          if (timeInMilliseconds < 1001) {
+          if (timeInMilliseconds < 900) {
             updateCatFinnished({
               ...cat,
               status: "in camp",
@@ -107,13 +127,18 @@ export const Layout = () => {
         }
         if (cat.status === "on mission") {
           const timeInMilliseconds = cat.missionEndTime - new Date().getTime();
-          if (timeInMilliseconds < 10) {
+          if (timeInMilliseconds < 900) {
             updateSavefileGold(cat.missionGold);
             updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp + cat.missionXp,
               missionGold: 0,
+              missionTimeLeft: {
+                h: 0,
+                min: 0,
+                sec: 0,
+              },
             });
           }
           const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
@@ -121,17 +146,21 @@ export const Layout = () => {
         }
         if (cat.status === "downed") {
           const timeInMilliseconds = cat.downedEndTime - new Date().getTime();
-          if (timeInMilliseconds < 10) {
+          if (timeInMilliseconds < 900) {
             updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp,
+              downedTimeLeft: {
+                h: 0,
+                min: 0,
+                sec: 0,
+              },
             });
           }
           const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
           return { ...cat, downedTimeLeft: timeLeft };
         }
-
         return cat;
       });
       setLayoutContext({

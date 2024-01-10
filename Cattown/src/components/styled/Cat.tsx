@@ -61,17 +61,20 @@ export const CatHeaderTitleContainer = styled.div`
 export const CatContent = styled(CatHeader)`
   flex-direction: row;
   align-items: center;
+  height: 6.5rem;
 `;
 
 export const CatFooter = styled(CatContent)`
   align-items: flex-end;
+  height: 3.5rem;
 `;
 
 export const CatContentColumn = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: flex-end;
   height: 100%;
-  width: 46%;
+  width: 50%;
 `;
 
 export const CatTextColumn = styled(CatContentColumn)`
@@ -82,7 +85,15 @@ export const CatTextContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   height: 1.5rem;
-  width: 90%;
+  gap: 0.5rem;
+  width: 80%;
+`;
+
+export const CatStatusContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 `;
 
 export const CatDivider = styled.div`
