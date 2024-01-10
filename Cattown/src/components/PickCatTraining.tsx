@@ -4,12 +4,12 @@ import {
   CatContainer,
   CatContent,
   CatContentColumn,
-  CatDivider,
   CatFooter,
   CatHeader,
   CatHeaderTitleContainer,
   CatImg,
   CatImgContainer,
+  CatStatusContainer,
   CatTextContainer,
 } from "./styled/Cat";
 import {
@@ -25,7 +25,7 @@ import {
   ButtonLargeSelect,
   ButtonMedium,
 } from "./styled/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   MenuBackground,
   MenuContainer,
@@ -37,7 +37,14 @@ import { updateCats } from "../services/CatService";
 import { QuestRewardBox, SecondaryInfoBox } from "./styled/Quest";
 import { formatTime } from "../helpers/gameCalculationHelpers";
 import exitIcon from "/assets/icons/exit.png";
-import { Icon } from "./styled/Icon";
+import { Icon, IconSmall } from "./styled/Icon";
+import { StatusBox } from "./styled/NotificationStyle";
+import {
+  primaryBlue,
+  primaryRed,
+  secondaryGreen,
+  trainingColor,
+} from "./styled/theme_variables/colors";
 
 interface IPickCatTraining {
   cat: ICat;
@@ -48,8 +55,25 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
   const [pickTime, setPickTime] = useState(false);
   const [selectedTimeMin, setSelectedTimeMin] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [bgColor, setBgColor] = useState("");
   const imgPath = `/assets/${cat.img}`;
+  const timerIcon = "/assets/icons/timer.png";
   const xpPerMinute = 150;
+
+  useEffect(() => {
+    if (cat.status === "training") {
+      setBgColor(trainingColor);
+    }
+    if (cat.status === "downed") {
+      setBgColor(primaryRed);
+    }
+    if (cat.status === "in camp") {
+      setBgColor(secondaryGreen);
+    }
+    if (cat.status === "on mission") {
+      setBgColor(primaryBlue);
+    }
+  }, [cat.status]);
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -96,8 +120,7 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
         </CatHeader>
         <CatContent>
           <CatContentColumn>
-            <TextMedium>Stats</TextMedium>
-            <CatDivider />
+            <HeaderSmall>Stats</HeaderSmall>
             <CatTextContainer>
               <TextSmall>Health</TextSmall>
               <TextSmall>{cat.health}</TextSmall>
@@ -108,39 +131,46 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
             </CatTextContainer>
           </CatContentColumn>
           <CatContentColumn>
-            <TextMedium>Status</TextMedium>
-            <CatDivider />
-            <TextSmallBold>{cat.status}</TextSmallBold>
             {cat.status === "training" && (
-              <TextSmall>
-                Back in:
-                {formatTime(
-                  cat.trainingTimeLeft.h,
-                  cat.trainingTimeLeft.min,
-                  cat.trainingTimeLeft.sec
-                )}
-              </TextSmall>
+              <CatStatusContainer>
+                <TextSmall>
+                  {formatTime(
+                    cat.trainingTimeLeft.h,
+                    cat.trainingTimeLeft.min,
+                    cat.trainingTimeLeft.sec
+                  )}
+                </TextSmall>
+              </CatStatusContainer>
             )}
             {cat.status === "on mission" && (
-              <TextSmall>
-                Back in:
-                {formatTime(
-                  cat.missionTimeLeft?.h,
-                  cat.missionTimeLeft?.min,
-                  cat.missionTimeLeft?.sec
-                )}
-              </TextSmall>
+              <CatStatusContainer>
+                <TextSmall>
+                  {formatTime(
+                    cat.missionTimeLeft?.h,
+                    cat.missionTimeLeft?.min,
+                    cat.missionTimeLeft?.sec
+                  )}
+                </TextSmall>
+              </CatStatusContainer>
             )}
             {cat.status === "downed" && (
-              <TextSmall>
-                Back in:
-                {formatTime(
-                  cat.downedTimeLeft?.h,
-                  cat.downedTimeLeft?.min,
-                  cat.downedTimeLeft?.sec
-                )}
-              </TextSmall>
+              <CatStatusContainer>
+                <TextSmall>
+                  {formatTime(
+                    cat.downedTimeLeft?.h,
+                    cat.downedTimeLeft?.min,
+                    cat.downedTimeLeft?.sec
+                  )}
+                </TextSmall>
+              </CatStatusContainer>
             )}
+            <StatusBox bgcolor={bgColor}>
+              {cat.status !== "in camp" && (
+                <IconSmall src={timerIcon} alt="timer" />
+              )}
+
+              <TextMedium>{cat.status}</TextMedium>
+            </StatusBox>
           </CatContentColumn>
         </CatContent>
         <CatFooter>
