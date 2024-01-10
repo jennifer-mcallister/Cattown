@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BoughtItemBackground } from "./styled/Menu";
 import { WinnerImg, WinnerSubTitle, WinnerTitle } from "./styled/WinnerStyle";
-import winnerBan from "/assets/game_finnished.png";
+import winnerBan from "/assets/game_finnished.webp";
 
 interface IWinnerProps {
   toggleShowWinner: () => void;

@@ -1,15 +1,14 @@
 import { HomeContent, MainContent } from "../components/styled/LayoutStyle";
-import "@pixi/events";
 import {
   HomeContainerDesktop,
   HomeContainerMobile,
 } from "../components/styled/Container";
 import { HomeInfoContainer } from "../components/styled/HomeNav";
-import shop from "/assets/shop.png";
-import map from "/assets/map.png";
-import library from "/assets/library.png";
-import cats from "/assets/cats.png";
-import training from "/assets/training.png";
+import shop from "/assets/shop.webp";
+import map from "/assets/map.webp";
+import library from "/assets/library.webp";
+import cats from "/assets/cats.webp";
+import training from "/assets/training.webp";
 import { HeaderBig, TextMedium } from "../components/styled/Text";
 import { useEffect, useState } from "react";
 import { ButtonMedium } from "../components/styled/Button";

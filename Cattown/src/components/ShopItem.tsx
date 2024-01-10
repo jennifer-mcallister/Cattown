@@ -14,7 +14,7 @@ import { buyRelics } from "../services/RelicsService";
 import { updateStats } from "../services/StatsService";
 import { useEffect, useState } from "react";
 import { HeaderCoinImg } from "./styled/HeaderStyle";
-import coin from "/assets/coin.png";
+import coin from "/assets/coin.webp";
 import { CatDivider, CatTextContainer } from "./styled/Cat";
 
 interface IShopItemProps {
@@ -33,7 +33,7 @@ export const ShopItem = ({
   userStats,
 }: IShopItemProps) => {
   const [imgLoaded, setImgLoaded] = useState(false);
-  const imgPath = `/assets/${relic.name}.png`;
+  const imgPath = `/assets/${relic.name}.webp`;
   const [boughtItem, setBoughtItem] = useState(false);
   const [available, setAvailable] = useState(true);
 

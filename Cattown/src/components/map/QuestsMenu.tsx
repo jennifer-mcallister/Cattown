@@ -276,7 +276,7 @@ export const QuestsMenu = ({
                 <McGuffinImg
                   src={
                     boss.mcguffinId
-                      ? `/assets/mcguffin_${boss.mcguffinId}.png`
+                      ? `/assets/mcguffin_${boss.mcguffinId}.webp`
                       : ""
                   }
                   alt="Image of an McGuffin"

@@ -9,7 +9,7 @@ import {
 } from "../styled/Quest";
 import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 import { HeaderCoinImg } from "../styled/HeaderStyle";
-import coin from "/assets/coin.png";
+import coin from "/assets/coin.webp";
 
 interface IMissionProps {
   mission: IMission;

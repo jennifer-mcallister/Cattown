@@ -3,7 +3,7 @@ import { ICat } from "../types/savefileTypes";
 
 export const defaultCat: ICat = {
   id: Date.now().toString(),
-  img: "cat_white.png",
+  img: "cat_white.webp",
   name: "Nori",
   xp: 100,
   level: countOutCatLevel(100),
@@ -35,7 +35,7 @@ export const defaultCat: ICat = {
 
 export const commonCat: ICat = {
   id: Date.now().toString(),
-  img: "cat_white.png",
+  img: "cat_white.webp",
   rarity: "common",
   name: "Nori",
   xp: 100,
@@ -68,7 +68,7 @@ export const commonCat: ICat = {
 
 export const uncommonCat: ICat = {
   id: Date.now().toString(),
-  img: "cat_forest.png",
+  img: "cat_forest.webp",
   rarity: "uncommon",
   name: "Toki",
   xp: 100,
@@ -101,7 +101,7 @@ export const uncommonCat: ICat = {
 
 export const rareCat: ICat = {
   id: Date.now().toString(),
-  img: "cat_fire.png",
+  img: "cat_fire.webp",
   rarity: "rare",
   name: "Bragi",
   xp: 100,
@@ -134,7 +134,7 @@ export const rareCat: ICat = {
 
 export const legendaryCat: ICat = {
   id: Date.now().toString(),
-  img: "cat_magic.png",
+  img: "cat_magic.webp",
   rarity: "legendary",
   name: "Astri",
   xp: 100,
