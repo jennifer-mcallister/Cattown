@@ -35,9 +35,9 @@ import {
 } from "../components/styled/Text";
 import { CatDivider, CatTextContainer } from "../components/styled/Cat";
 import { ButtonLarge, ButtonMedium } from "../components/styled/Button";
-import mysteryCat from "/assets/mystery_cat.png";
-import placeholder from "/assets/cat_white.png";
-import coin from "/assets/coin.png";
+import mysteryCat from "/assets/mystery_cat.webp";
+import placeholder from "/assets/cat_white.webp";
+import coin from "/assets/coin.webp";
 import { HeaderCoinImg } from "../components/styled/HeaderStyle";
 import { BoughtItemBackground } from "../components/styled/Menu";
 import { throwD20 } from "../helpers/gameCalculationHelpers";

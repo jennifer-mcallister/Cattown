@@ -19,7 +19,7 @@ import { IBossQuest } from "./QuestsMenu";
 import { useEffect, useState } from "react";
 import { countOutBossFightSuccessChance } from "../../helpers/gameCalculationHelpers";
 import { IStats } from "../../types/savefileTypes";
-import placeholder from "/assets/cat_white.png";
+import placeholder from "/assets/cat_white.webp";
 import {
   CatContainer,
   CatContainerQuest,

@@ -16,7 +16,7 @@ import {
   TextSmall,
   TextSmallBold,
 } from "../styled/Text";
-import placeholder from "/assets/cat_white.png";
+import placeholder from "/assets/cat_white.webp";
 import { IMissionQuest } from "./QuestsMenu";
 import {
   CatContainer,
@@ -36,7 +36,7 @@ import {
 } from "../styled/Cat";
 import { useEffect, useState } from "react";
 import { HeaderCoinImg } from "../styled/HeaderStyle";
-import coin from "/assets/coin.png";
+import coin from "/assets/coin.webp";
 
 interface IConfirmMissionProps {
   quest: IMissionQuest;

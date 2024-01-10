@@ -5,7 +5,7 @@ import {
   TextSmall,
   TextSmallBold,
 } from "../styled/Text";
-import placeholder from "/assets/cat_white.png";
+import placeholder from "/assets/cat_white.webp";
 import { ICat } from "../../types/savefileTypes";
 import { useEffect, useState } from "react";
 import {

@@ -19,7 +19,7 @@ import {
   TextSmall,
   TextSmallBold,
 } from "./styled/Text";
-import placeholder from "/assets/cat_white.png";
+import placeholder from "/assets/cat_white.webp";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { MenuBackground } from "./styled/Menu";
 import {

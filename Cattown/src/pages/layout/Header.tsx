@@ -11,7 +11,7 @@ import { OptionsMenu } from "../../components/OptionsMenu";
 import { IShowMenus } from "./Layout";
 import { ButtonIcon } from "../../components/styled/Button";
 import { HeaderSmall } from "../../components/styled/Text";
-import coin from "/assets/coin.png";
+import coin from "/assets/coin.webp";
 import homeIcon from "/assets/icons/home.png";
 import optionsIcon from "/assets/icons/settings.png";
 import menuIcon from "/assets/icons/menu.png";

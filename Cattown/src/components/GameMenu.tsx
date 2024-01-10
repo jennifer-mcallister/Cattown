@@ -10,7 +10,7 @@ import { ButtonIcon, ButtonLarge } from "./styled/Button";
 import { HeaderCoinImg, HeaderGold } from "./styled/HeaderStyle";
 import { TertiaryInfoBox } from "./styled/Quest";
 import { HeaderSmall } from "./styled/Text";
-import coin from "/assets/coin.png";
+import coin from "/assets/coin.webp";
 import exitIcon from "/assets/icons/exit.png";
 import { Icon } from "./styled/Icon";
 

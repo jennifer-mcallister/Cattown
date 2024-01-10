@@ -24,7 +24,7 @@ import {
   TopSectionRightBox,
 } from "../components/styled/LibraryStyle";
 import { PageHeaderContainer } from "../components/styled/Container";
-import placeholder from "/assets/skull_of_human.png";
+import placeholder from "/assets/skull_of_human.webp";
 import { CatTextContainer } from "../components/styled/Cat";
 import { useState } from "react";
 
@@ -109,7 +109,7 @@ export const Library = () => {
                   <McGuffinImg
                     src={
                       uniqueItem
-                        ? `/assets/mcguffin_${uniqueItem}.png`
+                        ? `/assets/mcguffin_${uniqueItem}.webp`
                         : placeholder
                     }
                     alt="Image of an McGuffin"
@@ -139,7 +139,7 @@ export const Library = () => {
                     <HeaderSmall>{relic.name.replace(/_/g, " ")}</HeaderSmall>
                     <RelicImgContainer>
                       <RelicImg
-                        src={`/assets/${relic.name}.png`}
+                        src={`/assets/${relic.name}.webp`}
                         alt="Image of an Relic"
                         onLoad={handleLoading}
                       />
