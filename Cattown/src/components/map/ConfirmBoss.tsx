@@ -82,7 +82,7 @@ export const ConfirmBoss = ({
           <QuestHeader>
             <HeaderSmall>Kill {quest.boss.name}</HeaderSmall>
           </QuestHeader>
-          {windowWidth > 678 && (
+          {windowWidth > 768 && (
             <QuestContent>
               <h4>Damage:</h4>
               <TextSmall>Fire: {quest.boss.fireDamage}</TextSmall>
@@ -96,7 +96,7 @@ export const ConfirmBoss = ({
             <TextMedium>MCGUFFIN {quest.boss.mcguffinId} </TextMedium>
           </QuestFooter>
         </ConfirmBossContainer>
-        {windowWidth > 768 && (
+        {windowWidth > 767 && (
           <>
             {quest.cats.map((cat) => (
               <CatContainer key={cat.id} className={imgLoaded ? "loaded" : ""}>

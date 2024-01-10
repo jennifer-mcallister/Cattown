@@ -163,6 +163,10 @@ export const TopSectionRightBox = styled.div`
 `;
 
 export const InfoContainer = styled.div`
-  width: 30rem;
+  width: 90vw;
   height: 10rem;
+
+  @media (${devices.tablet}) {
+    width: 30rem;
+  }
 `;

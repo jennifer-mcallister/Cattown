@@ -29,6 +29,10 @@ export const ButtonMedium = styled.button<IButtonProps>`
     filter: brightness(120%);
   }
 
+  &:enabled:active {
+    scale: 0.9;
+  }
+
   &:disabled {
     background-color: #d4d4d4;
     color: #8f8f8f;
@@ -54,6 +58,10 @@ export const ButtonLarge = styled.button<IButtonProps>`
 
   &:hover {
     background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : "#ffd5d5")};
+  }
+
+  &:enabled:active {
+    scale: 0.9;
   }
 
   &:disabled {

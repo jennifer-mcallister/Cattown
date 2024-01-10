@@ -10,6 +10,7 @@ import { QuestsMenu } from "./QuestsMenu";
 import { useOutletContext } from "react-router-dom";
 import { ILayoutContext } from "../../pages/layout/Layout";
 import { HeaderSmall, TextSmallBold } from "../styled/Text";
+import { Winner } from "../Winner";
 
 interface IMapZoneProps {
   zone: string;
@@ -36,6 +37,7 @@ export const MapZone = ({
   const imgPath = `/assets/map_${zone}.png`;
   const [showLevelCap, setShowLevelCap] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [showPlayerWon, setShowPlayerWon] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -80,6 +82,10 @@ export const MapZone = ({
 
   const toggleShowQuests = () => {
     setShowQuests(!showQuests);
+  };
+
+  const toggleShowWinner = () => {
+    setShowPlayerWon(!showPlayerWon);
   };
 
   return (
@@ -127,8 +133,10 @@ export const MapZone = ({
           userStats={userStats}
           uniqueItems={uniqueItems}
           toggleShowQuests={toggleShowQuests}
+          toggleShowWinner={toggleShowWinner}
         />
       )}
+      {showPlayerWon && <Winner toggleShowWinner={toggleShowWinner} />}
     </>
   );
 };

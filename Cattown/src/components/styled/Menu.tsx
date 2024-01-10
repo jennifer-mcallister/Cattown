@@ -10,6 +10,7 @@ export const MenuBackground = styled.div<IMenuProps>`
   display: ${({ show }) => (show === "true" ? "flex" : "none")};
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   width: 100vw;
   min-height: 100vh;
 

@@ -100,6 +100,7 @@ export const SignUp = () => {
               placeholder="Email"
               name="email"
               id="email"
+              autoComplete="email"
               value={user.email}
               required
               disabled={registration.success}
@@ -111,6 +112,7 @@ export const SignUp = () => {
               placeholder="Username"
               name="username"
               id="username"
+              autoComplete="username"
               value={user.username}
               minLength={3}
               maxLength={30}
@@ -124,6 +126,7 @@ export const SignUp = () => {
               placeholder="Password"
               name="password"
               id="password"
+              autoComplete="new-password"
               value={user.password}
               minLength={8}
               maxLength={128}
@@ -135,6 +138,7 @@ export const SignUp = () => {
               type="password"
               placeholder="Confirm Password"
               name="confirmPassword"
+              autoComplete="new-password"
               value={confirmPassword.password}
               minLength={8}
               maxLength={128}

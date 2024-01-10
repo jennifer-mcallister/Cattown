@@ -48,12 +48,13 @@ export const Login = () => {
           <HeaderSmall>Welcome to Cattown</HeaderSmall>
         </MenuHeader>
         <Form method="post" onSubmit={handleSubmit}>
-          <FormLabel htmlFor="username">Email</FormLabel>
+          <FormLabel htmlFor="email">Email</FormLabel>
           <FormInput
             type="email"
             placeholder="email"
             name="email"
             id="email"
+            autoComplete="email"
             value={user.email}
             required
             onChange={handleChange}
@@ -64,6 +65,8 @@ export const Login = () => {
             type="password"
             placeholder="Password"
             name="password"
+            id="password"
+            autoComplete="current-password"
             value={user.password}
             minLength={8}
             maxLength={128}
