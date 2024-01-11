@@ -1,4 +1,3 @@
-import { ProgressBar } from "../ProgressBar";
 import { ButtonMedium } from "../styled/Button";
 import {
   ConfirmBossContainer,
@@ -9,12 +8,7 @@ import {
   QuestsMenuFooter,
   TertiaryInfoBox,
 } from "../styled/Quest";
-import {
-  HeaderSmall,
-  TextMedium,
-  TextSmall,
-  TextSmallBold,
-} from "../styled/Text";
+import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 import { IBossQuest } from "./QuestsMenu";
 import { useEffect, useState } from "react";
 import { countOutBossFightSuccessChance } from "../../helpers/gameCalculationHelpers";
@@ -23,19 +17,14 @@ import placeholder from "/assets/cat_white.webp";
 import {
   CatContainer,
   CatContainerQuest,
-  CatContent,
-  CatContentColumn,
-  CatFooter,
-  CatHeader,
+  CatFooterContainer,
+  CatHeaderContainer,
   CatHeaderTitleContainer,
-  CatImg,
-  CatImgContainer,
   CatImgContainerQuest,
   CatImgQuest,
-  CatTextContainer,
 } from "../styled/Cat";
-import { StatusBox } from "../styled/NotificationStyle";
-import { secondaryGreen } from "../styled/theme_variables/colors";
+import { CatHeader } from "../cat_card/CatHeader";
+import { CatContent } from "../cat_card/CatContent";
 
 interface IConfirmBossProps {
   quest: IBossQuest;
@@ -101,54 +90,23 @@ export const ConfirmBoss = ({
           <>
             {quest.cats.map((cat) => (
               <CatContainer key={cat.id} className={imgLoaded ? "loaded" : ""}>
-                <CatHeader>
-                  <CatImgContainer>
-                    <CatImg
-                      src={cat.img ? `/assets/${cat.img}` : placeholder}
-                      onLoad={handleLoading}
-                      alt="Image of a cat"
-                    />
-                  </CatImgContainer>
-                  <CatHeaderTitleContainer>
-                    <HeaderSmall>{cat.name} </HeaderSmall>
-                    <TextSmallBold>Lvl. {cat.level}</TextSmallBold>
-                  </CatHeaderTitleContainer>
-                  <ProgressBar catLevel={cat.level} catXP={cat.xp} />
-                </CatHeader>
-                <CatContent>
-                  <CatContentColumn>
-                    <HeaderSmall>Stats</HeaderSmall>
-                    <CatTextContainer>
-                      <TextSmall>Health</TextSmall>
-                      <TextSmall>{cat.health}</TextSmall>
-                    </CatTextContainer>
-                    <CatTextContainer>
-                      <TextSmall>Strength</TextSmall>
-                      <TextSmall>{cat.strength}</TextSmall>
-                    </CatTextContainer>
-                  </CatContentColumn>
-                  <CatContentColumn>
-                    <StatusBox bgcolor={secondaryGreen}>
-                      <TextMedium>{cat.status}</TextMedium>
-                    </StatusBox>
-                  </CatContentColumn>
-                </CatContent>
-                <CatFooter>
+                <CatHeader cat={cat} handleLoading={handleLoading} />
+                <CatContent cat={cat} />
+                <CatFooterContainer>
                   <HeaderSmall>I'm Ready!</HeaderSmall>
-                </CatFooter>
+                </CatFooterContainer>
               </CatContainer>
             ))}
           </>
         )}
         {windowWidth < 769 && (
           <>
-            {" "}
             {quest.cats.map((cat) => (
               <CatContainerQuest
                 key={cat.id}
                 className={imgLoaded ? "loaded" : ""}
               >
-                <CatHeader>
+                <CatHeaderContainer>
                   <CatHeaderTitleContainer>
                     <HeaderSmall>{cat.name} </HeaderSmall>
                   </CatHeaderTitleContainer>
@@ -159,10 +117,12 @@ export const ConfirmBoss = ({
                       alt="Image of a cat"
                     />
                   </CatImgContainerQuest>
-                </CatHeader>
-                <CatFooter>
-                  <HeaderSmall>I'm Ready!</HeaderSmall>
-                </CatFooter>
+                </CatHeaderContainer>
+                <CatFooterContainer>
+                  <TertiaryInfoBox>
+                    <HeaderSmall>I'm Ready!</HeaderSmall>
+                  </TertiaryInfoBox>
+                </CatFooterContainer>
               </CatContainerQuest>
             ))}
           </>

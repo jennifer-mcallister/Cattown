@@ -1,13 +1,9 @@
 import { styled } from "styled-components";
-import { secondaryWhite } from "./theme_variables/colors";
-import { borderRadiusMedium, mediumBorder } from "./theme_variables/borders";
+import { secondaryWhite } from "./style_variables/colors";
+import { borderRadiusMedium, mediumBorder } from "./style_variables/borders";
 
-interface IMenuProps {
-  show: string;
-}
-
-export const MenuBackground = styled.div<IMenuProps>`
-  display: ${({ show }) => (show === "true" ? "flex" : "none")};
+export const MenuBackground = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;

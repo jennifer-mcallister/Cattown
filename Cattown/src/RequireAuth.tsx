@@ -1,5 +1,5 @@
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "./services/Firebase";
+import { auth } from "./services/config/Firebase";
 import { Navigate } from "react-router-dom";
 
 export const RequireAuth = ({ children }: { children: JSX.Element }) => {

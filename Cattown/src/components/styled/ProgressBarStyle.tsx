@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import { borderRadiusSmall, smallBorder } from "./theme_variables/borders";
-import { primaryGreen, secondaryGreen } from "./theme_variables/colors";
+import { borderRadiusSmall, smallBorder } from "./style_variables/borders";
+import { primaryGreen, secondaryGreen } from "./style_variables/colors";
 
 interface IProgressBar {
   progress: number;

@@ -4,15 +4,15 @@ import {
   borderRadiusRoundSmall,
   mediumBorder,
   smallBorder,
-} from "./theme_variables/borders";
+} from "./style_variables/borders";
 import {
   primaryBlue,
-  primaryRed,
+  primaryPink,
   primaryYellow,
   secondaryWhite,
   tertiaryGreen,
-} from "./theme_variables/colors";
-import { devices } from "./theme_variables/devices";
+} from "./style_variables/colors";
+import { devices } from "./style_variables/devices";
 
 export const QuestMenuBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
@@ -41,7 +41,7 @@ export const QuestsMenuContainer = styled.div`
 
   border-radius: ${borderRadiusMedium};
   border: ${mediumBorder};
-  background-color: ${primaryRed};
+  background-color: ${primaryPink};
   @media (${devices.tablet}) {
     padding: 3rem;
     padding-top: 1rem;
@@ -78,6 +78,7 @@ export const QuestsMenuContent = styled.div`
   grid-template-columns: 1fr;
   grid-gap: 0.5rem;
   max-height: 40rem;
+  min-height: 10rem;
 
   @media (${devices.tablet}) {
     grid-template-columns: 1fr 1fr;
@@ -119,7 +120,7 @@ export const ConfirmCatContainer = styled.div`
   border: ${smallBorder};
 
   @media (${devices.tablet}) {
-    height: 17.5rem;
+    height: 16rem;
     width: 18rem;
     padding: 1rem;
   }

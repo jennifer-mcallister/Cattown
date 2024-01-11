@@ -1,12 +1,13 @@
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { MainContent } from "../components/styled/LayoutStyle";
 import { CatsContent } from "../components/styled/LayoutStyle";
-import { CatInfo } from "../components/CatInfo";
+import { CatCats } from "../components/cat_card/CatCats";
 import { ILayoutContext } from "./layout/Layout";
 import { ButtonMedium } from "../components/styled/Button";
 import { PageHeaderContainer } from "../components/styled/Container";
 import { HeaderBig, HeaderSmall } from "../components/styled/Text";
 import { NoCatsContainer } from "../components/styled/Cat";
+import { catColor } from "../components/styled/style_variables/colors";
 
 export const Cats = () => {
   const outletContext = useOutletContext<ILayoutContext>();
@@ -15,7 +16,7 @@ export const Cats = () => {
   return (
     <>
       <MainContent>
-        <PageHeaderContainer bgcolor="#C4689C">
+        <PageHeaderContainer bgcolor={catColor}>
           <HeaderBig>Cats</HeaderBig>
         </PageHeaderContainer>
         {outletContext.savefile.cats.length < 1 && (
@@ -35,7 +36,7 @@ export const Cats = () => {
         )}
         <CatsContent>
           {outletContext.savefile.cats.map((cat) => (
-            <CatInfo
+            <CatCats
               cat={cat}
               cats={outletContext.savefile.cats}
               key={cat.id}

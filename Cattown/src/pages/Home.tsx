@@ -18,7 +18,7 @@ import {
   libraryColor,
   mapColor,
   trainingColor,
-} from "../components/styled/theme_variables/colors";
+} from "../components/styled/style_variables/colors";
 import { IconLarge } from "../components/IconLarge";
 
 export const Home = () => {

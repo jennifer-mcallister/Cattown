@@ -14,7 +14,7 @@ import {
 } from "../styled/Quest";
 import { defaultMission } from "../../models/Misson";
 import { defaultCat } from "../../models/Cat";
-import { defaultBoss } from "../../models/Bosss";
+import { defaultBoss } from "../../models/Boss";
 import { QuestCat } from "./QuestCat";
 import { updateCats } from "../../services/CatService";
 import { ConfirmMission } from "./ConfirmMission";
@@ -28,6 +28,8 @@ import { HeaderBig, HeaderSmall, TextMediumCenter } from "../styled/Text";
 import exitIcon from "/assets/icons/exit.png";
 import { Icon } from "../styled/Icon";
 import { McGuffinImg } from "../styled/LibraryStyle";
+import { StatusBoxBig } from "../styled/NotificationStyle";
+import { primaryGreen, primaryYellow } from "../styled/style_variables/colors";
 
 interface IQuestMenuProps {
   zone: string;
@@ -66,7 +68,7 @@ export const QuestsMenu = ({
 }: IQuestMenuProps) => {
   const [questType, setQuestType] = useState("");
   const [bossFightSuccess, setBossFightSuccess] = useState(false);
-  const [showBossFightSuccess, setShowBossFightSuccess] = useState(false);
+  const [showBossFightResult, setShowBossFightSuccess] = useState(false);
   const [showQuests, setShowQuests] = useState(true);
   const [showCats, setShowCats] = useState(false);
   const [showConfirmMission, setShowConfirmMission] = useState(false);
@@ -260,7 +262,7 @@ export const QuestsMenu = ({
           )}
           {showConfirmBoss && (
             <>
-              {!showBossFightSuccess && (
+              {!showBossFightResult && (
                 <ConfirmBoss
                   quest={bossQuest}
                   confirmBoss={confirmBoss}
@@ -269,9 +271,19 @@ export const QuestsMenu = ({
               )}
             </>
           )}
-          {showBossFightSuccess && (
+          {showBossFightResult && (
             <>
-              <HeaderBig>{bossFightSuccess ? "Success!" : "Fail!"}</HeaderBig>
+              {bossFightSuccess && (
+                <StatusBoxBig bgcolor={primaryGreen}>
+                  <HeaderBig>Success!</HeaderBig>
+                </StatusBoxBig>
+              )}
+              {!bossFightSuccess && (
+                <StatusBoxBig bgcolor={primaryYellow}>
+                  <HeaderBig>Fail!</HeaderBig>
+                </StatusBoxBig>
+              )}
+
               {bossFightSuccess && (
                 <McGuffinImg
                   src={

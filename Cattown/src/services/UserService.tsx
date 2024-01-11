@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { auth, savefilesCollection } from "./Firebase";
+import { auth, savefilesCollection } from "./config/Firebase";
 import { IUserLogin, IUserRegister } from "../types/userTypes";
 import { ISavefile } from "../types/savefileTypes";
 import { doc, setDoc } from "firebase/firestore";

@@ -1,5 +1,5 @@
 import { getDocs } from "firebase/firestore";
-import { bossesCollection, missionCollection } from "./Firebase";
+import { bossesCollection, missionCollection } from "./config/Firebase";
 
 export const getQuests = async () => {
   try {

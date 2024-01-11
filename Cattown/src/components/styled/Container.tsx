@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
-import { secondaryWhite } from "./theme_variables/colors";
-import { borderRadiusMedium, mediumBorder } from "./theme_variables/borders";
-import { devices } from "./theme_variables/devices";
+import { secondaryWhite } from "./style_variables/colors";
+import { borderRadiusMedium, mediumBorder } from "./style_variables/borders";
+import { devices } from "./style_variables/devices";
 
 interface IContainerProps {
   bgcolor?: string;
@@ -31,6 +31,7 @@ export const ConfirmationButtonsContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding-top: 1rem;
   width: 50%%;
   height: 50%;
   gap: 2rem;

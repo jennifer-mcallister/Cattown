@@ -1,11 +1,12 @@
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { CatsContent, MainContent } from "../components/styled/LayoutStyle";
 import { ILayoutContext } from "./layout/Layout";
-import { PickCatTraining } from "../components/PickCatTraining";
 import { ButtonMedium } from "../components/styled/Button";
 import { PageHeaderContainer } from "../components/styled/Container";
 import { HeaderBig, HeaderSmall } from "../components/styled/Text";
 import { NoCatsContainer } from "../components/styled/Cat";
+import { trainingColor } from "../components/styled/style_variables/colors";
+import { CatTraining } from "../components/cat_card/CatTraining";
 
 export const Training = () => {
   const outletContext = useOutletContext<ILayoutContext>();
@@ -14,7 +15,7 @@ export const Training = () => {
   return (
     <>
       <MainContent>
-        <PageHeaderContainer bgcolor="#F7C968">
+        <PageHeaderContainer bgcolor={trainingColor}>
           <HeaderBig>Training</HeaderBig>
         </PageHeaderContainer>
         {outletContext.savefile.cats.length < 1 && (
@@ -28,13 +29,13 @@ export const Training = () => {
                 navigate("/shop");
               }}
             >
-              Witches Shop
+              Bobbens Shop
             </ButtonMedium>
           </NoCatsContainer>
         )}
         <CatsContent>
           {outletContext.savefile.cats.map((cat) => (
-            <PickCatTraining
+            <CatTraining
               cat={cat}
               cats={outletContext.savefile.cats}
               key={cat.id}

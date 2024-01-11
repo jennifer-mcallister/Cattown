@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
-import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
-import { primaryWhite, secondaryWhite } from "./theme_variables/colors";
+import { borderRadiusMedium, smallBorder } from "./style_variables/borders";
+import { primaryWhite, secondaryWhite } from "./style_variables/colors";
 import { bounceAnimation, buyRelicAnimation } from "./Animations";
 import { HeaderBig, HeaderSmall } from "./Text";
 
@@ -81,7 +81,7 @@ export const ShopItemRightBox = styled(ShopItemLeftBox)`
 
 export const ShopItemFooter = styled.div`
   display: flex;
-  width: 100%;
+  width: 90%;
   height: 25%;
 `;
 

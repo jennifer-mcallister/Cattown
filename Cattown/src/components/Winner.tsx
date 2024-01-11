@@ -15,7 +15,7 @@ export const Winner = ({ toggleShowWinner }: IWinnerProps) => {
   };
 
   return (
-    <BoughtItemBackground show="true" onClick={toggleShowWinner}>
+    <BoughtItemBackground onClick={toggleShowWinner}>
       <WinnerImg
         className={imgLoaded ? "loaded" : ""}
         src={winnerBan}

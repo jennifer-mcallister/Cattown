@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { GameMenu } from "../../components/GameMenu";
+import { GameMenu } from "../../components/menus/GameMenu";
 import { HeaderContent } from "../../components/styled/LayoutStyle";
 import {
   HeaderSmallContainer,
@@ -7,7 +7,7 @@ import {
   HeaderCoinImg,
 } from "../../components/styled/HeaderStyle";
 import { useNavigate } from "react-router-dom";
-import { OptionsMenu } from "../../components/OptionsMenu";
+import { OptionsMenu } from "../../components/menus/OptionsMenu";
 import { IShowMenus } from "./Layout";
 import { ButtonIcon } from "../../components/styled/Button";
 import { HeaderSmall } from "../../components/styled/Text";
@@ -35,6 +35,7 @@ export const Header = ({
   setShowMenus,
 }: IHeaderProps) => {
   const toggleMenu = () => {
+    console.log("toggle menu", showMenus.showMenu);
     setShowMenus({ ...showMenus, showMenu: !showMenus.showMenu });
   };
 

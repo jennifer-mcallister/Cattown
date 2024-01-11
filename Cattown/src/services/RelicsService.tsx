@@ -1,5 +1,5 @@
 import { doc, getDocs, updateDoc } from "firebase/firestore";
-import { auth, db, relicsCollection } from "./Firebase";
+import { auth, db, relicsCollection } from "./config/Firebase";
 import { IRelic } from "../types/savefileTypes";
 
 export const getRelics = async () => {
