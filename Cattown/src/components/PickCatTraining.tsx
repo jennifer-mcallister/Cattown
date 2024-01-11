@@ -45,6 +45,7 @@ import {
   secondaryGreen,
   trainingColor,
 } from "./styled/theme_variables/colors";
+const timerIcon = "/assets/icons/timer.png";
 
 interface IPickCatTraining {
   cat: ICat;
@@ -57,7 +58,6 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
   const [imgLoaded, setImgLoaded] = useState(false);
   const [bgColor, setBgColor] = useState("");
   const imgPath = `/assets/${cat.img}`;
-  const timerIcon = "/assets/icons/timer.png";
   const xpPerMinute = 150;
 
   useEffect(() => {
@@ -115,7 +115,6 @@ export const PickCatTraining = ({ cat, cats }: IPickCatTraining) => {
             <HeaderSmall>{cat.name} </HeaderSmall>
             <TextSmallBold>Lvl. {cat.level}</TextSmallBold>
           </CatHeaderTitleContainer>
-
           <ProgressBar catLevel={cat.level} catXP={cat.xp} />
         </CatHeader>
         <CatContent>

@@ -24,13 +24,14 @@ export const ButtonMedium = styled.button<IButtonProps>`
   cursor: pointer;
   border: ${smallBorder};
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
+  transition: transform 0.3s ease-in-out;
 
   &:hover {
-    filter: brightness(120%);
+    transform: scale(1.1);
   }
 
   &:enabled:active {
-    scale: 0.9;
+    transform: scale(0.9);
   }
 
   &:disabled {
@@ -45,7 +46,7 @@ export const ButtonLarge = styled.button<IButtonProps>`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: 20rem;
+  width: 18rem;
   height: 3.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
@@ -55,13 +56,18 @@ export const ButtonLarge = styled.button<IButtonProps>`
   cursor: pointer;
   border: ${smallBorder};
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
+  transition: transform 0.1s ease-in-out;
 
   &:hover {
-    background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : "#ffd5d5")};
+    transform: scale(1.05);
+  }
+
+  &:focus {
+    background-color: ${primaryPink};
   }
 
   &:enabled:active {
-    scale: 0.9;
+    transform: scale(0.9);
   }
 
   &:disabled {
@@ -70,9 +76,9 @@ export const ButtonLarge = styled.button<IButtonProps>`
   }
 `;
 
-export const ButtonLargeSelect = styled(ButtonLarge)<IButtonProps>`
+export const ButtonLargeSelect = styled(ButtonLarge)`
   gap: 2rem;
-  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
+  background-color: ${secondaryPink};
   &:focus {
     background-color: ${primaryPink};
   }
@@ -82,4 +88,17 @@ export const ButtonIcon = styled(ButtonMedium)`
   height: 3.5rem;
   width: 3.5rem;
   border-radius: ${borderRadiusRoundSmall};
+  transition: transform 0.1s ease-in-out;
+
+  &:focus {
+    background-color: ${primaryPink};
+  }
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  &:enabled:active {
+    transform: scale(0.9);
+  }
 `;

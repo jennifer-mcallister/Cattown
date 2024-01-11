@@ -25,7 +25,6 @@ import {
   CatContainerQuest,
   CatContent,
   CatContentColumn,
-  CatDivider,
   CatFooter,
   CatHeader,
   CatHeaderTitleContainer,
@@ -35,6 +34,8 @@ import {
   CatImgQuest,
   CatTextContainer,
 } from "../styled/Cat";
+import { StatusBox } from "../styled/NotificationStyle";
+import { secondaryGreen } from "../styled/theme_variables/colors";
 
 interface IConfirmBossProps {
   quest: IBossQuest;
@@ -116,8 +117,7 @@ export const ConfirmBoss = ({
                 </CatHeader>
                 <CatContent>
                   <CatContentColumn>
-                    <TextMedium>Stats</TextMedium>
-                    <CatDivider />
+                    <HeaderSmall>Stats</HeaderSmall>
                     <CatTextContainer>
                       <TextSmall>Health</TextSmall>
                       <TextSmall>{cat.health}</TextSmall>
@@ -128,27 +128,9 @@ export const ConfirmBoss = ({
                     </CatTextContainer>
                   </CatContentColumn>
                   <CatContentColumn>
-                    <TextMedium>Status</TextMedium>
-                    <CatDivider />
-                    <TextSmallBold>{cat.status}</TextSmallBold>
-                    {cat.status === "training" && (
-                      <TextSmall>
-                        Back in: {cat.trainingTimeLeft?.h}:
-                        {cat.trainingTimeLeft?.min}:{cat.trainingTimeLeft?.sec}
-                      </TextSmall>
-                    )}
-                    {cat.status === "on mission" && (
-                      <TextSmall>
-                        Back in: {cat.missionTimeLeft?.h}:
-                        {cat.missionTimeLeft?.min}:{cat.missionTimeLeft?.sec}
-                      </TextSmall>
-                    )}
-                    {cat.status === "downed" && (
-                      <TextSmall>
-                        Back in: {cat.downedTimeLeft?.h}:
-                        {cat.downedTimeLeft?.min}:{cat.downedTimeLeft?.sec}
-                      </TextSmall>
-                    )}
+                    <StatusBox bgcolor={secondaryGreen}>
+                      <TextMedium>{cat.status}</TextMedium>
+                    </StatusBox>
                   </CatContentColumn>
                 </CatContent>
                 <CatFooter>

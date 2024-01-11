@@ -124,7 +124,8 @@ export const CatImg = styled.img`
   top: -3rem;
   z-index: 1;
 `;
+
 export const CatImgQuest = styled(CatImg)`
   right: -9.5rem;
-  top: -3rem;
+  top: -4.5rem;
 `;

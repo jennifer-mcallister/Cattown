@@ -144,16 +144,6 @@ export const Shop = () => {
           <HeaderBig>Bobben's shop</HeaderBig>
         </PageHeaderContainer>
         <ShopContent>
-          {relics.map((relic) => (
-            <ShopItem
-              relic={relic}
-              availableRelics={availableRelics}
-              userRelics={outletContext.savefile.relics || []}
-              key={relic.name}
-              userGold={outletContext.savefile.gold || 0}
-              userStats={outletContext.savefile.stats}
-            />
-          ))}
           <ShopItemContainer className={imgLoaded ? "loaded" : ""}>
             <ShopItemContent>
               <ShopItemLeftBox>
@@ -199,6 +189,16 @@ export const Shop = () => {
               </ButtonLarge>
             </ShopItemFooter>
           </ShopItemContainer>
+          {relics.map((relic) => (
+            <ShopItem
+              relic={relic}
+              availableRelics={availableRelics}
+              userRelics={outletContext.savefile.relics || []}
+              key={relic.name}
+              userGold={outletContext.savefile.gold || 0}
+              userStats={outletContext.savefile.stats}
+            />
+          ))}
         </ShopContent>
       </MainContent>
     </>

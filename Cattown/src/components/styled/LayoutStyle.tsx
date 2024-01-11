@@ -20,6 +20,11 @@ export const MainContent = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  padding-top: 2rem;
+
+  @media (${devices.tablet}) {
+    padding-top: 0;
+  }
 `;
 
 export const MainContentSignUp = styled(MainContent)`
