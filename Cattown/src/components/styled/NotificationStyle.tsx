@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
-import { primaryBlue, secondaryWhite } from "./theme_variables/colors";
-import { borderRadiusRoundSmall, smallBorder } from "./theme_variables/borders";
+import { primaryBlue, secondaryWhite } from "./style_variables/colors";
+import { borderRadiusRoundSmall, smallBorder } from "./style_variables/borders";
 import { bounceAnimation } from "./Animations";
 import { TertiaryInfoBox } from "./Quest";
-import { devices } from "./theme_variables/devices";
+import { devices } from "./style_variables/devices";
 
 interface INotificationProps {
   bgcolor?: string;
@@ -58,4 +58,9 @@ export const NotificationCard = styled.div`
 export const StatusBox = styled(TertiaryInfoBox)<INotificationProps>`
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : primaryBlue)};
   height: 2rem;
+`;
+
+export const StatusBoxBig = styled(StatusBox)`
+  height: 4rem;
+  min-width: 4rem;
 `;

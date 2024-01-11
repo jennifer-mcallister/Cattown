@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { borderRadiusSmall, smallBorder } from "./theme_variables/borders";
+import { borderRadiusSmall, smallBorder } from "./style_variables/borders";
 
 export const Form = styled.form`
   width: 18rem;

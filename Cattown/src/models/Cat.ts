@@ -4,38 +4,6 @@ import { ICat } from "../types/savefileTypes";
 export const defaultCat: ICat = {
   id: Date.now().toString(),
   img: "cat_white.webp",
-  name: "Nori",
-  xp: 100,
-  level: countOutCatLevel(100),
-  health: 10,
-  strength: 2,
-  status: "in camp",
-  trainingEndTime: 0,
-  trainingTimeLeft: {
-    h: 0,
-    min: 0,
-    sec: 0,
-  },
-  trainingXp: 0,
-  missionEndTime: 0,
-  missionTimeLeft: {
-    h: 0,
-    min: 0,
-    sec: 0,
-  },
-  downedEndTime: 0,
-  downedTimeLeft: {
-    h: 0,
-    min: 0,
-    sec: 0,
-  },
-  missionGold: 0,
-  missionXp: 0,
-};
-
-export const commonCat: ICat = {
-  id: Date.now().toString(),
-  img: "cat_white.webp",
   rarity: "common",
   name: "Nori",
   xp: 100,
@@ -65,6 +33,8 @@ export const commonCat: ICat = {
   missionGold: 0,
   missionXp: 0,
 };
+
+export const commonCat: ICat = defaultCat;
 
 export const uncommonCat: ICat = {
   id: Date.now().toString(),

@@ -1,4 +1,3 @@
-import { ProgressBar } from "../ProgressBar";
 import { ButtonLarge } from "../styled/Button";
 import {
   ConfirmMissionContainer,
@@ -11,42 +10,23 @@ import {
   QuestsMenuFooter,
   TertiaryInfoBox,
 } from "../styled/Quest";
-import {
-  HeaderSmall,
-  TextMedium,
-  TextSmall,
-  TextSmallBold,
-} from "../styled/Text";
+import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 import placeholder from "/assets/cat_white.webp";
 import { IMissionQuest } from "./QuestsMenu";
 import {
   CatContainer,
   CatContainerQuest,
-  CatContent,
-  CatContentColumn,
-  CatFooter,
-  CatHeader,
+  CatFooterContainer,
+  CatHeaderContainer,
   CatHeaderTitleContainer,
-  CatImg,
-  CatImgContainer,
   CatImgContainerQuest,
   CatImgQuest,
-  CatStatusContainer,
-  CatTextContainer,
 } from "../styled/Cat";
 import { useEffect, useState } from "react";
 import { HeaderCoinImg } from "../styled/HeaderStyle";
 import coin from "/assets/coin.webp";
-import { formatTime } from "../../helpers/gameCalculationHelpers";
-import { StatusBox } from "../styled/NotificationStyle";
-import { IconSmall } from "../styled/Icon";
-import {
-  primaryBlue,
-  primaryRed,
-  secondaryGreen,
-  trainingColor,
-} from "../styled/theme_variables/colors";
-const timerIcon = "/assets/icons/timer.png";
+import { CatHeader } from "../cat_card/CatHeader";
+import { CatContent } from "../cat_card/CatContent";
 
 interface IConfirmMissionProps {
   quest: IMissionQuest;
@@ -59,22 +39,6 @@ export const ConfirmMission = ({
   const [imgLoaded, setImgLoaded] = useState(false);
   const imgPath = `/assets/${quest.cat.img}`;
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-  const [bgColor, setBgColor] = useState("");
-
-  useEffect(() => {
-    if (quest.cat.status === "training") {
-      setBgColor(trainingColor);
-    }
-    if (quest.cat.status === "downed") {
-      setBgColor(primaryRed);
-    }
-    if (quest.cat.status === "in camp") {
-      setBgColor(secondaryGreen);
-    }
-    if (quest.cat.status === "on mission") {
-      setBgColor(primaryBlue);
-    }
-  }, [quest.cat.status]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -99,7 +63,7 @@ export const ConfirmMission = ({
               <HeaderSmall>{quest.mission.type}</HeaderSmall>
             </QuestHeader>
             <QuestContent>
-              <TextSmall>Time: {quest.mission.timeInSec} Sec</TextSmall>
+              <TextSmall>Time: {quest.mission.timeInSec / 60} min</TextSmall>
             </QuestContent>
             <QuestFooter>
               <QuestRewardContainer>
@@ -119,7 +83,7 @@ export const ConfirmMission = ({
                 key={quest.cat.id}
                 className={imgLoaded ? "loaded" : ""}
               >
-                <CatHeader>
+                <CatHeaderContainer>
                   <CatHeaderTitleContainer>
                     <HeaderSmall>{quest.cat.name} </HeaderSmall>
                   </CatHeaderTitleContainer>
@@ -130,10 +94,12 @@ export const ConfirmMission = ({
                       alt="Image of a cat"
                     />
                   </CatImgContainerQuest>
-                </CatHeader>
-                <CatFooter>
-                  <HeaderSmall>I'm Ready!</HeaderSmall>
-                </CatFooter>
+                </CatHeaderContainer>
+                <CatFooterContainer>
+                  <TertiaryInfoBox>
+                    <HeaderSmall>I'm Ready!</HeaderSmall>
+                  </TertiaryInfoBox>
+                </CatFooterContainer>
               </CatContainerQuest>
             </>
           )}
@@ -142,80 +108,13 @@ export const ConfirmMission = ({
               key={quest.cat.id}
               className={imgLoaded ? "loaded" : ""}
             >
-              <CatHeader>
-                <CatImgContainer>
-                  <CatImg
-                    src={quest.cat.img ? imgPath : placeholder}
-                    onLoad={handleLoading}
-                    alt="Image of a cat"
-                  />
-                </CatImgContainer>
-                <CatHeaderTitleContainer>
-                  <HeaderSmall>{quest.cat.name} </HeaderSmall>
-                  <TextSmallBold>Lvl. {quest.cat.level}</TextSmallBold>
-                </CatHeaderTitleContainer>
-                <ProgressBar catLevel={quest.cat.level} catXP={quest.cat.xp} />
-              </CatHeader>
-              <CatContent>
-                <CatContentColumn>
-                  <HeaderSmall>Stats</HeaderSmall>
-                  <CatTextContainer>
-                    <TextSmall>Health</TextSmall>
-                    <TextSmall>{quest.cat.health}</TextSmall>
-                  </CatTextContainer>
-                  <CatTextContainer>
-                    <TextSmall>Strength</TextSmall>
-                    <TextSmall>{quest.cat.strength}</TextSmall>
-                  </CatTextContainer>
-                </CatContentColumn>
-                <CatContentColumn>
-                  {quest.cat.status === "training" && (
-                    <CatStatusContainer>
-                      <TextSmall>
-                        {formatTime(
-                          quest.cat.trainingTimeLeft.h,
-                          quest.cat.trainingTimeLeft.min,
-                          quest.cat.trainingTimeLeft.sec
-                        )}
-                      </TextSmall>
-                    </CatStatusContainer>
-                  )}
-                  {quest.cat.status === "on mission" && (
-                    <CatStatusContainer>
-                      <TextSmall>
-                        {formatTime(
-                          quest.cat.missionTimeLeft?.h,
-                          quest.cat.missionTimeLeft?.min,
-                          quest.cat.missionTimeLeft?.sec
-                        )}
-                      </TextSmall>
-                    </CatStatusContainer>
-                  )}
-                  {quest.cat.status === "downed" && (
-                    <CatStatusContainer>
-                      <TextSmall>
-                        {formatTime(
-                          quest.cat.downedTimeLeft?.h,
-                          quest.cat.downedTimeLeft?.min,
-                          quest.cat.downedTimeLeft?.sec
-                        )}
-                      </TextSmall>
-                    </CatStatusContainer>
-                  )}
-                  <StatusBox bgcolor={bgColor}>
-                    {quest.cat.status !== "in camp" && (
-                      <IconSmall src={timerIcon} alt="timer" />
-                    )}
-
-                    <TextMedium>{quest.cat.status}</TextMedium>
-                  </StatusBox>
-                </CatContentColumn>
-              </CatContent>
-              <CatFooter>
+              <CatHeader cat={quest.cat} handleLoading={handleLoading} />
+              <CatContent cat={quest.cat} />
+              <CatFooterContainer>
                 <TertiaryInfoBox>
                   <HeaderSmall>I'm Ready!</HeaderSmall>
                 </TertiaryInfoBox>
-              </CatFooter>
+              </CatFooterContainer>
             </CatContainer>
           )}
         </QuestsMenuContent>

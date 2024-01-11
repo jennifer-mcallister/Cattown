@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 import { bounceAnimation } from "./Animations";
-import { borderRadiusSmall, smallBorder } from "./theme_variables/borders";
-import { secondaryWhite } from "./theme_variables/colors";
-import { devices } from "./theme_variables/devices";
+import { borderRadiusSmall, smallBorder } from "./style_variables/borders";
+import { secondaryWhite } from "./style_variables/colors";
+import { devices } from "./style_variables/devices";
 
 export const TopSection = styled.div`
   display: flex;

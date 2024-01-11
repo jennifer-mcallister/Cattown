@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { useState } from "react";
-import { auth, db } from "../../services/Firebase";
+import { auth, db } from "../../services/config/Firebase";
 import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { ICat, ISavefile } from "../../types/savefileTypes";

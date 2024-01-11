@@ -7,7 +7,7 @@ import {
   primaryRed,
   secondaryGreen,
   trainingColor,
-} from "./styled/theme_variables/colors";
+} from "./styled/style_variables/colors";
 
 interface INotificationProps {
   cat: ICat;

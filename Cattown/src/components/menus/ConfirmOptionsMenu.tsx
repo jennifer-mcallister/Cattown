@@ -1,10 +1,10 @@
-import { ButtonMedium } from "./styled/Button";
+import { ButtonMedium } from "../styled/Button";
 import {
   ConfirmationButtonsContainer,
   ConfirmationContainer,
-} from "./styled/Container";
-import { HeaderSmall, TextMediumCenter } from "./styled/Text";
-import { primaryGreen, primaryRed } from "./styled/theme_variables/colors";
+} from "../styled/Container";
+import { HeaderSmall, TextMediumCenter } from "../styled/Text";
+import { primaryGreen, primaryRed } from "../styled/style_variables/colors";
 
 interface IConfirm {
   confirm: () => void;
@@ -13,7 +13,12 @@ interface IConfirm {
   text?: string;
 }
 
-export const Confirm = ({ confirm, abort, header, text }: IConfirm) => {
+export const ConfirmOptionsMenu = ({
+  confirm,
+  abort,
+  header,
+  text,
+}: IConfirm) => {
   return (
     <ConfirmationContainer>
       <HeaderSmall>{header}</HeaderSmall>

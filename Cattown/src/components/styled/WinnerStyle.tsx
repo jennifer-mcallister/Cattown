@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
 import { bounceAnimation } from "./Animations";
 import { HeaderBig } from "./Text";
-import { primaryWhite } from "./theme_variables/colors";
-import { devices } from "./theme_variables/devices";
+import { primaryWhite } from "./style_variables/colors";
+import { devices } from "./style_variables/devices";
 
 export const WinnerImg = styled.img`
   width: 90vw;

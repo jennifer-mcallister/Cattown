@@ -1,5 +1,5 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "./Firebase";
+import { auth, db } from "./config/Firebase";
 import { newGameSavefile } from "../models/Savefile";
 
 export const getSavefile = async () => {

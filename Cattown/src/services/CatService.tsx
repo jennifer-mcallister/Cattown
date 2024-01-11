@@ -1,6 +1,6 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { ICat } from "../types/savefileTypes";
-import { auth, db } from "./Firebase";
+import { auth, db } from "./config/Firebase";
 
 export const updateCats = async (cats: ICat[]) => {
   try {

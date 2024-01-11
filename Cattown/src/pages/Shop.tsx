@@ -1,20 +1,6 @@
 import { useLoaderData, useOutletContext } from "react-router-dom";
 import { ShopItem } from "../components/ShopItem";
 import { MainContent, ShopContent } from "../components/styled/LayoutStyle";
-import {
-  RevealCatContainer,
-  RevealCatImg,
-  RevealCatStats,
-  RevealCatSubTitle,
-  RevealCatTitle,
-  ShopItemContainer,
-  ShopItemContent,
-  ShopItemFooter,
-  ShopItemInfoContainer,
-  ShopItemLeftBox,
-  ShopItemRelicImg,
-  ShopItemRightBox,
-} from "../components/styled/ShopMenu";
 import { useEffect, useState } from "react";
 import { ICat, IRelic } from "../types/savefileTypes";
 import {
@@ -27,37 +13,20 @@ import {
 import { ILayoutContext } from "./layout/Layout";
 import { buyCats } from "../services/CatService";
 import { PageHeaderContainer } from "../components/styled/Container";
-import {
-  HeaderBig,
-  HeaderSmall,
-  TextMedium,
-  TextSmall,
-} from "../components/styled/Text";
-import { CatDivider, CatTextContainer } from "../components/styled/Cat";
-import { ButtonLarge, ButtonMedium } from "../components/styled/Button";
-import mysteryCat from "/assets/mystery_cat.webp";
-import placeholder from "/assets/cat_white.webp";
-import coin from "/assets/coin.webp";
-import { HeaderCoinImg } from "../components/styled/HeaderStyle";
-import { BoughtItemBackground } from "../components/styled/Menu";
+import { HeaderBig } from "../components/styled/Text";
 import { throwD20 } from "../helpers/gameCalculationHelpers";
+import { MysteryCatModule } from "../components/MysteryCatModule";
+import { CatMystery } from "../components/cat_card/CatMystery";
 
 export const Shop = () => {
   const outletContext = useOutletContext<ILayoutContext>();
   const relics: IRelic[] = useLoaderData() as IRelic[];
   const [availableRelics, setAvailableRelics] = useState<IRelic[]>(relics);
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [revealImgLoaded, setRevealImgLoaded] = useState(false);
-  const [boughtCat, setBoughtCat] = useState(false);
+  const [showModule, setShowModule] = useState(false);
   const [randomizedCat, setRandomizedCat] = useState<ICat>(defaultCat);
-  const imgPath = `/assets/${randomizedCat.img}`;
 
-  const handleRevealLoading = () => {
-    setRevealImgLoaded(true);
-  };
-
-  const handleLoading = () => {
-    setImgLoaded(true);
+  const toggleMysteryCatModule = () => {
+    setShowModule(!showModule);
   };
 
   const userHasRelic = (relic: IRelic, userRelic: IRelic) => {
@@ -98,7 +67,7 @@ export const Shop = () => {
 
   const buyCat = async () => {
     try {
-      setBoughtCat(true);
+      setShowModule(true);
       const cat = { ...rollNewCat(), id: Date.now().toString() };
       const updatedCats = [...outletContext.savefile.cats, cat];
       const goldLeft = outletContext.savefile.gold - 75;
@@ -110,91 +79,29 @@ export const Shop = () => {
 
   return (
     <>
-      {boughtCat && (
-        <BoughtItemBackground
-          show={"true"}
-          onClick={() => {
-            setBoughtCat(false);
-          }}
-        >
-          <RevealCatContainer className={revealImgLoaded ? "loaded" : ""}>
-            <RevealCatTitle>
-              {randomizedCat.rarity ? randomizedCat.rarity : ""}
-            </RevealCatTitle>
-            <RevealCatSubTitle>{randomizedCat.name}</RevealCatSubTitle>
-            <RevealCatImg
-              src={randomizedCat.img ? imgPath : placeholder}
-              onLoad={handleRevealLoading}
-              alt="Image of a cat"
-            />
-            <RevealCatStats>Health: {randomizedCat.health}</RevealCatStats>
-            <RevealCatStats>Strength: {randomizedCat.strength}</RevealCatStats>
-            <ButtonMedium
-              onClick={() => {
-                setBoughtCat(false);
-              }}
-            >
-              Back to shop
-            </ButtonMedium>
-          </RevealCatContainer>
-        </BoughtItemBackground>
+      {showModule && (
+        <MysteryCatModule
+          toggleShowModule={toggleMysteryCatModule}
+          randomizedCat={randomizedCat}
+        />
       )}
       <MainContent>
         <PageHeaderContainer>
           <HeaderBig>Bobben's shop</HeaderBig>
         </PageHeaderContainer>
         <ShopContent>
-          <ShopItemContainer className={imgLoaded ? "loaded" : ""}>
-            <ShopItemContent>
-              <ShopItemLeftBox>
-                <HeaderSmall>Mystery Cat</HeaderSmall>
-                <ShopItemInfoContainer>
-                  <TextMedium>Stats</TextMedium>
-                  <CatDivider />
-                  <CatTextContainer>
-                    <TextSmall>Health</TextSmall>
-                    <TextSmall>?</TextSmall>
-                  </CatTextContainer>
-                  <CatTextContainer>
-                    <TextSmall>Strength</TextSmall>
-                    <TextSmall>?</TextSmall>
-                  </CatTextContainer>
-                </ShopItemInfoContainer>
-              </ShopItemLeftBox>
-              <ShopItemRightBox>
-                <ShopItemRelicImg
-                  src={mysteryCat}
-                  onLoad={handleLoading}
-                  alt="Image of a mystery cat"
-                />
-              </ShopItemRightBox>
-            </ShopItemContent>
-            <ShopItemFooter>
-              <ButtonLarge
-                disabled={
-                  outletContext.savefile.gold < 75 ||
-                  outletContext.savefile.cats.length >= 4 ||
-                  boughtCat
-                }
-                onClick={() => {
-                  buyCat();
-                }}
-              >
-                75
-                <HeaderCoinImg
-                  src={coin}
-                  onLoad={handleLoading}
-                  alt="Image of a coin"
-                />
-              </ButtonLarge>
-            </ShopItemFooter>
-          </ShopItemContainer>
+          <CatMystery
+            userGold={outletContext.savefile.gold}
+            numberOfCatsOwned={outletContext.savefile.cats.length}
+            showModule={showModule}
+            buyCat={buyCat}
+          />
           {relics.map((relic) => (
             <ShopItem
+              key={relic.name}
               relic={relic}
               availableRelics={availableRelics}
               userRelics={outletContext.savefile.relics || []}
-              key={relic.name}
               userGold={outletContext.savefile.gold || 0}
               userStats={outletContext.savefile.stats}
             />

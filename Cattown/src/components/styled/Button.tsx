@@ -3,8 +3,8 @@ import {
   borderRadiusMedium,
   borderRadiusRoundSmall,
   smallBorder,
-} from "./theme_variables/borders";
-import { primaryPink, secondaryPink } from "./theme_variables/colors";
+} from "./style_variables/borders";
+import { primaryPink, secondaryPink } from "./style_variables/colors";
 
 interface IButtonProps {
   bgcolor?: string;
@@ -26,7 +26,7 @@ export const ButtonMedium = styled.button<IButtonProps>`
   background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
   transition: transform 0.3s ease-in-out;
 
-  &:hover {
+  &:enabled:hover {
     transform: scale(1.1);
   }
 
@@ -40,25 +40,15 @@ export const ButtonMedium = styled.button<IButtonProps>`
   }
 `;
 
-export const ButtonLarge = styled.button<IButtonProps>`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+export const ButtonLarge = styled(ButtonMedium)`
   gap: 0.5rem;
   width: 18rem;
   height: 3.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
   margin-top: 0.5rem;
-  border-radius: ${borderRadiusMedium};
   font-size: 2em;
-  cursor: pointer;
-  border: ${smallBorder};
-  background-color: ${({ bgcolor }) => (bgcolor ? bgcolor : secondaryPink)};
   transition: transform 0.1s ease-in-out;
 
-  &:hover {
+  &:enabled:hover {
     transform: scale(1.05);
   }
 
@@ -90,15 +80,20 @@ export const ButtonIcon = styled(ButtonMedium)`
   border-radius: ${borderRadiusRoundSmall};
   transition: transform 0.1s ease-in-out;
 
+  &:enabled:hover {
+    transform: scale(1.1);
+  }
+
   &:focus {
     background-color: ${primaryPink};
   }
 
-  &:hover {
-    transform: scale(1.1);
-  }
-
   &:enabled:active {
     transform: scale(0.9);
+  }
+
+  &:disabled {
+    background-color: #d4d4d4;
+    color: #8f8f8f;
   }
 `;

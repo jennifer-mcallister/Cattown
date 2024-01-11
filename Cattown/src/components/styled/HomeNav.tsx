@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
-import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
-import { secondaryWhite } from "./theme_variables/colors";
+import { borderRadiusMedium, smallBorder } from "./style_variables/borders";
+import { secondaryWhite } from "./style_variables/colors";
 import { bounceAnimation } from "./Animations";
-import { devices } from "./theme_variables/devices";
+import { devices } from "./style_variables/devices";
 
 interface IHomeNavProps {
   hovercolor: string;
@@ -26,12 +26,6 @@ export const HomeNavContainer = styled.div<IHomeNavProps>`
     opacity: 1;
     transform: translateY(0) scale(1);
     animation: ${bounceAnimation} 1s ease-in-out;
-    &:hover {
-      box-shadow: ${({ hovercolor }) =>
-        hovercolor
-          ? ` 0 0 200px ${hovercolor}, 0 0 40px ${hovercolor}, 0 0 80px ${hovercolor}`
-          : " 0 0 10px #f021be, 0 0 70px #f021be, 0 0 80px #f021be"};
-    }
 
     @media (${devices.tablet}) {
       width: 10rem;
@@ -43,16 +37,17 @@ export const HomeNavContainer = styled.div<IHomeNavProps>`
 export const HomeNavImg = styled.img`
   width: 15rem;
   cursor: pointer;
+  transition: transform 0.1s ease-in-out;
   &:hover {
-    width: 10.5rem;
+    transform: scale(1.1);
+  }
+
+  &:enabled:active {
+    transform: scale(0.9);
   }
 
   @media (${devices.tablet}) {
     width: 20rem;
-
-    &:hover {
-      width: 20.5rem;
-    }
   }
 `;
 

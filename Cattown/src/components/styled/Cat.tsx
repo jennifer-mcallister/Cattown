@@ -1,8 +1,8 @@
 import { styled } from "styled-components";
-import { secondaryWhite } from "./theme_variables/colors";
-import { borderRadiusMedium, smallBorder } from "./theme_variables/borders";
+import { secondaryWhite } from "./style_variables/colors";
+import { borderRadiusMedium, smallBorder } from "./style_variables/borders";
 import { bounceAnimation } from "./Animations";
-import { devices } from "./theme_variables/devices";
+import { devices } from "./style_variables/devices";
 
 export const CatContainer = styled.div`
   display: flex;
@@ -10,7 +10,7 @@ export const CatContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 18rem;
-  height: 17.5rem;
+  height: 16rem;
   padding: 1rem;
   border-radius: ${borderRadiusMedium};
   border: ${smallBorder};
@@ -28,7 +28,7 @@ export const CatContainer = styled.div`
 `;
 
 export const CatContainerQuest = styled(CatContainer)`
-  height: 6.5rem;
+  height: 6rem;
   width: 15rem;
   padding: 0.5rem;
 `;
@@ -42,7 +42,7 @@ export const NoCatsContainer = styled.div`
   height: 20%;
 `;
 
-export const CatHeader = styled.div`
+export const CatHeaderContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -58,13 +58,13 @@ export const CatHeaderTitleContainer = styled.div`
   width: 60%;
 `;
 
-export const CatContent = styled(CatHeader)`
+export const CatContentContainer = styled(CatHeaderContainer)`
   flex-direction: row;
   align-items: center;
   height: 6.5rem;
 `;
 
-export const CatFooter = styled(CatContent)`
+export const CatFooterContainer = styled(CatContentContainer)`
   align-items: flex-end;
   height: 3.5rem;
 `;
@@ -126,6 +126,6 @@ export const CatImg = styled.img`
 `;
 
 export const CatImgQuest = styled(CatImg)`
-  right: -9.5rem;
-  top: -4.5rem;
+  right: -8rem;
+  top: -3.5rem;
 `;

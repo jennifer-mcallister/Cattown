@@ -1,5 +1,5 @@
 import { styled } from "styled-components";
-import { devices } from "./theme_variables/devices";
+import { devices } from "./style_variables/devices";
 
 export const HeaderContent = styled.div`
   position: relative;
