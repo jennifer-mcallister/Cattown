@@ -41,7 +41,7 @@ export const HomeNavContainer = styled.div<IHomeNavProps>`
 `;
 
 export const HomeNavImg = styled.img`
-  width: 10rem;
+  width: 15rem;
   cursor: pointer;
   &:hover {
     width: 10.5rem;

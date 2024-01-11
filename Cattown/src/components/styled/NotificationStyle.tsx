@@ -3,6 +3,7 @@ import { primaryBlue, secondaryWhite } from "./theme_variables/colors";
 import { borderRadiusRoundSmall, smallBorder } from "./theme_variables/borders";
 import { bounceAnimation } from "./Animations";
 import { TertiaryInfoBox } from "./Quest";
+import { devices } from "./theme_variables/devices";
 
 interface INotificationProps {
   bgcolor?: string;
@@ -15,11 +16,15 @@ export const NotificationContainer = styled.div`
   height: 100%;
   width: 100vw;
   gap: 0.5rem;
-  padding-top: 11vh;
+  padding-top: 5vh;
 
   position: fixed;
   pointer-events: none;
   top: 0;
+
+  @media (${devices.tablet}) {
+    padding-top: 1.5rem;
+  }
 `;
 
 export const NotificationCard = styled.div`

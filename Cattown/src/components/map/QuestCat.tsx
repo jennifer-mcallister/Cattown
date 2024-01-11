@@ -13,7 +13,6 @@ import {
   CatContainerQuest,
   CatContent,
   CatContentColumn,
-  CatDivider,
   CatFooter,
   CatHeader,
   CatHeaderTitleContainer,
@@ -21,11 +20,22 @@ import {
   CatImgContainer,
   CatImgContainerQuest,
   CatImgQuest,
-  CatTextColumn,
+  CatStatusContainer,
   CatTextContainer,
 } from "../styled/Cat";
 import { ButtonLarge, ButtonMedium } from "../styled/Button";
-import { primaryGreen } from "../styled/theme_variables/colors";
+import {
+  primaryBlue,
+  primaryGreen,
+  primaryPink,
+  primaryRed,
+  secondaryGreen,
+  trainingColor,
+} from "../styled/theme_variables/colors";
+import { formatTime } from "../../helpers/gameCalculationHelpers";
+import { StatusBox } from "../styled/NotificationStyle";
+import { IconSmall } from "../styled/Icon";
+const timerIcon = "/assets/icons/timer.png";
 
 interface IQuestCatProps {
   cat: ICat;
@@ -44,6 +54,22 @@ export const QuestCat = ({
   const [imgLoaded, setImgLoaded] = useState(false);
   const imgPath = `/assets/${cat.img}`;
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [bgColor, setBgColor] = useState("");
+
+  useEffect(() => {
+    if (cat.status === "training") {
+      setBgColor(trainingColor);
+    }
+    if (cat.status === "downed") {
+      setBgColor(primaryRed);
+    }
+    if (cat.status === "in camp") {
+      setBgColor(secondaryGreen);
+    }
+    if (cat.status === "on mission") {
+      setBgColor(primaryBlue);
+    }
+  }, [cat.status]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -80,8 +106,7 @@ export const QuestCat = ({
           </CatHeader>
           <CatContent>
             <CatContentColumn>
-              <TextMedium>Stats</TextMedium>
-              <CatDivider />
+              <HeaderSmall>Stats</HeaderSmall>
               <CatTextContainer>
                 <TextSmall>Health</TextSmall>
                 <TextSmall>{cat.health}</TextSmall>
@@ -92,34 +117,53 @@ export const QuestCat = ({
               </CatTextContainer>
             </CatContentColumn>
             <CatContentColumn>
-              <TextMedium>Status</TextMedium>
-              <CatDivider />
-              <TextSmallBold>{cat.status}</TextSmallBold>
               {cat.status === "training" && (
-                <TextSmall>
-                  Back in: {cat.trainingTimeLeft?.h}:{cat.trainingTimeLeft?.min}
-                  :{cat.trainingTimeLeft?.sec}
-                </TextSmall>
+                <CatStatusContainer>
+                  <TextSmall>
+                    {formatTime(
+                      cat.trainingTimeLeft.h,
+                      cat.trainingTimeLeft.min,
+                      cat.trainingTimeLeft.sec
+                    )}
+                  </TextSmall>
+                </CatStatusContainer>
               )}
               {cat.status === "on mission" && (
-                <TextSmall>
-                  Back in: {cat.missionTimeLeft?.h}:{cat.missionTimeLeft?.min}:
-                  {cat.missionTimeLeft?.sec}
-                </TextSmall>
+                <CatStatusContainer>
+                  <TextSmall>
+                    {formatTime(
+                      cat.missionTimeLeft?.h,
+                      cat.missionTimeLeft?.min,
+                      cat.missionTimeLeft?.sec
+                    )}
+                  </TextSmall>
+                </CatStatusContainer>
               )}
               {cat.status === "downed" && (
-                <TextSmall>
-                  Back in: {cat.downedTimeLeft?.h}:{cat.downedTimeLeft?.min}:
-                  {cat.downedTimeLeft?.sec}
-                </TextSmall>
+                <CatStatusContainer>
+                  <TextSmall>
+                    {formatTime(
+                      cat.downedTimeLeft?.h,
+                      cat.downedTimeLeft?.min,
+                      cat.downedTimeLeft?.sec
+                    )}
+                  </TextSmall>
+                </CatStatusContainer>
               )}
+              <StatusBox bgcolor={bgColor}>
+                {cat.status !== "in camp" && (
+                  <IconSmall src={timerIcon} alt="timer" />
+                )}
+
+                <TextMedium>{cat.status}</TextMedium>
+              </StatusBox>
             </CatContentColumn>
           </CatContent>
           <CatFooter>
             <ButtonLarge
               onClick={() => {
                 selectCat(cat, questType);
-                setButtonColor(primaryGreen);
+                setButtonColor(primaryPink);
               }}
               disabled={cat.status !== "in camp" || cat.level < zoneLevel}
               bgcolor={buttonColor}
@@ -134,11 +178,8 @@ export const QuestCat = ({
           <CatHeader>
             <CatHeaderTitleContainer>
               <HeaderSmall>{cat.name} </HeaderSmall>
-              <CatTextColumn>
-                <TextSmallBold>Lvl. {cat.level}</TextSmallBold>
-                <TextSmall>{cat.status}</TextSmall>
-              </CatTextColumn>
             </CatHeaderTitleContainer>
+
             <CatImgContainerQuest>
               <CatImgQuest
                 src={cat.img ? imgPath : placeholder}
@@ -158,6 +199,7 @@ export const QuestCat = ({
             >
               Pick cat
             </ButtonMedium>
+            <TextSmallBold>Lvl. {cat.level}</TextSmallBold>
           </CatFooter>
         </CatContainerQuest>
       )}

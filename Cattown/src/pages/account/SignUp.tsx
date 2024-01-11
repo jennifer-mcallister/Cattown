@@ -1,7 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { Form, FormInput, FormLabel } from "../../components/styled/Form";
 import { HeaderSmall, TextSmall } from "../../components/styled/Text";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { IUserRegister } from "../../types/userTypes";
 import {
   MenuBody,
@@ -21,6 +21,7 @@ interface IRegistraion {
 }
 
 export const SignUp = () => {
+  const navigate = useNavigate();
   const [confirmPassword, setConfirmPassword] = useState({
     password: "",
     showWarning: false,
@@ -165,7 +166,13 @@ export const SignUp = () => {
           </Form>
         </MenuBody>
         <MenuFooter>
-          <Link to="/">Log in</Link>
+          <ButtonMedium
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Log in
+          </ButtonMedium>
         </MenuFooter>
       </MenuContainer>
     </MainContentSignUp>
