@@ -1,15 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Form, FormInput, FormLabel } from "../../components/styled/Form";
-import { HeaderSmall, TextSmall } from "../../components/styled/Text";
+import { Form, FormInput, FormLabel } from "../components/styled/Form";
+import { HeaderSmall, TextSmall } from "../components/styled/Text";
 import { Link } from "react-router-dom";
 import {
   MenuContainer,
   MenuFooter,
   MenuHeader,
   MenuSmallContainer,
-} from "../../components/styled/Menu";
-import { ButtonLarge } from "../../components/styled/Button";
-import { resetPassword } from "../../services/UserService";
+} from "../components/styled/Menu";
+import { ButtonLarge } from "../components/styled/Button";
+import { resetPassword } from "../services/UserService";
 
 interface ISubmit {
   success: boolean;

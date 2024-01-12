@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IBoss, IMission } from "../../types/missionTypes";
 import { ICat, IStats } from "../../types/savefileTypes";
 import { Boss } from "./Boss";
@@ -10,6 +10,7 @@ import {
   QuestsMenuContent,
   QuestsMenuFooter,
   QuestsMenuHeader,
+  SecondaryInfoBox,
   TertiaryInfoBox,
 } from "../styled/Quest";
 import { defaultMission } from "../../models/Misson";
@@ -19,10 +20,7 @@ import { QuestCat } from "./QuestCat";
 import { updateCats } from "../../services/CatService";
 import { ConfirmMission } from "./ConfirmMission";
 import { ConfirmBoss } from "./ConfirmBoss";
-import {
-  bossFight,
-  countOutCatLevel,
-} from "../../helpers/gameCalculationHelpers";
+
 import { updateUniqueItems } from "../../services/SavefileService";
 import { HeaderBig, HeaderSmall, TextMediumCenter } from "../styled/Text";
 import exitIcon from "/assets/icons/exit.png";
@@ -30,6 +28,8 @@ import { Icon } from "../styled/Icon";
 import { McGuffinImg } from "../styled/LibraryStyle";
 import { StatusBoxBig } from "../styled/NotificationStyle";
 import { primaryGreen, primaryYellow } from "../styled/style_variables/colors";
+import { bossFight } from "../../helpers/combatCalculator";
+import { countOutCatLevel } from "../../helpers/levelingSystem";
 
 interface IQuestMenuProps {
   zone: string;
@@ -73,6 +73,7 @@ export const QuestsMenu = ({
   const [showCats, setShowCats] = useState(false);
   const [showConfirmMission, setShowConfirmMission] = useState(false);
   const [showConfirmBoss, setShowConfirmBoss] = useState(false);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   const [missionQuest, setMissionQuest] = useState<IMissionQuest>({
     mission: defaultMission,
@@ -82,6 +83,17 @@ export const QuestsMenu = ({
     boss: defaultBoss,
     cats: [],
   });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowHeight(window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const selectMission = (mission: IMission) => {
     setMissionQuest({ ...missionQuest, mission: mission });
@@ -218,15 +230,20 @@ export const QuestsMenu = ({
       <QuestMenuBackground>
         <QuestsMenuContainer>
           <QuestsMenuHeader>
-            <HeaderSmall>
-              {zone} lvl. {zoneLevel} - {zoneLevel + 5}
-            </HeaderSmall>
+            <SecondaryInfoBox>
+              <HeaderSmall>
+                {zone} lvl. {zoneLevel} - {zoneLevel + 5}
+              </HeaderSmall>
+            </SecondaryInfoBox>
+
             <ButtonIcon onClick={toggleShowQuests}>
               <Icon src={exitIcon} alt="exit" />
             </ButtonIcon>
           </QuestsMenuHeader>
           {showQuests && (
-            <QuestsMenuContent>
+            <QuestsMenuContent
+              gridcolumns={windowHeight < 840 ? "1fr 1fr 1fr" : "1fr 1fr"}
+            >
               {missions
                 .sort((a, b) =>
                   a.type > b.type ? 1 : b.type > a.type ? -1 : 0
@@ -242,7 +259,9 @@ export const QuestsMenu = ({
             </QuestsMenuContent>
           )}
           {showCats && (
-            <QuestsMenuContent>
+            <QuestsMenuContent
+              gridcolumns={windowHeight < 840 ? "1fr 1fr 1fr 1fr" : "1fr 1fr"}
+            >
               {cats.map((cat) => (
                 <QuestCat
                   key={cat.id}

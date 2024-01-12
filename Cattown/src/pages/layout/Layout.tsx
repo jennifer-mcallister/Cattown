@@ -7,12 +7,14 @@ import { useEffect } from "react";
 import { ICat, ISavefile } from "../../types/savefileTypes";
 import { defaultSavefile } from "../../models/Savefile";
 import { updateCats } from "../../services/CatService";
-import {
-  ITimeLeft,
-  countOutCatLevel,
-  countOutTimeLeft,
-} from "../../helpers/gameCalculationHelpers";
+
 import { updateGold } from "../../services/SavefileService";
+import {
+  countOutCatLevel,
+  countOutHealth,
+  countOutStrength,
+} from "../../helpers/levelingSystem";
+import { ITimeLeft, countOutTimeLeft } from "../../helpers/timeManagement";
 
 export interface IShowMenus {
   showMenu: boolean;
@@ -80,11 +82,17 @@ export const Layout = () => {
               level: countOutCatLevel(catFinnished.xp),
               strength:
                 countOutCatLevel(catFinnished.xp) > catFinnished.level
-                  ? catFinnished.strength + catFinnished.level * 2
+                  ? countOutStrength({
+                      rarity: catFinnished.rarity || "",
+                      level: countOutCatLevel(catFinnished.xp),
+                    })
                   : catFinnished.strength,
               health:
                 countOutCatLevel(catFinnished.xp) > catFinnished.level
-                  ? catFinnished.health + catFinnished.level * 10
+                  ? countOutHealth({
+                      rarity: catFinnished.rarity || "",
+                      level: countOutCatLevel(catFinnished.xp),
+                    })
                   : catFinnished.health,
             };
           } else {

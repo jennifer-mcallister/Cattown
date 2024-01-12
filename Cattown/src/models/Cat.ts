@@ -1,4 +1,4 @@
-import { countOutCatLevel } from "../helpers/gameCalculationHelpers";
+import { countOutCatLevel } from "../helpers/levelingSystem";
 import { ICat } from "../types/savefileTypes";
 
 export const defaultCat: ICat = {

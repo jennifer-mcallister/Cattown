@@ -11,7 +11,7 @@ import {
 import { HeaderSmall, TextMedium, TextSmall } from "../styled/Text";
 import { IBossQuest } from "./QuestsMenu";
 import { useEffect, useState } from "react";
-import { countOutBossFightSuccessChance } from "../../helpers/gameCalculationHelpers";
+
 import { IStats } from "../../types/savefileTypes";
 import placeholder from "/assets/cat_white.webp";
 import {
@@ -25,6 +25,7 @@ import {
 } from "../styled/Cat";
 import { CatHeader } from "../cat_card/CatHeader";
 import { CatContent } from "../cat_card/CatContent";
+import { countOutBossFightSuccessChance } from "../../helpers/combatCalculator";
 
 interface IConfirmBossProps {
   quest: IBossQuest;
@@ -40,10 +41,12 @@ export const ConfirmBoss = ({
   const [successChance, setSuccessChance] = useState<number>();
   const [imgLoaded, setImgLoaded] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
+      setWindowHeight(window.innerHeight);
     };
     window.addEventListener("resize", handleResize);
 
@@ -67,7 +70,9 @@ export const ConfirmBoss = ({
 
   return (
     <>
-      <QuestsMenuContent>
+      <QuestsMenuContent
+        gridcolumns={windowHeight < 840 ? "1fr 1fr 1fr 1fr" : "1fr 1fr"}
+      >
         <ConfirmBossContainer>
           <QuestHeader>
             <HeaderSmall>Kill {quest.boss.name}</HeaderSmall>
@@ -93,7 +98,9 @@ export const ConfirmBoss = ({
                 <CatHeader cat={cat} handleLoading={handleLoading} />
                 <CatContent cat={cat} />
                 <CatFooterContainer>
-                  <HeaderSmall>I'm Ready!</HeaderSmall>
+                  <TertiaryInfoBox>
+                    <HeaderSmall>I'm Ready!</HeaderSmall>
+                  </TertiaryInfoBox>
                 </CatFooterContainer>
               </CatContainer>
             ))}

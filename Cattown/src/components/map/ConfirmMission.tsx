@@ -57,7 +57,7 @@ export const ConfirmMission = ({
   return (
     <>
       <>
-        <QuestsMenuContent>
+        <QuestsMenuContent gridcolumns="1fr 1fr">
           <ConfirmMissionContainer>
             <QuestHeader>
               <HeaderSmall>{quest.mission.type}</HeaderSmall>

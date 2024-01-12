@@ -7,7 +7,7 @@ import {
 import {
   countOutLevelProgress,
   countOutXpForLevel,
-} from "../helpers/gameCalculationHelpers";
+} from "../helpers/levelingSystem";
 
 interface IProgressBar {
   catLevel: number;

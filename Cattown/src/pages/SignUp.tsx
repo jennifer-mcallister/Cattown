@@ -1,19 +1,19 @@
 import { ChangeEvent, FormEvent, useState } from "react";
-import { Form, FormInput, FormLabel } from "../../components/styled/Form";
-import { HeaderSmall, TextSmall } from "../../components/styled/Text";
+import { Form, FormInput, FormLabel } from "../components/styled/Form";
+import { HeaderSmall, TextSmall } from "../components/styled/Text";
 import { useNavigate } from "react-router-dom";
-import { IUserRegister } from "../../types/userTypes";
+import { IUserRegister } from "../types/userTypes";
 import {
   MenuBody,
   MenuContainer,
   MenuFooter,
   MenuHeader,
   MenuSmallContainer,
-} from "../../components/styled/Menu";
-import { ButtonMedium } from "../../components/styled/Button";
-import { ConfirmationContainer } from "../../components/styled/Container";
-import { MainContentSignUp } from "../../components/styled/LayoutStyle";
-import { registerUser } from "../../services/UserService";
+} from "../components/styled/Menu";
+import { ButtonMedium } from "../components/styled/Button";
+import { ConfirmationContainer } from "../components/styled/Container";
+import { MainContentSignUp } from "../components/styled/LayoutStyle";
+import { registerUser } from "../services/UserService";
 
 interface IRegistraion {
   success: boolean;

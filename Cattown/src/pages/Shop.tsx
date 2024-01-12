@@ -14,9 +14,10 @@ import { ILayoutContext } from "./layout/Layout";
 import { buyCats } from "../services/CatService";
 import { PageHeaderContainer } from "../components/styled/Container";
 import { HeaderBig } from "../components/styled/Text";
-import { throwD20 } from "../helpers/gameCalculationHelpers";
+
 import { MysteryCatModule } from "../components/MysteryCatModule";
 import { CatMystery } from "../components/cat_card/CatMystery";
+import { throwD20 } from "../helpers/rollDice";
 
 export const Shop = () => {
   const outletContext = useOutletContext<ILayoutContext>();

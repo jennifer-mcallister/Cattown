@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { formatTime } from "../../helpers/gameCalculationHelpers";
+
 import { ICat } from "../../types/savefileTypes";
 import {
   CatContentColumn,
@@ -16,6 +16,7 @@ import {
   secondaryGreen,
   trainingColor,
 } from "../styled/style_variables/colors";
+import { formatTime } from "../../helpers/timeManagement";
 const timerIcon = "/assets/icons/timer.png";
 
 interface ICatContentProps {
