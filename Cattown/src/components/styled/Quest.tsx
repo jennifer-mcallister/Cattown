@@ -18,6 +18,22 @@ interface IQuestProps {
   gridcolumns: string;
 }
 
+export const QuestsMenuContent = styled.div<IQuestProps>`
+  display: grid;
+  justify-items: center;
+  grid-template-columns: 1fr;
+  grid-gap: 0.5rem;
+  max-height: 40rem;
+  min-height: 10rem;
+  width: auto;
+
+  @media (${devices.tablet}) {
+    grid-template-columns: ${({ gridcolumns }) =>
+      gridcolumns ? gridcolumns : "1fr 1fr"};
+    grid-gap: 2rem;
+  }
+`;
+
 export const QuestMenuBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
@@ -73,22 +89,6 @@ export const QuestsMenuHeader = styled.div`
 export const QuestsMenuFooter = styled(QuestsMenuHeader)`
   justify-content: center;
   gap: 2rem;
-`;
-
-export const QuestsMenuContent = styled.div<IQuestProps>`
-  display: grid;
-  justify-items: center;
-  grid-template-columns: 1fr;
-  grid-gap: 0.5rem;
-  max-height: 40rem;
-  min-height: 10rem;
-  width: auto;
-
-  @media (${devices.tablet}) {
-    grid-template-columns: ${({ gridcolumns }) =>
-      gridcolumns ? gridcolumns : "1fr 1fr"};
-    grid-gap: 2rem;
-  }
 `;
 
 export const QuestContainer = styled.button`
