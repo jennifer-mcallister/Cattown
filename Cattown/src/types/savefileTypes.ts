@@ -1,4 +1,4 @@
-import { ITimeLeft } from "../helpers/gameCalculationHelpers";
+import { ITimeLeft } from "../helpers/timeManagement";
 
 export interface ISavefile {
   cats: ICat[];

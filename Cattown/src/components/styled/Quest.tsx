@@ -14,6 +14,10 @@ import {
 } from "./style_variables/colors";
 import { devices } from "./style_variables/devices";
 
+interface IQuestProps {
+  gridcolumns: string;
+}
+
 export const QuestMenuBackground = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   display: flex;
@@ -34,7 +38,7 @@ export const QuestsMenuContainer = styled.div`
   justify-content: center;
   align-items: center;
   gap: 0.5rem;
-  width: 70vw;
+  min-width: 40vw;
   max-height: 90vh;
   padding: 2rem;
   padding-top: 1rem;
@@ -43,10 +47,9 @@ export const QuestsMenuContainer = styled.div`
   border: ${mediumBorder};
   background-color: ${primaryPink};
   @media (${devices.tablet}) {
-    padding: 3rem;
+    padding: 1rem;
     padding-top: 1rem;
-    width: 42rem;
-    gap: 2rem;
+    min-width: 42rem;
   }
 `;
 
@@ -72,16 +75,18 @@ export const QuestsMenuFooter = styled(QuestsMenuHeader)`
   gap: 2rem;
 `;
 
-export const QuestsMenuContent = styled.div`
+export const QuestsMenuContent = styled.div<IQuestProps>`
   display: grid;
   justify-items: center;
   grid-template-columns: 1fr;
   grid-gap: 0.5rem;
   max-height: 40rem;
   min-height: 10rem;
+  width: auto;
 
   @media (${devices.tablet}) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: ${({ gridcolumns }) =>
+      gridcolumns ? gridcolumns : "1fr 1fr"};
     grid-gap: 2rem;
   }
 `;
