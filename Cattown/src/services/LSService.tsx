@@ -4,7 +4,6 @@ import { ISavefile } from "../types/savefileTypes";
 export const updateLocalStorage = (savefile: ISavefile) => {
   localStorage.setItem("savefile", JSON.stringify(savefile));
   window.dispatchEvent(new CustomEvent("LSUpdated"));
-  console.log("update LS");
 };
 
 export const getLocalStorage = (): ISavefile => {

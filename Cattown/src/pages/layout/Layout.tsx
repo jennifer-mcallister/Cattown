@@ -101,7 +101,10 @@ export const Layout = () => {
 
     const updateSavefileGold = async (goldReceived: number) => {
       try {
-        await updateGold(layoutContext.savefile.gold + goldReceived);
+        await updateGold(
+          layoutContext.savefile.gold + goldReceived,
+          layoutContext.savefile
+        );
       } catch {
         throw new Error("Something when wrong");
       }

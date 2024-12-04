@@ -212,7 +212,7 @@ export const QuestsMenu = ({
           return cat;
         });
         await updateCats(updatedCats, outletContext.savefile);
-        await updateUniqueItems(updatedUniqueItems);
+        await updateUniqueItems(updatedUniqueItems, outletContext.savefile);
         if (updatedUniqueItems.length > 3) {
           toggleShowWinner();
           setShowConfirmBoss(false);
