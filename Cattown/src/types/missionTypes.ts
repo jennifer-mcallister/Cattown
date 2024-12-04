@@ -1,13 +1,13 @@
 export interface IMission {
-  zone: string;
-  type: string;
+  zone: missionZone;
+  type: missionType;
   timeInSec: number;
   xpReceived: number;
   goldReceived: number;
 }
 
 export interface IBoss {
-  zone: string;
+  zone: missionZone;
   name: string;
   mcguffinId: number;
   health: number;
@@ -16,4 +16,16 @@ export interface IBoss {
   waterDamage: number;
   shadowDamage: number;
   natureDamage: number;
+}
+
+export enum missionType {
+  SCAVANGE = "scavenge",
+  EXPLORE = "explore",
+}
+
+export enum missionZone {
+  SWAMP = "swamp",
+  CAVE = "cave",
+  THE_CITY = "theCity",
+  WOODS = "woods",
 }
