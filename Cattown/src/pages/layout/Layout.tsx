@@ -1,12 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { useState } from "react";
-import { auth, db } from "../../services/config/Firebase";
-import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { ICat, ISavefile } from "../../types/savefileTypes";
 import { defaultSavefile } from "../../models/Savefile";
-import { updateCats } from "../../services/CatService";
 
 import { updateGold } from "../../services/SavefileService";
 import {
@@ -15,6 +12,8 @@ import {
   countOutStrength,
 } from "../../helpers/levelingSystem";
 import { ITimeLeft, countOutTimeLeft } from "../../helpers/timeManagement";
+import { getLocalStorage } from "../../services/LSService";
+import { updateCats } from "../../services/CatService";
 
 export interface IShowMenus {
   showMenu: boolean;
@@ -37,70 +36,64 @@ export const Layout = () => {
     savefile: { ...defaultSavefile, username: "" },
   });
 
-  const loggedInUser = auth.currentUser;
+  useEffect(() => {
+    const handleLocalStorageUpdated = () => {
+      setLayoutContext((prevContext) => ({
+        ...prevContext,
+        savefile: getLocalStorage() as ISavefile,
+      }));
+    };
 
-  const checkToken = async () => {
-    if (loggedInUser) {
-      const tokenResult = await loggedInUser.getIdTokenResult();
+    // Add event listener for the custom "localstorageupdated" event
+    window.addEventListener(
+      "LSUpdated",
+      handleLocalStorageUpdated as EventListener
+    );
 
-      const expirationTime = new Date(tokenResult.expirationTime).getTime();
-      const currentTime = new Date().getTime();
-      const timeDifference = expirationTime - currentTime;
-
-      if (timeDifference < 5 * 60 * 1000) {
-        const refreshedToken = await loggedInUser.getIdToken(true);
-        console.log("refreshed token", refreshedToken);
-      }
-    }
-  };
-
-  if (!loggedInUser) {
-    throw new Error("UnAuthorized");
-  }
-  if (loggedInUser) {
-    checkToken();
-  }
-
-  const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener(
+        "LSUpdated",
+        handleLocalStorageUpdated as EventListener
+      );
+    };
+  }, []);
 
   useEffect(() => {
-    onSnapshot(savefileRef, (savefile) => {
-      setLayoutContext({
-        ...layoutContext,
-        savefile: savefile.data() as ISavefile,
-      });
-    });
+    setLayoutContext((prevContext) => ({
+      ...prevContext,
+      savefile: getLocalStorage() as ISavefile,
+    }));
   }, []);
 
   useEffect(() => {
     const updateCatFinnished = async (catFinnished: ICat) => {
+      const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
+        if (cat.id === catFinnished.id) {
+          return {
+            ...catFinnished,
+            level: countOutCatLevel(catFinnished.xp),
+            strength:
+              countOutCatLevel(catFinnished.xp) > catFinnished.level
+                ? countOutStrength({
+                    rarity: catFinnished.rarity || "",
+                    level: countOutCatLevel(catFinnished.xp),
+                  })
+                : catFinnished.strength,
+            health:
+              countOutCatLevel(catFinnished.xp) > catFinnished.level
+                ? countOutHealth({
+                    rarity: catFinnished.rarity || "",
+                    level: countOutCatLevel(catFinnished.xp),
+                  })
+                : catFinnished.health,
+          };
+        } else {
+          return cat;
+        }
+      });
       try {
-        const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
-          if (cat.id === catFinnished.id) {
-            return {
-              ...catFinnished,
-              level: countOutCatLevel(catFinnished.xp),
-              strength:
-                countOutCatLevel(catFinnished.xp) > catFinnished.level
-                  ? countOutStrength({
-                      rarity: catFinnished.rarity || "",
-                      level: countOutCatLevel(catFinnished.xp),
-                    })
-                  : catFinnished.strength,
-              health:
-                countOutCatLevel(catFinnished.xp) > catFinnished.level
-                  ? countOutHealth({
-                      rarity: catFinnished.rarity || "",
-                      level: countOutCatLevel(catFinnished.xp),
-                    })
-                  : catFinnished.health,
-            };
-          } else {
-            return cat;
-          }
-        });
-
-        await updateCats(updatedCats);
+        await updateCats(updatedCats, layoutContext.savefile);
       } catch {
         throw new Error("Something when wrong");
       }

@@ -1,35 +1,31 @@
-import { doc, updateDoc } from "firebase/firestore";
-import { ICat } from "../types/savefileTypes";
-import { auth, db } from "./config/Firebase";
+import { ICat, ISavefile } from "../types/savefileTypes";
+import { updateLocalStorage } from "./LSService";
 
-export const updateCats = async (cats: ICat[]) => {
+export const updateCats = async (cats: ICat[], savefile: ISavefile) => {
   try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { cats: cats });
-    console.log("Cats updated");
+    const updatedSavefile: ISavefile = {
+      ...savefile,
+      cats: cats,
+    };
+    updateLocalStorage(updatedSavefile);
   } catch {
-    throw new Error("503 Service Unavailable");
+    throw new Error("Unable to update localstorage");
   }
 };
 
-export const buyCats = async (cats: ICat[], goldLeft: number) => {
+export const buyCats = async (
+  cats: ICat[],
+  goldLeft: number,
+  savefile: ISavefile
+) => {
   try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { cats: cats, gold: goldLeft });
-    console.log("Cats updated");
+    const updatedSavefile: ISavefile = {
+      ...savefile,
+      cats: cats,
+      gold: goldLeft,
+    };
+    updateLocalStorage(updatedSavefile);
   } catch {
-    throw new Error("503 Service Unavailable");
+    throw new Error("Unable to update localstorage");
   }
 };
