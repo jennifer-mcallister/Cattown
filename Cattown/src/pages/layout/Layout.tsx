@@ -40,7 +40,7 @@ export const Layout = () => {
   const [missionGold, setMissionGold] = useState(0);
 
   useEffect(() => {
-    const handleLocalStorageUpdated = async () => {
+    const handleLocalStorageUpdated = () => {
       const LS = getLocalStorage() as ISavefile;
 
       setLayoutContext((prevContext) => {

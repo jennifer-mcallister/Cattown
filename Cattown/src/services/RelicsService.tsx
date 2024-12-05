@@ -1,4 +1,4 @@
-import { IRelic, ISavefile } from "../types/savefileTypes";
+import { IRelic, ISavefile, IStats } from "../types/savefileTypes";
 import { updateLocalStorage } from "./LSService";
 import { relics } from "../data/relics";
 
@@ -10,19 +10,17 @@ export const getRelics = async () => {
   }
 };
 
-export const buyRelics = async (
+export const buyRelics = (
   relics: IRelic[],
   goldLeft: number,
+  stats: IStats,
   savefile: ISavefile
 ) => {
-  try {
-    const updatedSavefile: ISavefile = {
-      ...savefile,
-      relics: relics,
-      gold: goldLeft,
-    };
-    updateLocalStorage(updatedSavefile);
-  } catch {
-    throw new Error("Unable to update localstorage");
-  }
+  const updatedSavefile: ISavefile = {
+    ...savefile,
+    relics: relics,
+    gold: goldLeft,
+    stats: stats,
+  };
+  updateLocalStorage(updatedSavefile);
 };
