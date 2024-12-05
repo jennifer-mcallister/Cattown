@@ -36,12 +36,20 @@ export const Layout = () => {
     savefile: { ...defaultSavefile, username: "" },
   });
 
+  const [addGold, setAddGold] = useState(false);
+  const [missionGold, setMissionGold] = useState(0);
+
   useEffect(() => {
-    const handleLocalStorageUpdated = () => {
-      setLayoutContext((prevContext) => ({
-        ...prevContext,
-        savefile: getLocalStorage() as ISavefile,
-      }));
+    const handleLocalStorageUpdated = async () => {
+      const LS = getLocalStorage() as ISavefile;
+
+      setLayoutContext((prevContext) => {
+        const updatedContext = {
+          ...prevContext,
+          savefile: LS,
+        };
+        return updatedContext;
+      });
     };
 
     // Add event listener for the custom "localstorageupdated" event
@@ -66,56 +74,43 @@ export const Layout = () => {
     }));
   }, []);
 
+  const updateCatFinnished = (catFinnished: ICat): ICat => {
+    const updatedCat = {
+      ...catFinnished,
+      level: countOutCatLevel(catFinnished.xp),
+      strength:
+        countOutCatLevel(catFinnished.xp) > catFinnished.level
+          ? countOutStrength({
+              rarity: catFinnished.rarity || "",
+              level: countOutCatLevel(catFinnished.xp),
+            })
+          : catFinnished.strength,
+      health:
+        countOutCatLevel(catFinnished.xp) > catFinnished.level
+          ? countOutHealth({
+              rarity: catFinnished.rarity || "",
+              level: countOutCatLevel(catFinnished.xp),
+            })
+          : catFinnished.health,
+    };
+    return updatedCat;
+  };
+
+  const updateSavefileGold = (goldReceived: number) => {
+    updateGold(
+      layoutContext.savefile.gold + goldReceived,
+      layoutContext.savefile
+    );
+  };
+
   useEffect(() => {
-    const updateCatFinnished = async (catFinnished: ICat) => {
-      const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
-        if (cat.id === catFinnished.id) {
-          return {
-            ...catFinnished,
-            level: countOutCatLevel(catFinnished.xp),
-            strength:
-              countOutCatLevel(catFinnished.xp) > catFinnished.level
-                ? countOutStrength({
-                    rarity: catFinnished.rarity || "",
-                    level: countOutCatLevel(catFinnished.xp),
-                  })
-                : catFinnished.strength,
-            health:
-              countOutCatLevel(catFinnished.xp) > catFinnished.level
-                ? countOutHealth({
-                    rarity: catFinnished.rarity || "",
-                    level: countOutCatLevel(catFinnished.xp),
-                  })
-                : catFinnished.health,
-          };
-        } else {
-          return cat;
-        }
-      });
-      try {
-        await updateCats(updatedCats, layoutContext.savefile);
-      } catch {
-        throw new Error("Something when wrong");
-      }
-    };
-
-    const updateSavefileGold = async (goldReceived: number) => {
-      try {
-        await updateGold(
-          layoutContext.savefile.gold + goldReceived,
-          layoutContext.savefile
-        );
-      } catch {
-        throw new Error("Something when wrong");
-      }
-    };
-
     const countTimeLeft = setInterval(() => {
       const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
         if (cat.status === "training") {
           const timeInMilliseconds = cat.trainingEndTime - new Date().getTime();
+
           if (timeInMilliseconds < 900) {
-            updateCatFinnished({
+            return updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp + cat.trainingXp,
@@ -125,15 +120,17 @@ export const Layout = () => {
                 sec: 0,
               },
             });
+          } else {
+            const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+            return { ...cat, trainingTimeLeft: timeLeft };
           }
-          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
-          return { ...cat, trainingTimeLeft: timeLeft };
         }
         if (cat.status === "on mission") {
           const timeInMilliseconds = cat.missionEndTime - new Date().getTime();
           if (timeInMilliseconds < 900) {
-            updateSavefileGold(cat.missionGold);
-            updateCatFinnished({
+            setAddGold(true);
+            setMissionGold(missionGold + cat.missionGold);
+            return updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp + cat.missionXp,
@@ -144,14 +141,15 @@ export const Layout = () => {
                 sec: 0,
               },
             });
+          } else {
+            const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+            return { ...cat, missionTimeLeft: timeLeft };
           }
-          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
-          return { ...cat, missionTimeLeft: timeLeft };
         }
         if (cat.status === "downed") {
           const timeInMilliseconds = cat.downedEndTime - new Date().getTime();
           if (timeInMilliseconds < 900) {
-            updateCatFinnished({
+            return updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp,
@@ -161,16 +159,20 @@ export const Layout = () => {
                 sec: 0,
               },
             });
+          } else {
+            const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+            return { ...cat, downedTimeLeft: timeLeft };
           }
-          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
-          return { ...cat, downedTimeLeft: timeLeft };
         }
         return cat;
       });
-      setLayoutContext({
-        ...layoutContext,
-        savefile: { ...layoutContext.savefile, cats: updatedCats },
-      });
+
+      updateCats(updatedCats, layoutContext.savefile);
+      if (addGold) {
+        updateSavefileGold(missionGold);
+        setMissionGold(0);
+        setAddGold(false);
+      }
     }, 1000);
     return () => clearInterval(countTimeLeft);
   }, [layoutContext]);
@@ -182,6 +184,7 @@ export const Layout = () => {
         cats={layoutContext.savefile.cats}
         showMenus={showMenus}
         setShowMenus={setShowMenus}
+        savefile={layoutContext.savefile}
       ></Header>
       <Outlet context={layoutContext}></Outlet>
     </>

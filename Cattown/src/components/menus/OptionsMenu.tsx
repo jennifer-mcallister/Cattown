@@ -11,7 +11,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ConfirmOptionsMenu } from "./ConfirmOptionsMenu";
 import { resetSavefile } from "../../services/SavefileService";
-import { logoutUser } from "../../services/UserService";
 import exitIcon from "/assets/icons/exit.png";
 import soundOff from "/assets/icons/sound_off.png";
 import { Icon } from "../styled/Icon";
@@ -26,31 +25,12 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
   const navigate = useNavigate();
 
   const [confirmRestart, setConfirmRestart] = useState(false);
-  const [confirmLogOut, setConfirmLogOut] = useState(false);
 
-  const logout = async () => {
-    try {
-      await logoutUser();
-      setConfirmLogOut(!confirmLogOut);
-      navigate("/");
-    } catch {
-      throw new Error("Something went wrong");
-    }
-  };
-
-  const abortLogout = () => {
-    setConfirmLogOut(!confirmLogOut);
-  };
-
-  const restart = async () => {
-    try {
-      await resetSavefile();
-      setConfirmRestart(!confirmRestart);
-      toggleOptions();
-      navigate("/");
-    } catch {
-      throw new Error("Something went wrong");
-    }
+  const restart = () => {
+    resetSavefile();
+    setConfirmRestart(!confirmRestart);
+    toggleOptions();
+    navigate("/");
   };
 
   const abortRestart = () => {
@@ -61,7 +41,7 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
     <>
       {show && (
         <MenuBackground>
-          {!confirmLogOut && !confirmRestart && (
+          {!confirmRestart && (
             <MenuContainer>
               <MenuHeader>
                 <MenuHeaderItems>
@@ -77,13 +57,6 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
               </MenuHeader>
               <MenuBody>
                 <ButtonLarge onClick={toggleOptions}>Resume</ButtonLarge>
-                <ButtonLarge
-                  onClick={() => {
-                    setConfirmLogOut(!confirmLogOut);
-                  }}
-                >
-                  Log out
-                </ButtonLarge>
               </MenuBody>
               <MenuFooter>
                 <ButtonLarge
@@ -95,13 +68,6 @@ export const OptionsMenu = ({ toggleOptions, show }: IOptionsMenuProps) => {
                 </ButtonLarge>
               </MenuFooter>
             </MenuContainer>
-          )}
-          {confirmLogOut && (
-            <ConfirmOptionsMenu
-              confirm={logout}
-              abort={abortLogout}
-              header="Are you sure you want to logout?"
-            />
           )}
           {confirmRestart && (
             <ConfirmOptionsMenu
