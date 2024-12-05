@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form, useOutletContext } from "react-router-dom";
 import {
   ConfirmationButtonsContainer,
   ConfirmationContainer,
@@ -11,6 +11,7 @@ import { primaryGreen, primaryRed } from "../styled/style_variables/colors";
 import { ICat } from "../../types/savefileTypes";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { updateCats } from "../../services/CatService";
+import { ILayoutContext } from "../../pages/layout/Layout";
 
 interface IConfirmChangeNameProps {
   cat: ICat;
@@ -24,6 +25,7 @@ export const ConfirmChangeName = ({
   toggleChangeName,
 }: IConfirmChangeNameProps) => {
   const [newName, setNewName] = useState("");
+  const outletContext = useOutletContext<ILayoutContext>();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const type = e.target.type;
@@ -46,8 +48,9 @@ export const ConfirmChangeName = ({
           return c;
         }
       });
+      console.log("change name", updatedCats);
 
-      await updateCats(updatedCats);
+      await updateCats(updatedCats, outletContext.savefile);
     } catch {
       throw new Error("Something when wrong");
     }

@@ -1,67 +1,30 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { auth, db } from "./config/Firebase";
-import { newGameSavefile } from "../models/Savefile";
+import { defaultSavefileTest } from "../models/Savefile";
+import { updateLocalStorage } from "./LSService";
+import { ISavefile } from "../types/savefileTypes";
 
-export const getSavefile = async () => {
+export const updateGold = (gold: number, savefile: ISavefile) => {
+  const updatedSavefile: ISavefile = {
+    ...savefile,
+    gold: gold,
+  };
+  updateLocalStorage(updatedSavefile);
+};
+
+export const updateUniqueItems = async (
+  uniqueItems: number[],
+  savefile: ISavefile
+) => {
   try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    const savefile = (await getDoc(savefileRef)).data();
-    return savefile;
+    const updatedSavefile: ISavefile = {
+      ...savefile,
+      uniqueItems: uniqueItems,
+    };
+    updateLocalStorage(updatedSavefile);
   } catch {
-    throw new Error("503 Service Unavailable");
+    throw new Error("Unable to update localstorage");
   }
 };
 
-export const updateGold = async (gold: number) => {
-  try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { gold: gold });
-    console.log("Gold is updated");
-  } catch {
-    throw new Error("503 Service Unavailable");
-  }
-};
-
-export const updateUniqueItems = async (uniqueItems: number[]) => {
-  try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { uniqueItems: uniqueItems });
-    console.log("Unique items is updated");
-  } catch {
-    throw new Error("503 Service Unavailable");
-  }
-};
-
-export const resetSavefile = async () => {
-  try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { ...newGameSavefile });
-    console.log("Savefiles reset to default");
-  } catch {
-    throw new Error("503 Service Unavailable");
-  }
+export const resetSavefile = () => {
+  updateLocalStorage(defaultSavefileTest);
 };

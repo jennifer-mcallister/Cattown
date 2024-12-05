@@ -8,6 +8,8 @@ import { CatContent } from "./CatContent";
 import { CatFooter } from "./CatFooter";
 import { ConfirmDeleteCat } from "../menus/ConfirmDeleteCat";
 import { ConfirmChangeName } from "../menus/ConfirmChangeName";
+import { useOutletContext } from "react-router-dom";
+import { ILayoutContext } from "../../pages/layout/Layout";
 
 interface ICatInfoProps {
   cat: ICat;
@@ -18,6 +20,7 @@ export const CatCats = ({ cat, cats }: ICatInfoProps) => {
   const [changeName, setChangeName] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [showConfirmDeleteCat, setShowConfirmDeleteCat] = useState(false);
+  const outletContext = useOutletContext<ILayoutContext>();
 
   const handleLoading = () => {
     setImgLoaded(true);
@@ -34,7 +37,7 @@ export const CatCats = ({ cat, cats }: ICatInfoProps) => {
   const deleteCat = async (cat: ICat) => {
     try {
       const updatedCats = [...cats].filter((c) => c.id !== cat.id);
-      await updateCats(updatedCats);
+      await updateCats(updatedCats, outletContext.savefile);
     } catch {
       throw new Error("Something when wrong");
     }

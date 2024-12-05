@@ -6,6 +6,8 @@ import { CatHeader } from "./CatHeader";
 import { CatContent } from "./CatContent";
 import { CatFooter } from "./CatFooter";
 import { PickTimeMenu } from "../menus/PickTmeMenu";
+import { useOutletContext } from "react-router-dom";
+import { ILayoutContext } from "../../pages/layout/Layout";
 
 interface ICatTraining {
   cat: ICat;
@@ -16,6 +18,7 @@ export const CatTraining = ({ cat, cats }: ICatTraining) => {
   const [pickTime, setPickTime] = useState(false);
   const [selectedTimeMin, setSelectedTimeMin] = useState(0);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const outletContext = useOutletContext<ILayoutContext>();
   const xpPerMinute = 150;
 
   const handleLoading = () => {
@@ -44,7 +47,7 @@ export const CatTraining = ({ cat, cats }: ICatTraining) => {
           return c;
         }
       });
-      await updateCats(updatedCats);
+      await updateCats(updatedCats, outletContext.savefile);
       setPickTime(false);
     } catch {
       throw new Error("Something when wrong");

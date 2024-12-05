@@ -18,14 +18,16 @@ import menuIcon from "/assets/icons/menu.png";
 import { Icon } from "../../components/styled/Icon";
 import { TertiaryInfoBox } from "../../components/styled/Quest";
 import { Notification } from "../../components/Notification";
-import { ICat } from "../../types/savefileTypes";
+import { ICat, ISavefile } from "../../types/savefileTypes";
 import { NotificationContainer } from "../../components/styled/NotificationStyle";
+import { updateGold } from "../../services/SavefileService";
 
 interface IHeaderProps {
   userGold: number;
   showMenus: IShowMenus;
   cats: ICat[];
   setShowMenus: Dispatch<SetStateAction<IShowMenus>>;
+  savefile: ISavefile;
 }
 
 export const Header = ({
@@ -33,6 +35,7 @@ export const Header = ({
   showMenus,
   cats,
   setShowMenus,
+  savefile,
 }: IHeaderProps) => {
   const toggleMenu = () => {
     console.log("toggle menu", showMenus.showMenu);
@@ -45,6 +48,10 @@ export const Header = ({
 
   const navigate = useNavigate();
 
+  const addOneCoin = () => {
+    updateGold(userGold + 1, savefile);
+  };
+
   return (
     <HeaderContent>
       <HeaderSmallContainer>
@@ -52,7 +59,7 @@ export const Header = ({
           <Icon src={homeIcon} alt="Home" />
         </ButtonIcon>
         <TertiaryInfoBox>
-          <HeaderGold>
+          <HeaderGold onClick={addOneCoin}>
             <HeaderSmall>{userGold}</HeaderSmall>
             <HeaderCoinImg src={coin} alt="Image of a coin" />
           </HeaderGold>

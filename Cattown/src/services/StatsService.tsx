@@ -1,19 +1,14 @@
-import { doc, updateDoc } from "firebase/firestore";
-import { IStats } from "../types/savefileTypes";
-import { auth, db } from "./config/Firebase";
+import { ISavefile, IStats } from "../types/savefileTypes";
+import { updateLocalStorage } from "./LSService";
 
-export const updateStats = async (stats: IStats) => {
+export const updateStats = async (stats: IStats, savefile: ISavefile) => {
   try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { stats: stats });
-    console.log("Stats updated");
+    const updatedSavefile: ISavefile = {
+      ...savefile,
+      stats: stats,
+    };
+    updateLocalStorage(updatedSavefile);
   } catch {
-    throw new Error("503 Service Unavailable");
+    throw new Error("Unable to update localstorage");
   }
 };

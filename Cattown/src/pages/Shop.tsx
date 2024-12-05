@@ -72,7 +72,7 @@ export const Shop = () => {
       const cat = { ...rollNewCat(), id: Date.now().toString() };
       const updatedCats = [...outletContext.savefile.cats, cat];
       const goldLeft = outletContext.savefile.gold - 75;
-      await buyCats(updatedCats, goldLeft);
+      await buyCats(updatedCats, goldLeft, outletContext.savefile);
     } catch {
       throw new Error("Something when wrong");
     }

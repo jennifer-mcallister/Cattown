@@ -1,7 +1,7 @@
-import { IBoss } from "../types/missionTypes";
+import { IBoss, missionZone } from "../types/missionTypes";
 
 export const defaultBoss: IBoss = {
-  zone: "",
+  zone: missionZone.WOODS,
   name: "",
   mcguffinId: 0,
   health: 0,

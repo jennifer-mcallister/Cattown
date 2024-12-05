@@ -16,6 +16,8 @@ import { useEffect, useState } from "react";
 import { HeaderCoinImg } from "./styled/HeaderStyle";
 import coin from "/assets/coin.webp";
 import { CatDivider, CatTextContainer } from "./styled/Cat";
+import { ILayoutContext } from "../pages/layout/Layout";
+import { useOutletContext } from "react-router-dom";
 
 interface IShopItemProps {
   relic: IRelic;
@@ -36,6 +38,7 @@ export const ShopItem = ({
   const imgPath = `/assets/${relic.name}.webp`;
   const [boughtItem, setBoughtItem] = useState(false);
   const [available, setAvailable] = useState(true);
+  const outletContext = useOutletContext<ILayoutContext>();
 
   useEffect(() => {
     const isRelicAvailable = availableRelics.some(
@@ -60,8 +63,8 @@ export const ShopItem = ({
       };
       const updatedRelics = [...userRelics, relic];
       const goldLeft = userGold - relic.cost;
-      await buyRelics(updatedRelics, goldLeft);
-      await updateStats(updatedStats);
+      await buyRelics(updatedRelics, goldLeft, outletContext.savefile);
+      await updateStats(updatedStats, outletContext.savefile);
     } catch {
       throw new Error("Something when wrong");
     }

@@ -1,12 +1,9 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "./Header";
 import { useState } from "react";
-import { auth, db } from "../../services/config/Firebase";
-import { doc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 import { ICat, ISavefile } from "../../types/savefileTypes";
 import { defaultSavefile } from "../../models/Savefile";
-import { updateCats } from "../../services/CatService";
 
 import { updateGold } from "../../services/SavefileService";
 import {
@@ -15,6 +12,8 @@ import {
   countOutStrength,
 } from "../../helpers/levelingSystem";
 import { ITimeLeft, countOutTimeLeft } from "../../helpers/timeManagement";
+import { getLocalStorage } from "../../services/LSService";
+import { updateCats } from "../../services/CatService";
 
 export interface IShowMenus {
   showMenu: boolean;
@@ -37,89 +36,81 @@ export const Layout = () => {
     savefile: { ...defaultSavefile, username: "" },
   });
 
-  const loggedInUser = auth.currentUser;
-
-  const checkToken = async () => {
-    if (loggedInUser) {
-      const tokenResult = await loggedInUser.getIdTokenResult();
-
-      const expirationTime = new Date(tokenResult.expirationTime).getTime();
-      const currentTime = new Date().getTime();
-      const timeDifference = expirationTime - currentTime;
-
-      if (timeDifference < 5 * 60 * 1000) {
-        const refreshedToken = await loggedInUser.getIdToken(true);
-        console.log("refreshed token", refreshedToken);
-      }
-    }
-  };
-
-  if (!loggedInUser) {
-    throw new Error("UnAuthorized");
-  }
-  if (loggedInUser) {
-    checkToken();
-  }
-
-  const savefileRef = doc(db, "savefiles", loggedInUser.uid);
+  const [addGold, setAddGold] = useState(false);
+  const [missionGold, setMissionGold] = useState(0);
 
   useEffect(() => {
-    onSnapshot(savefileRef, (savefile) => {
-      setLayoutContext({
-        ...layoutContext,
-        savefile: savefile.data() as ISavefile,
+    const handleLocalStorageUpdated = async () => {
+      const LS = getLocalStorage() as ISavefile;
+
+      setLayoutContext((prevContext) => {
+        const updatedContext = {
+          ...prevContext,
+          savefile: LS,
+        };
+        return updatedContext;
       });
-    });
+    };
+
+    // Add event listener for the custom "localstorageupdated" event
+    window.addEventListener(
+      "LSUpdated",
+      handleLocalStorageUpdated as EventListener
+    );
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener(
+        "LSUpdated",
+        handleLocalStorageUpdated as EventListener
+      );
+    };
   }, []);
 
   useEffect(() => {
-    const updateCatFinnished = async (catFinnished: ICat) => {
-      try {
-        const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
-          if (cat.id === catFinnished.id) {
-            return {
-              ...catFinnished,
+    setLayoutContext((prevContext) => ({
+      ...prevContext,
+      savefile: getLocalStorage() as ISavefile,
+    }));
+  }, []);
+
+  const updateCatFinnished = (catFinnished: ICat): ICat => {
+    const updatedCat = {
+      ...catFinnished,
+      level: countOutCatLevel(catFinnished.xp),
+      strength:
+        countOutCatLevel(catFinnished.xp) > catFinnished.level
+          ? countOutStrength({
+              rarity: catFinnished.rarity || "",
               level: countOutCatLevel(catFinnished.xp),
-              strength:
-                countOutCatLevel(catFinnished.xp) > catFinnished.level
-                  ? countOutStrength({
-                      rarity: catFinnished.rarity || "",
-                      level: countOutCatLevel(catFinnished.xp),
-                    })
-                  : catFinnished.strength,
-              health:
-                countOutCatLevel(catFinnished.xp) > catFinnished.level
-                  ? countOutHealth({
-                      rarity: catFinnished.rarity || "",
-                      level: countOutCatLevel(catFinnished.xp),
-                    })
-                  : catFinnished.health,
-            };
-          } else {
-            return cat;
-          }
-        });
-
-        await updateCats(updatedCats);
-      } catch {
-        throw new Error("Something when wrong");
-      }
+            })
+          : catFinnished.strength,
+      health:
+        countOutCatLevel(catFinnished.xp) > catFinnished.level
+          ? countOutHealth({
+              rarity: catFinnished.rarity || "",
+              level: countOutCatLevel(catFinnished.xp),
+            })
+          : catFinnished.health,
     };
+    return updatedCat;
+  };
 
-    const updateSavefileGold = async (goldReceived: number) => {
-      try {
-        await updateGold(layoutContext.savefile.gold + goldReceived);
-      } catch {
-        throw new Error("Something when wrong");
-      }
-    };
+  const updateSavefileGold = (goldReceived: number) => {
+    updateGold(
+      layoutContext.savefile.gold + goldReceived,
+      layoutContext.savefile
+    );
+  };
 
+  useEffect(() => {
     const countTimeLeft = setInterval(() => {
       const updatedCats = [...layoutContext.savefile.cats].map((cat) => {
         if (cat.status === "training") {
           const timeInMilliseconds = cat.trainingEndTime - new Date().getTime();
+
           if (timeInMilliseconds < 900) {
-            updateCatFinnished({
+            return updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp + cat.trainingXp,
@@ -129,15 +120,17 @@ export const Layout = () => {
                 sec: 0,
               },
             });
+          } else {
+            const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+            return { ...cat, trainingTimeLeft: timeLeft };
           }
-          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
-          return { ...cat, trainingTimeLeft: timeLeft };
         }
         if (cat.status === "on mission") {
           const timeInMilliseconds = cat.missionEndTime - new Date().getTime();
           if (timeInMilliseconds < 900) {
-            updateSavefileGold(cat.missionGold);
-            updateCatFinnished({
+            setAddGold(true);
+            setMissionGold(missionGold + cat.missionGold);
+            return updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp + cat.missionXp,
@@ -148,14 +141,15 @@ export const Layout = () => {
                 sec: 0,
               },
             });
+          } else {
+            const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+            return { ...cat, missionTimeLeft: timeLeft };
           }
-          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
-          return { ...cat, missionTimeLeft: timeLeft };
         }
         if (cat.status === "downed") {
           const timeInMilliseconds = cat.downedEndTime - new Date().getTime();
           if (timeInMilliseconds < 900) {
-            updateCatFinnished({
+            return updateCatFinnished({
               ...cat,
               status: "in camp",
               xp: cat.xp,
@@ -165,16 +159,20 @@ export const Layout = () => {
                 sec: 0,
               },
             });
+          } else {
+            const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
+            return { ...cat, downedTimeLeft: timeLeft };
           }
-          const timeLeft: ITimeLeft = countOutTimeLeft(timeInMilliseconds);
-          return { ...cat, downedTimeLeft: timeLeft };
         }
         return cat;
       });
-      setLayoutContext({
-        ...layoutContext,
-        savefile: { ...layoutContext.savefile, cats: updatedCats },
-      });
+
+      updateCats(updatedCats, layoutContext.savefile);
+      if (addGold) {
+        updateSavefileGold(missionGold);
+        setMissionGold(0);
+        setAddGold(false);
+      }
     }, 1000);
     return () => clearInterval(countTimeLeft);
   }, [layoutContext]);
@@ -186,6 +184,7 @@ export const Layout = () => {
         cats={layoutContext.savefile.cats}
         showMenus={showMenus}
         setShowMenus={setShowMenus}
+        savefile={layoutContext.savefile}
       ></Header>
       <Outlet context={layoutContext}></Outlet>
     </>

@@ -30,6 +30,8 @@ import { StatusBoxBig } from "../styled/NotificationStyle";
 import { primaryGreen, primaryYellow } from "../styled/style_variables/colors";
 import { bossFight } from "../../helpers/combatCalculator";
 import { countOutCatLevel } from "../../helpers/levelingSystem";
+import { useOutletContext } from "react-router-dom";
+import { ILayoutContext } from "../../pages/layout/Layout";
 
 interface IQuestMenuProps {
   zone: string;
@@ -74,6 +76,7 @@ export const QuestsMenu = ({
   const [showConfirmMission, setShowConfirmMission] = useState(false);
   const [showConfirmBoss, setShowConfirmBoss] = useState(false);
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const outletContext = useOutletContext<ILayoutContext>();
 
   const [missionQuest, setMissionQuest] = useState<IMissionQuest>({
     mission: defaultMission,
@@ -149,7 +152,7 @@ export const QuestsMenu = ({
           return cat;
         }
       });
-      await updateCats(updatedCats);
+      await updateCats(updatedCats, outletContext.savefile);
       toggleShowQuests();
     } catch {
       throw new Error("Something when wrong");
@@ -175,7 +178,7 @@ export const QuestsMenu = ({
           }
           return cat;
         });
-        await updateCats(updatedCats);
+        await updateCats(updatedCats, outletContext.savefile);
         setShowConfirmBoss(false);
         setShowBossFightSuccess(true);
         setBossFightSuccess(false);
@@ -208,8 +211,8 @@ export const QuestsMenu = ({
           }
           return cat;
         });
-        await updateCats(updatedCats);
-        await updateUniqueItems(updatedUniqueItems);
+        await updateCats(updatedCats, outletContext.savefile);
+        await updateUniqueItems(updatedUniqueItems, outletContext.savefile);
         if (updatedUniqueItems.length > 3) {
           toggleShowWinner();
           setShowConfirmBoss(false);

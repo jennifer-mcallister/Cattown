@@ -1,31 +1,28 @@
-import { doc, getDocs, updateDoc } from "firebase/firestore";
-import { auth, db, relicsCollection } from "./config/Firebase";
-import { IRelic } from "../types/savefileTypes";
+import { IRelic, ISavefile } from "../types/savefileTypes";
+import { updateLocalStorage } from "./LSService";
+import { relics } from "../data/relics";
 
 export const getRelics = async () => {
   try {
-    const res = await getDocs(relicsCollection);
-    const relics = res.docs.map((relic) => {
-      return relic.data();
-    });
     return relics;
   } catch {
-    throw new Error("503 Service Unavailable");
+    throw new Error("Unable to retreive data");
   }
 };
 
-export const buyRelics = async (relics: IRelic[], goldLeft: number) => {
+export const buyRelics = async (
+  relics: IRelic[],
+  goldLeft: number,
+  savefile: ISavefile
+) => {
   try {
-    const loggedInUser = await auth.currentUser;
-
-    if (!loggedInUser) {
-      throw new Error("UnAuthorized");
-    }
-
-    const savefileRef = doc(db, "savefiles", loggedInUser.uid);
-    await updateDoc(savefileRef, { relics: relics, gold: goldLeft });
-    console.log("Relics updated");
+    const updatedSavefile: ISavefile = {
+      ...savefile,
+      relics: relics,
+      gold: goldLeft,
+    };
+    updateLocalStorage(updatedSavefile);
   } catch {
-    throw new Error("503 Service Unavailable");
+    throw new Error("Unable to update localstorage");
   }
 };
