@@ -11,7 +11,6 @@ import {
 import { HeaderSmall, TextMedium, TextSmall } from "./styled/Text";
 import { ButtonLarge } from "./styled/Button";
 import { buyRelics } from "../services/RelicsService";
-import { updateStats } from "../services/StatsService";
 import { useEffect, useState } from "react";
 import { HeaderCoinImg } from "./styled/HeaderStyle";
 import coin from "/assets/coin.webp";
@@ -51,23 +50,18 @@ export const ShopItem = ({
     setImgLoaded(true);
   };
 
-  const buyItem = async () => {
-    try {
-      setBoughtItem(true);
-      const updatedStats = {
-        ...userStats,
-        fireRes: userStats.fireRes + relic.stats.fireRes,
-        waterRes: userStats.waterRes + relic.stats.waterRes,
-        shadowRes: userStats.shadowRes + relic.stats.shadowRes,
-        natureRes: userStats.natureRes + relic.stats.natureRes,
-      };
-      const updatedRelics = [...userRelics, relic];
-      const goldLeft = userGold - relic.cost;
-      await buyRelics(updatedRelics, goldLeft, outletContext.savefile);
-      await updateStats(updatedStats, outletContext.savefile);
-    } catch {
-      throw new Error("Something when wrong");
-    }
+  const buyItem = () => {
+    setBoughtItem(true);
+    const updatedStats: IStats = {
+      ...userStats,
+      fireRes: userStats.fireRes + relic.stats.fireRes,
+      waterRes: userStats.waterRes + relic.stats.waterRes,
+      shadowRes: userStats.shadowRes + relic.stats.shadowRes,
+      natureRes: userStats.natureRes + relic.stats.natureRes,
+    };
+    const updatedRelics = [...userRelics, relic];
+    const goldLeft = userGold - relic.cost;
+    buyRelics(updatedRelics, goldLeft, updatedStats, outletContext.savefile);
   };
   return (
     <>
